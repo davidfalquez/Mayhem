@@ -94,5 +94,6 @@ E:\Mayhem\Mayhem.UI\obj\Debug\ResolveAssemblyReference.cache
 E:\Mayhem\Mayhem.UI\obj\Debug\Mayhem.UI.ConfigManager.resources
 E:\Mayhem\Mayhem.UI\obj\Debug\Mayhem.UI.Form1.resources
 E:\Mayhem\Mayhem.UI\obj\Debug\Mayhem.UI.Properties.Resources.resources
-E:\Mayhem\Mayhem.UI\obj\Debug\Mayhem.UI.csproj.GenerateResource.Cache
 E:\Mayhem\Mayhem.UI\obj\Debug\Mayhem.UI.NewIncidentForm.resources
+E:\Mayhem\Mayhem.UI\obj\Debug\ResGen.read.1.tlog
+E:\Mayhem\Mayhem.UI\obj\Debug\ResGen.write.1.tlog
