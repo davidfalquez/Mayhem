@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.Data", "Mayhem.Data\Mayhem.Data.csproj", "{542B5EFB-F51C-4FCB-BBF5-5E1A751DE14F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.Logic", "Mayhem.Logic\Mayhem.Logic.csproj", "{1C3D47C1-9084-4313-BF3B-21E99217B37B}"
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.DTO", "Mayhem.DTO\Mayhem.DTO.csproj", "{1784F7D9-BC6B-49E4-9E5B-ABA1CDF23693}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MayhemInstaller", "MayhemInstaller\MayhemInstaller.vdproj", "{5448C96A-9C3B-487C-8707-4B3CFA40C308}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.TestHarness", "..\..\Mayhem.TestHarness\Mayhem.TestHarness.csproj", "{1B8CA58F-B6D4-4A6E-80BD-B97155780DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{1784F7D9-BC6B-49E4-9E5B-ABA1CDF23693}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5448C96A-9C3B-487C-8707-4B3CFA40C308}.Debug|Any CPU.ActiveCfg = Debug
 		{5448C96A-9C3B-487C-8707-4B3CFA40C308}.Release|Any CPU.ActiveCfg = Release
-		{1B8CA58F-B6D4-4A6E-80BD-B97155780DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B8CA58F-B6D4-4A6E-80BD-B97155780DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B8CA58F-B6D4-4A6E-80BD-B97155780DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B8CA58F-B6D4-4A6E-80BD-B97155780DA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
