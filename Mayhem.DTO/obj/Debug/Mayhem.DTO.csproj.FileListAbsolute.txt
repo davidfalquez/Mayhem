@@ -31,3 +31,9 @@ E:\Mayhem\Mayhem.DTO\bin\Debug\Mayhem.DTO.pdb
 E:\Mayhem\Mayhem.DTO\obj\Debug\ResolveAssemblyReference.cache
 E:\Mayhem\Mayhem.DTO\obj\Debug\Mayhem.DTO.dll
 E:\Mayhem\Mayhem.DTO\obj\Debug\Mayhem.DTO.pdb
+C:\Projects\Mayhem\Mayhem.DTO\bin\Debug\Mayhem.DTO.dll.config
+C:\Projects\Mayhem\Mayhem.DTO\bin\Debug\Mayhem.DTO.dll
+C:\Projects\Mayhem\Mayhem.DTO\bin\Debug\Mayhem.DTO.pdb
+C:\Projects\Mayhem\Mayhem.DTO\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\Mayhem\Mayhem.DTO\obj\Debug\Mayhem.DTO.dll
+C:\Projects\Mayhem\Mayhem.DTO\obj\Debug\Mayhem.DTO.pdb
