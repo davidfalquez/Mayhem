@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.DTO", "Mayhem.DTO\Ma
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MayhemInstaller", "MayhemInstaller\MayhemInstaller.vdproj", "{5448C96A-9C3B-487C-8707-4B3CFA40C308}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mayhem.WebUI", "Mayhem.WebUI\Mayhem.WebUI.csproj", "{0B98FC57-6C2D-4CC0-A265-DA1ADB225541}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{1784F7D9-BC6B-49E4-9E5B-ABA1CDF23693}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5448C96A-9C3B-487C-8707-4B3CFA40C308}.Debug|Any CPU.ActiveCfg = Debug
 		{5448C96A-9C3B-487C-8707-4B3CFA40C308}.Release|Any CPU.ActiveCfg = Release
+		{0B98FC57-6C2D-4CC0-A265-DA1ADB225541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B98FC57-6C2D-4CC0-A265-DA1ADB225541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B98FC57-6C2D-4CC0-A265-DA1ADB225541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B98FC57-6C2D-4CC0-A265-DA1ADB225541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
