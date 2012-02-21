@@ -22,6 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{8605A6D5-9554-47AE-8559-69BBB697A94F}"
+	ProjectSection(SolutionItems) = preProject
+		Mayhem.sql = Mayhem.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Mayhem.vsmdi
@@ -60,5 +65,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8605A6D5-9554-47AE-8559-69BBB697A94F} = {52FFB3E2-DC1C-4C5E-BF17-33B91969D2BE}
 	EndGlobalSection
 EndGlobal
