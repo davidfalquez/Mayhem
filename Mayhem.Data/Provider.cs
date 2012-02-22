@@ -5,66 +5,94 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Mayhem.DTO;
+using System.Configuration;
 
 namespace Mayhem.Data
 {
-    public class Provider
+    public static class Provider
     {
-        SqlConnection _Connection;
-        SqlCommand _Command;
+        private static readonly string _ConnectionString = ConfigurationManager.AppSettings["MayhemDatabase"];
 
-        public void Dispatcher_Insert(Dispatcher input)
+        public static void Dispatcher_Insert(Dispatcher input)
         {
-            _Connection = new SqlConnection(@"Data Source=ZIBUDAB1\ZIBUDAB_SQL;Initial Catalog=Mayhem;User ID=sa;Password=king");
-            _Connection.Open();
+            SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            _Command = new SqlCommand("Dispatcher_Insert", _Connection);
-            _Command.CommandType = CommandType.StoredProcedure;
+            SqlCommand command = new SqlCommand("Dispatcher_Insert", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
-            _Command.Parameters.Add(new SqlParameter("@DispatcherId", input.DispatcherId));
-            _Command.Parameters.Add(new SqlParameter("@FirstName", input.FirstName));
-            _Command.Parameters.Add(new SqlParameter("@LastName", input.LastName));
-            _Command.Parameters.Add(new SqlParameter("@PositionTypeId", input.PositionTypeId));
-            _Command.Parameters.Add(new SqlParameter("@LoginId", input.LoginId));
-            _Command.Parameters.Add(new SqlParameter("@LoginPassword", input.LoginPassword));
-            _Command.Parameters.Add(new SqlParameter("@ValidUser", input.ValidUser));
+            command.Parameters.AddWithValue("@DispatcherId", input.DispatcherId);
+            command.Parameters.AddWithValue("@FirstName", input.FirstName);
+            command.Parameters.AddWithValue("@LastName", input.LastName);
+            command.Parameters.AddWithValue("@RoleTypeId", input.RoleTypeId);
 
-
-
-            _Connection.Close();
+            SqlUtility.ExecuteNonQuery(command);
         }
 
-        public void Dispatcher_SelectByDispatcher(Dispatcher input)
+        public static DataSet Dispatcher_SelectAll()
         {
-            _Connection = new SqlConnection(@"Data Source=ZIBUDAB1\ZIBUDAB_SQL;Initial Catalog=Mayhem;User ID=sa;Password=king");
-            _Connection.Open();
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            _Command = new SqlCommand("Dispatcher_SelectByDispatcherId", _Connection);
-            _Command.CommandType = CommandType.StoredProcedure;
+            SqlCommand command = new SqlCommand("Dispatcher_SelectAll", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
-            _Command.Parameters.Add(new SqlParameter("@DispatcherId", input.DispatcherId));
+            returnValue = SqlUtility.ExecuteQuery(command);
 
-            _Connection.Close();
+            return returnValue;
         }
 
-        public void Dispatcher_Update(Dispatcher input)
+        public static DataSet Dispatcher_SelectById(string dispatcherId)
         {
-            _Connection = new SqlConnection(@"Data Source=ZIBUDAB1\ZIBUDAB_SQL;Initial Catalog=Mayhem;User ID=sa;Password=king");
-            _Connection.Open();
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            _Command = new SqlCommand("Dispatcher_Update", _Connection);
-            _Command.CommandType = CommandType.StoredProcedure;
+            SqlCommand command = new SqlCommand("Dispatcher_SelectById", connection);
+            command.CommandType = CommandType.StoredProcedure;
 
-            _Command.Parameters.Add(new SqlParameter("@DispatcherId", input.DispatcherId));
-            _Command.Parameters.Add(new SqlParameter("@FirstName", input.FirstName));
-            _Command.Parameters.Add(new SqlParameter("@LastName", input.LastName));
-            _Command.Parameters.Add(new SqlParameter("@PositionTypeId", input.PositionTypeId));
-            _Command.Parameters.Add(new SqlParameter("@LoginId", input.LoginId));
-            _Command.Parameters.Add(new SqlParameter("@LoginPassword", input.LoginPassword));
-            _Command.Parameters.Add(new SqlParameter("@ValidUser", input.ValidUser));
+            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
 
-            _Connection.Close();
+            returnValue = SqlUtility.ExecuteQuery(command);
+            return returnValue;
         }
 
+        public static void Dispatcher_Update(Dispatcher input)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Dispatcher_Update", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@DispatcherId", input.DispatcherId);
+            command.Parameters.AddWithValue("@FirstName", input.FirstName);
+            command.Parameters.AddWithValue("@LastName", input.LastName);
+            command.Parameters.AddWithValue("@RoleTypeId", input.RoleTypeId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void Dispatcher_Delete(string dispatcherId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Dispatcher_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static DataSet RoleType_SelectAll()
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("RoleType_SelectAll", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
     }
 }

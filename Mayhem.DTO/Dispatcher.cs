@@ -12,10 +12,7 @@ namespace Mayhem.DTO
         private string _DispatcherId;
         private string _FirstName;
         private string _LastName;
-        private int _PositionTypeId;
-        private string _LoginId;
-        private string _LoginPassword;
-        private bool _ValidUser;
+        private int _RoleTypeId;
 
         #endregion 
         #region Properties
@@ -38,28 +35,10 @@ namespace Mayhem.DTO
             set { _LastName = value; }
         }
 
-        public int PositionTypeId
+        public int RoleTypeId
         {
-            get { return _PositionTypeId; }
-            set { _PositionTypeId = value; }
-        }
-
-        public string LoginId
-        {
-            get { return _LoginId; }
-            set { _LoginId = value; }
-        }
-
-        public string LoginPassword
-        {
-            get { return _LoginPassword; }
-            set { _LoginPassword = value; }
-        }
-
-        public bool ValidUser
-        {
-            get { return _ValidUser; }
-            set { _ValidUser = value; }
+            get { return _RoleTypeId; }
+            set { _RoleTypeId = value; }
         }
 
         #endregion
