@@ -2064,3 +2064,42 @@ END
 
 GO
 
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Incident_Delete]    Script Date: 02/22/2012 18:48:08 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incident_Delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Incident_Delete]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Incident_Delete]    Script Date: 02/22/2012 18:48:08 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Incident_Delete] 
+(
+	@IncidentId varchar(50)
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   DELETE FROM [Mayhem].[dbo].[Incident]
+      WHERE [IncidentId] = @IncidentId
+END
+
+GO
+
