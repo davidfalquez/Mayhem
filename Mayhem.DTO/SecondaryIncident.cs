@@ -10,9 +10,9 @@ namespace Mayhem.DTO
         #region Fields
 
         private int _SecondaryIncidentId;
-        private Channel _ChannelId;
-        private Dispatcher _DispatcherId;
-        private Shift _ShiftId;
+        private Channel _Channel;
+        private Dispatcher _Dispatcher;
+        private Shift _Shift;
         private DateTime _DateTime;
         private bool _Sunstar3DigitUnit;
         private bool _NatureOfCall;
@@ -44,22 +44,22 @@ namespace Mayhem.DTO
             set { _SecondaryIncidentId = value; }
         }
 
-        public Channel ChannelId
+        public Channel Channel
         {
-            get { return _ChannelId; }
-            set { _ChannelId = value; }
+            get { return _Channel; }
+            set { _Channel = value; }
         }
 
-        public Dispatcher DispatcherId
+        public Dispatcher Dispatcher
         {
-            get { return _DispatcherId; }
-            set { _DispatcherId = value; }
+            get { return _Dispatcher; }
+            set { _Dispatcher = value; }
         }
 
-        public Shift ShiftId
+        public Shift Shift
         {
-            get { return _ShiftId; }
-            set { _ShiftId = value; }
+            get { return _Shift; }
+            set { _Shift = value; }
         }
 
         public DateTime DateTime

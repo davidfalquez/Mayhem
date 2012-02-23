@@ -14,6 +14,42 @@ namespace Mayhem.Tests.Data
     public class Provider_Tests
     {
         [TestMethod]
+        public void Channel_SelectAll()
+        {
+            bool foundChannelB = false;
+            string channelName = "Channel B";
+            Provider.Channel_Insert(channelName);
+
+            DataSet table1 = null;
+            table1 = Provider.Channel_SelectAll();
+
+            foreach (DataRow row in table1.Tables[0].Rows)
+            {
+                if (row["ChannelName"].ToString() == "Channel B")
+                {
+                    foundChannelB = true;
+                    int channelId = int.Parse(row["ChannelId"].ToString());
+                    Provider.Channel_Delete(channelId);
+                }              
+            }
+            Assert.IsTrue(foundChannelB == true);
+
+            table1 = Provider.Channel_SelectAll();
+            foundChannelB = false;
+            foreach (DataRow row in table1.Tables[0].Rows)
+            {
+                if (row["ChannelName"].ToString() == "Channel B")
+                {
+                    foundChannelB = true;
+                    int channelId = int.Parse(row["ChannelId"].ToString());
+                    Provider.Channel_Delete(channelId);
+                }
+            }
+            Assert.IsTrue(foundChannelB == false);
+
+        }
+
+        [TestMethod]
         public void RoleType_SelectAll()
         {
             DataSet value = new DataSet();
@@ -30,7 +66,6 @@ namespace Mayhem.Tests.Data
             dispatcher1.FirstName = "Eric";
             dispatcher1.LastName = "Fayad";
             dispatcher1.RoleTypeId = 1;
-
             Provider.Dispatcher_Insert(dispatcher1);
 
             DataSet table1 = Provider.Dispatcher_SelectById(dispatcher1.DispatcherId);
@@ -101,7 +136,69 @@ namespace Mayhem.Tests.Data
             //Delete dispatcher 1234www
             Provider.Dispatcher_Delete(dispatcher1.DispatcherId);
             table1 = Provider.Dispatcher_SelectById(dispatcher1.DispatcherId);
-            Assert.IsTrue(table1.Tables[0].Rows.Count == 0);
+            Assert.IsTrue(table1.Tables[0].Rows.Count == 0);            
+        }
+
+        [TestMethod]
+        public void Shift_SelectAll()
+        {
+            Shift shift1 = new Shift();
+            shift1.ShiftName = "Shift B";
+            shift1.ShiftAbbreviation = "ShB";
+            Provider.Shift_Insert(shift1);
+
+            Shift shift2 = new Shift();
+            shift2.ShiftName = "Shift C";
+            shift2.ShiftAbbreviation = "Night";
+            Provider.Shift_Insert(shift2);
+
+            DataSet table1 = Provider.Shift_SelectAll();
+            Assert.IsTrue(table1.Tables[0].Rows[0]["ShiftName"].ToString() == "Shift B");
+            Assert.IsTrue(table1.Tables[0].Rows[0]["ShiftAbbreviation"].ToString() == "ShB");
+            Assert.IsTrue(table1.Tables[0].Rows[1]["ShiftName"].ToString() == "Shift C");
+            Assert.IsTrue(table1.Tables[0].Rows[1]["ShiftAbbreviation"].ToString() == "Night");
+
+            Provider.Shift_Delete(shift1.ShiftId);
+            Provider.Shift_Delete(shift2.ShiftId);
+        }
+
+        [TestMethod]
+        public void Shift_Update_Tests()
+        {
+            Shift shift1 = new Shift();
+            shift1.ShiftName = "Shift B";
+            shift1.ShiftAbbreviation = "ShB";
+            Provider.Shift_Insert(shift1);
+
+            Shift shift2 = new Shift();
+            shift2.ShiftName = "Shift C";
+            shift2.ShiftAbbreviation = "Night";
+            Provider.Shift_Insert(shift2);
+
+            DataSet table1 = Provider.Shift_SelectAll();
+            Assert.IsTrue(table1.Tables[0].Rows.Count > 2);
+
+            Shift updateShift = new Shift();
+            updateShift.ShiftId = int.Parse(table1.Tables[0].Rows[0]["ShiftId"].ToString());
+            updateShift.ShiftName = table1.Tables[0].Rows[0]["ShiftName"].ToString();
+            updateShift.ShiftAbbreviation = table1.Tables[0].Rows[0]["ShiftAbbreviation"].ToString();
+            
+            updateShift.ShiftName += " Changed";
+            string shiftName = updateShift.ShiftName;
+
+            Provider.Shift_Update(updateShift);
+
+            table1 = Provider.Shift_SelectAll();
+
+            updateShift = new Shift();
+            updateShift.ShiftId = int.Parse(table1.Tables[0].Rows[0]["ShiftId"].ToString());
+            updateShift.ShiftName = table1.Tables[0].Rows[0]["ShiftName"].ToString();
+            updateShift.ShiftAbbreviation = table1.Tables[0].Rows[0]["ShiftAbbreviation"].ToString();
+
+            Assert.IsTrue(updateShift.ShiftName == shiftName);
+
+            Provider.Shift_Delete(shift1.ShiftId);
+            Provider.Shift_Delete(shift2.ShiftId);
         }
     }
 }

@@ -10,10 +10,9 @@ namespace Mayhem.DTO
         #region Fields
 
         private string _IncidentId;
-        private PrimaryIncident _PrimaryIncidentId;
-        private SecondaryIncident _SecondaryIncidentId;
-        //To which table does the FK EvaluatorID belong?
-        private string _EvaluatorId;
+        private PrimaryIncident _PrimaryIncident;
+        private SecondaryIncident _SecondaryIncident;
+        private Dispatcher _Evaluator;
         private DateTime _EntryDate;
         private DateTime _LastUpdated;
         private int _PrimaryIncidentScore;
@@ -30,23 +29,22 @@ namespace Mayhem.DTO
             set { _IncidentId = value; }
         }
 
-        public PrimaryIncident PrimaryIncidentId
+        public PrimaryIncident PrimaryIncident
         {
-            get { return _PrimaryIncidentId; }
-            set { _PrimaryIncidentId = value; }
+            get { return _PrimaryIncident; }
+            set { _PrimaryIncident = value; }
         }
 
-        public SecondaryIncident SecondaryIncidentId
+        public SecondaryIncident SecondaryIncident
         {
-            get { return _SecondaryIncidentId; }
-            set { _SecondaryIncidentId = value; }
+            get { return _SecondaryIncident; }
+            set { _SecondaryIncident = value; }
         }
 
-        //Change this to proper type
-        public string EvaluatorId
+        public Dispatcher Evaluator
         {
-            get { return _EvaluatorId; }
-            set { _EvaluatorId = value; }
+            get { return _Evaluator; }
+            set { _Evaluator = value; }
         }
 
         public DateTime EntryDate
