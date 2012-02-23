@@ -11,7 +11,18 @@ namespace Mayhem.Data
 {
     public static class Provider
     {
-        private static readonly string _ConnectionString = ConfigurationManager.AppSettings["MayhemDatabase"];
+        private static readonly string _ConnectionString = GetConnectionStringFromConfig();
+
+        private static string GetConnectionStringFromConfig()
+        {
+            string connectionString = ConfigurationManager.AppSettings["MayhemDatabase"];
+
+#if DEBUG
+            connectionString = string.Format(connectionString, Environment.MachineName, Environment.MachineName.Replace("1", string.Empty));
+#endif
+
+            return connectionString;
+        }
 
         public static void Channel_Delete(int channelId)
         {
