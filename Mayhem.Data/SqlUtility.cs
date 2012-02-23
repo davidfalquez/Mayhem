@@ -21,6 +21,7 @@ namespace Mayhem.Data
             {
                 command.Connection.Close();
             }
+
             return result;
         }
 

@@ -13,6 +13,70 @@ namespace Mayhem.Data
     {
         private static readonly string _ConnectionString = ConfigurationManager.AppSettings["MayhemDatabase"];
 
+        public static void Channel_Delete(int channelId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Channel_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ChannelId", channelId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        //Should Channel_Insert only insert one variable as the
+        //stored procedure suggests or have 2 like Channel_Update?
+        public static void Channel_Insert(string channelName)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Channel_Insert", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ChannelName", channelName);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static DataSet Channel_SelectAll()
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Channel_SelectAll", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+        public static void Channel_Update(Channel input)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Channel_Update", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ChannelId", input.ChannelId);
+            command.Parameters.AddWithValue("@ChannelName", input.ChannelName);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void Dispatcher_Delete(string dispatcherId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Dispatcher_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
         public static void Dispatcher_Insert(Dispatcher input)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
@@ -52,6 +116,7 @@ namespace Mayhem.Data
             command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
 
             returnValue = SqlUtility.ExecuteQuery(command);
+
             return returnValue;
         }
 
@@ -70,14 +135,143 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
-        public static void Dispatcher_Delete(string dispatcherId)
+        public static void Incident_Insert(Incident input)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("Dispatcher_Delete", connection);
+            SqlCommand command = new SqlCommand("Incident_Insert", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
+            command.Parameters.AddWithValue("@IncidentId", input.IncidentId);
+            command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncidentId);
+            command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncidentId);
+            command.Parameters.AddWithValue("@EvaluatorId", input.EvaluatorId);
+            command.Parameters.AddWithValue("@EntryDate", input.EntryDate);
+            command.Parameters.AddWithValue("@LastUpdated", input.LastUpdated);
+            command.Parameters.AddWithValue("@PrimaryIncidentScore", input.PrimaryIncidentScore);
+            command.Parameters.AddWithValue("@PrimaryIncidentScorePercent", input.PrimaryIncidentScorePercent);
+            command.Parameters.AddWithValue("@SecondaryIncidentScore", input.SecondaryIncidentScore);
+            command.Parameters.AddWithValue("@SecondaryIncidentScorePercent", input.SecondaryIncidentScorePercent);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static DataSet Incident_SelectAll()
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Incident_SelectAll", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+        //public static DateTime Incident_SelectByDateRange()
+
+        public static void Incident_Update(Incident input)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Incident_Insert", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@IncidentId", input.IncidentId);
+            command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncidentId);
+            command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncidentId);
+            command.Parameters.AddWithValue("@EvaluatorId", input.EvaluatorId);
+            command.Parameters.AddWithValue("@EntryDate", input.EntryDate);
+            command.Parameters.AddWithValue("@LastUpdated", input.LastUpdated);
+            command.Parameters.AddWithValue("@PrimaryIncidentScore", input.PrimaryIncidentScore);
+            command.Parameters.AddWithValue("@PrimaryIncidentScorePercent", input.PrimaryIncidentScorePercent);
+            command.Parameters.AddWithValue("@SecondaryIncidentScore", input.SecondaryIncidentScore);
+            command.Parameters.AddWithValue("@SecondaryIncidentScorePercent", input.SecondaryIncidentScorePercent);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void PrimaryIncident_Delete(int primaryIncidentId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("PrimaryIncident_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@PrimaryIncidentId", primaryIncidentId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void PrimaryIncident_Insert(PrimaryIncident input)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("PrimaryIncident_Insert", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ChannelId", input.ChannelId);
+            command.Parameters.AddWithValue("@DispatcherId", input.DispatcherId);
+            command.Parameters.AddWithValue("@ShiftId", input.ShiftId);
+            command.Parameters.AddWithValue("@DateTime", input.DateTime);
+            command.Parameters.AddWithValue("@ToneAlertUsed", input.ToneAlertUsed);
+            command.Parameters.AddWithValue("@Priority", input.Priority);
+            command.Parameters.AddWithValue("@Sunstar3DigitNumber", input.Sunstar3DigitUnit);
+            command.Parameters.AddWithValue("@Location", input.Location);
+            command.Parameters.AddWithValue("@MapGrid", input.MapGrid);
+            command.Parameters.AddWithValue("@NatureOfCall", input.NatureOfCall);
+            command.Parameters.AddWithValue("@SSTacChannel", input.SSTacChannel);
+            command.Parameters.AddWithValue("@PertinentIntRouting", input.PertinentIntRouting);
+            command.Parameters.AddWithValue("@InfoGivenOutOfOrder", input.InfoGivenOutOfOrder);
+            command.Parameters.AddWithValue("@DisplayedServiceAttitude", input.DisplayedServiceAttitude);
+            command.Parameters.AddWithValue("@UsedCorrectVolumeTone", input.UsedCorrectVolumeTone);
+            command.Parameters.AddWithValue("@UsedProhibitedBehavior", input.UsedProhibitedBehavior);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        //PrimaryIncident_SelectByDateRange
+
+        public static DataSet PrimaryIncident_SelectById(int primaryIncidentId)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("PrimaryIncident_SelectById", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@PrimaryIncidentId", primaryIncidentId);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+        public static void PrimaryIncident_Update(PrimaryIncident input)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("PrimaryIncident_SelectById", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("PrimaryIncidentId", input.PrimaryIncidentId);
+            command.Parameters.AddWithValue("@ChannelId", input.ChannelId);
+            command.Parameters.AddWithValue("@DispatcherId", input.DispatcherId);
+            command.Parameters.AddWithValue("@ShiftId", input.ShiftId);
+            command.Parameters.AddWithValue("@DateTime", input.DateTime);
+            command.Parameters.AddWithValue("@ToneAlertUsed", input.ToneAlertUsed);
+            command.Parameters.AddWithValue("@Priority", input.Priority);
+            command.Parameters.AddWithValue("@Sunstar3DigitNumber", input.Sunstar3DigitUnit);
+            command.Parameters.AddWithValue("@Location", input.Location);
+            command.Parameters.AddWithValue("@MapGrid", input.MapGrid);
+            command.Parameters.AddWithValue("@NatureOfCall", input.NatureOfCall);
+            command.Parameters.AddWithValue("@SSTacChannel", input.SSTacChannel);
+            command.Parameters.AddWithValue("@PertinentIntRouting", input.PertinentIntRouting);
+            command.Parameters.AddWithValue("@InfoGivenOutOfOrder", input.InfoGivenOutOfOrder);
+            command.Parameters.AddWithValue("@DisplayedServiceAttitude", input.DisplayedServiceAttitude);
+            command.Parameters.AddWithValue("@UsedCorrectVolumeTone", input.UsedCorrectVolumeTone);
+            command.Parameters.AddWithValue("@UsedProhibitedBehavior", input.UsedProhibitedBehavior);
 
             SqlUtility.ExecuteNonQuery(command);
         }
@@ -93,6 +287,23 @@ namespace Mayhem.Data
             returnValue = SqlUtility.ExecuteQuery(command);
 
             return returnValue;
+        }
+
+        public static void SecondaryIncident_Delete(int secondaryIncidentId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("SecondaryIncident_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@SecondaryIncidentId", secondaryIncidentId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void SecondaryIncident_Insert(SecondaryIncident input)
+        {
+ 
         }
     }
 }
