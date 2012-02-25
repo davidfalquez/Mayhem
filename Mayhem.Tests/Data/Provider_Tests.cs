@@ -14,7 +14,7 @@ namespace Mayhem.Tests.Data
     public class Provider_Tests
     {
         [TestMethod]
-        public void Channel_SelectAll()
+        public void Channel_SelectAll_Tests()
         {
             bool foundChannelB = false;
             string channelName = "Channel B";
@@ -50,7 +50,7 @@ namespace Mayhem.Tests.Data
         }
 
         [TestMethod]
-        public void RoleType_SelectAll()
+        public void RoleType_SelectAll_Tests()
         {
             DataSet value = new DataSet();
             value = Provider.RoleType_SelectAll();
@@ -140,7 +140,7 @@ namespace Mayhem.Tests.Data
         }
 
         [TestMethod]
-        public void Shift_SelectAll()
+        public void Shift_SelectAll_Tests()
         {
             Shift shift1 = new Shift();
             shift1.ShiftName = "Shift B";

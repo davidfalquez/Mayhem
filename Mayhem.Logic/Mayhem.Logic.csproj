@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="PointSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mayhem.Data\Mayhem.Data.csproj">

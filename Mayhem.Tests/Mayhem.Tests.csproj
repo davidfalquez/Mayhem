@@ -48,11 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Provider_Tests.cs" />
+    <Compile Include="Logic\Provider_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Mayhem.Data\Mayhem.Data.csproj">
       <Project>{542B5EFB-F51C-4FCB-BBF5-5E1A751DE14F}</Project>
@@ -61,6 +60,10 @@
     <ProjectReference Include="..\Mayhem.DTO\Mayhem.DTO.csproj">
       <Project>{1784F7D9-BC6B-49E4-9E5B-ABA1CDF23693}</Project>
       <Name>Mayhem.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mayhem.Logic\Mayhem.Logic.csproj">
+      <Project>{1C3D47C1-9084-4313-BF3B-21E99217B37B}</Project>
+      <Name>Mayhem.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

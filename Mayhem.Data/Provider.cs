@@ -74,6 +74,21 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
+        public static DataSet Channel_SelectById(int channelId)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Channel_SelectById", connection);          
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ChannelId", channelId);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
         public static void Dispatcher_Delete(string dispatcherId)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);

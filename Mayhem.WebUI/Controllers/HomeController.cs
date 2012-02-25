@@ -10,7 +10,7 @@ namespace Mayhem.WebUI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            ViewBag.Message = "Sunstar QA";
 
             return View();
         }
