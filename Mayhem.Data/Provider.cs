@@ -507,5 +507,19 @@ namespace Mayhem.Data
 
             SqlUtility.ExecuteNonQuery(command);
         }
+
+        public static DataSet Shift_SelectById(int shiftId)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Shift_SelectById", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ShiftId", shiftId);
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
     }
 }

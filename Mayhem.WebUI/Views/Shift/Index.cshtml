@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Mayhem.DTO.Shift>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            ShiftName
+        </th>
+        <th>
+            ShiftAbbreviation
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShiftName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShiftAbbreviation)
+        </td>
+        <td>
+            @Html.ActionLink("[Edit]", "Edit", new { shiftId = item.ShiftId }) |
+            @Html.ActionLink("[Delete]", "Delete", new { shiftId = item.ShiftId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -808,6 +808,53 @@ GO
 USE [Mayhem]
 GO
 
+/****** Object:  StoredProcedure [dbo].[Shift_SelectById]    Script Date: 02/24/2012 22:58:30 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift_SelectById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Shift_SelectById]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Shift_SelectById]    Script Date: 02/24/2012 22:58:30 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Shift_SelectById]
+(
+	@ShiftId int
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [ShiftId]
+      ,[ShiftName]
+      ,[ShiftAbbreviation]
+  FROM [Mayhem].[dbo].[Shift]
+  WHERE [ShiftId] = @ShiftId
+END
+
+
+GO
+
+
+
+USE [Mayhem]
+GO
+
 /****** Object:  StoredProcedure [dbo].[Shift_Update]    Script Date: 02/21/2012 15:38:08 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift_Update]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[Shift_Update]
