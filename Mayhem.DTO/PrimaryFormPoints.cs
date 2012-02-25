@@ -21,6 +21,25 @@ namespace Mayhem.DTO
         private bool _UsedProhibitedBehavior;
 
         #endregion
+
+        public PrimaryFormPoints(PrimaryIncident primaryIncident)
+        {
+            _ToneAlertUsed = primaryIncident.ToneAlertUsed;
+            _Priority = primaryIncident.Priority;
+            _SunstarThreeDigitUnit = primaryIncident.Sunstar3DigitUnit;
+            _Location = primaryIncident.Location;
+            _MapGrid = primaryIncident.MapGrid;
+            _NatureOfCall = primaryIncident.NatureOfCall;
+            _SsTacChannel = primaryIncident.SSTacChannel;
+            _DisplayedServiceAttitude = primaryIncident.DisplayedServiceAttitude;
+            _UsedCorrectVolTone = primaryIncident.UsedCorrectVolumeTone;
+            _UsedProhibitedBehavior = primaryIncident.UsedProhibitedBehavior;
+        }
+
+        public PrimaryFormPoints()
+        { 
+        }
+
         #region Properties
 
         public bool ToneAlertUsed

@@ -299,7 +299,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[PrimaryIncident](
-	[PrimaryIncidentId] [int] IDENTITY(1,1) NOT NULL,
+	[PrimaryIncidentId] uniqueidentifier NOT NULL,
 	[ChannelId] [int] NOT NULL,
 	[DispatcherId] [varchar](100) NOT NULL,
 	[ShiftId] [int] NOT NULL,
@@ -372,7 +372,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[SecondaryIncident](
-	[SecondaryIncidentId] [int] IDENTITY(1,1) NOT NULL,
+	[SecondaryIncidentId] uniqueidentifier NOT NULL,
 	[ChannelId] [int] NOT NULL,
 	[DispatcherId] [varchar](100) NOT NULL,
 	[ShiftId] [int] NOT NULL,
@@ -452,8 +452,8 @@ GO
 
 CREATE TABLE [dbo].[Incident](
 	[IncidentId] [varchar](50) NOT NULL,
-	[PrimaryIncidentId] [int] NULL,
-	[SecondaryIncidentId] [int] NULL,
+	[PrimaryIncidentId] uniqueidentifier NULL,
+	[SecondaryIncidentId] uniqueidentifier NULL,
 	[EvaluatorId] [varchar](100) NOT NULL,
 	[EntryDate] [datetime] NULL,
 	[LastUpdated] [datetime] NULL,
@@ -1218,7 +1218,9 @@ GO
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE [dbo].[PrimaryIncident_Insert]
- (		    @ChannelId int
+ (		
+            @PrimaryIncidentId uniqueidentifier
+           ,@ChannelId int
            ,@DispatcherId varchar(100)
            ,@ShiftId int
            ,@DateTime datetime
@@ -1241,7 +1243,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     INSERT INTO [Mayhem].[dbo].[PrimaryIncident]
-           ([ChannelId]
+           ([PrimaryIncidentId]
+		   ,[ChannelId]
            ,[DispatcherId]
            ,[ShiftId]
            ,[DateTime]
@@ -1258,7 +1261,9 @@ BEGIN
            ,[UsedCorrectVolumeTone]
            ,[UsedProhibitedBehavior])
      VALUES
-           (@ChannelId
+           (
+		    @PrimaryIncidentId
+		   ,@ChannelId
            ,@DispatcherId
            ,@ShiftId
            ,@DateTime
@@ -1306,7 +1311,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[PrimaryIncident_Update]
  (		   
-            @PrimaryIncidentId int
+            @PrimaryIncidentId uniqueidentifier
            ,@ChannelId int
            ,@DispatcherId varchar(100)
            ,@ShiftId int
@@ -1380,7 +1385,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[PrimaryIncident_Delete]
 (
-	@PrimaryIncidentId int
+	@PrimaryIncidentId uniqueidentifier
 )
 AS
 BEGIN
@@ -1420,7 +1425,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[PrimaryIncident_SelectById]
 (
-     @PrimaryIncidentId int
+     @PrimaryIncidentId uniqueidentifier
 )
 AS
 BEGIN
@@ -1538,7 +1543,8 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[SecondaryIncident_Insert]
 (
-			@ChannelId int
+			@SecondaryIncidentId uniqueidentifier
+		   ,@ChannelId int
            ,@DispatcherId varchar(100)
            ,@ShiftId int
            ,@DateTime datetime
@@ -1570,7 +1576,9 @@ BEGIN
 	SET NOCOUNT ON;
 
     INSERT INTO [Mayhem].[dbo].[SecondaryIncident]
-           ([ChannelId]
+           (
+		    [SecondaryIncidentId]
+		   ,[ChannelId]
            ,[DispatcherId]
            ,[ShiftId]
            ,[DateTime]
@@ -1595,7 +1603,9 @@ BEGIN
            ,[PatchedChannels]
            ,[Phone])
      VALUES
-           (@ChannelId
+           (
+			@SecondaryIncidentId
+		   ,@ChannelId
            ,@DispatcherId
            ,@ShiftId
            ,@DateTime
@@ -1651,7 +1661,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[SecondaryIncident_Update]
 (
-            @SecondaryIncidentId int
+            @SecondaryIncidentId uniqueidentifier
 		   ,@ChannelId int
            ,@DispatcherId varchar(100)
            ,@ShiftId int
@@ -1740,7 +1750,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[SecondaryIncident_Delete]
 (
-	@SecondaryIncidentId int
+	@SecondaryIncidentId uniqueidentifier
 )
 AS
 BEGIN
@@ -1780,7 +1790,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[SecondaryIncident_SelectById]
 (
-    @SecondaryIncidentId int
+    @SecondaryIncidentId uniqueidentifier
 )
 AS
 BEGIN
@@ -2014,8 +2024,8 @@ GO
 CREATE PROCEDURE [dbo].[Incident_Update] 
 (
 	   @IncidentId varchar(50)
-      ,@PrimaryIncidentId int
-      ,@SecondaryIncidentId int
+      ,@PrimaryIncidentId uniqueidentifier
+      ,@SecondaryIncidentId uniqueidentifier
       ,@EvaluatorId varchar(100)
       ,@EntryDate datetime
       ,@LastUpdated datetime
@@ -2072,7 +2082,7 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[PrimaryIncident_Delete]
 (
-	@PrimaryIncidentId int
+	@PrimaryIncidentId uniqueidentifier
 )
 AS
 BEGIN
@@ -2114,8 +2124,8 @@ GO
 CREATE PROCEDURE [dbo].[Incident_Insert]
 	(
 	   @IncidentId varchar(50)
-      ,@PrimaryIncidentId int
-      ,@SecondaryIncidentId int
+      ,@PrimaryIncidentId uniqueidentifier
+      ,@SecondaryIncidentId uniqueidentifier
       ,@EvaluatorId varchar(100)
       ,@EntryDate datetime
       ,@LastUpdated datetime
@@ -2194,6 +2204,58 @@ BEGIN
    DELETE FROM [Mayhem].[dbo].[Incident]
       WHERE [IncidentId] = @IncidentId
 END
+
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Incident_SelectById]    Script Date: 02/25/2012 11:47:31 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incident_SelectById]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Incident_SelectById]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Incident_SelectById]    Script Date: 02/25/2012 11:47:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Incident_SelectById]
+(
+	@IncidentId varchar(50)
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT [IncidentId]
+      ,[PrimaryIncidentId]
+      ,[SecondaryIncidentId]
+      ,[EvaluatorId]
+      ,[EntryDate]
+      ,[LastUpdated]
+      ,[PrimaryIncidentScore]
+      ,[PrimaryIncidentScorePercent]
+      ,[SecondaryIncidentScore]
+      ,[SecondaryIncidentScorePercent]
+  FROM [Mayhem].[dbo].[Incident]
+  WHERE [IncidentId] = @IncidentId
+
+END
+
 
 GO
 

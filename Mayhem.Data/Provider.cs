@@ -159,6 +159,18 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
+        public static void Incident_Delete(string incidentId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Incident_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@IncidentId", incidentId);
+
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
         public static void Incident_Insert(Incident input)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
@@ -187,6 +199,21 @@ namespace Mayhem.Data
 
             SqlCommand command = new SqlCommand("Incident_SelectAll", connection);
             command.CommandType = CommandType.StoredProcedure;
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+        public static DataSet Incident_SelectById(string incidentId)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Incident_SelectById", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@IncidentId", incidentId);
 
             returnValue = SqlUtility.ExecuteQuery(command);
 
@@ -230,7 +257,7 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
-        public static void PrimaryIncident_Delete(int primaryIncidentId)
+        public static void PrimaryIncident_Delete(Guid primaryIncidentId)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
@@ -249,6 +276,7 @@ namespace Mayhem.Data
             SqlCommand command = new SqlCommand("PrimaryIncident_Insert", connection);
             command.CommandType = CommandType.StoredProcedure;
 
+            command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncidentId);
             command.Parameters.AddWithValue("@ChannelId", input.Channel.ChannelId);
             command.Parameters.AddWithValue("@DispatcherId", input.Dispatcher.DispatcherId);
             command.Parameters.AddWithValue("@ShiftId", input.Shift.ShiftId);
@@ -285,7 +313,7 @@ namespace Mayhem.Data
             return returnValue;
         }
 
-        public static DataSet PrimaryIncident_SelectById(int primaryIncidentId)
+        public static DataSet PrimaryIncident_SelectById(Guid primaryIncidentId)
         {
             DataSet returnValue = null;
             SqlConnection connection = new SqlConnection(_ConnectionString);
@@ -304,7 +332,7 @@ namespace Mayhem.Data
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("PrimaryIncident_SelectById", connection);
+            SqlCommand command = new SqlCommand("PrimaryIncident_Update", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("PrimaryIncidentId", input.PrimaryIncidentId);
@@ -341,7 +369,7 @@ namespace Mayhem.Data
             return returnValue;
         }
 
-        public static void SecondaryIncident_Delete(int secondaryIncidentId)
+        public static void SecondaryIncident_Delete(Guid secondaryIncidentId)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
@@ -360,6 +388,7 @@ namespace Mayhem.Data
             SqlCommand command = new SqlCommand("SecondaryIncident_Insert", connection);
             command.CommandType = CommandType.StoredProcedure;
 
+            command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncidentId);
             command.Parameters.AddWithValue("@ChannelId", input.Channel.ChannelId);
             command.Parameters.AddWithValue("@DispatcherId", input.Dispatcher.DispatcherId);
             command.Parameters.AddWithValue("@ShiftId", input.Shift.ShiftId);
@@ -404,7 +433,7 @@ namespace Mayhem.Data
             return returnValue;
         }
 
-        public static DataSet SecondaryIncident_SelectById(int secondaryIncidentId)
+        public static DataSet SecondaryIncident_SelectById(Guid secondaryIncidentId)
         {
             DataSet returnValue = null;
             SqlConnection connection = new SqlConnection(_ConnectionString);

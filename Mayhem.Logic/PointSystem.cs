@@ -16,8 +16,17 @@ namespace Mayhem.Logic
         
         public static decimal PointTabulation(PrimaryFormPoints input)
         {
-            decimal formScore = 0;
-            
+            decimal formScore = PointTabulationTotalScore(input);
+
+            formScore = ConvertToPercentage(formScore, _TotalFormAPoints);
+
+            return formScore;
+        }
+
+        public static int PointTabulationTotalScore(PrimaryFormPoints input)
+        {
+            int formScore = 0;
+
             if (input.ToneAlertUsed)
             {
                 formScore += 10;
@@ -66,15 +75,21 @@ namespace Mayhem.Logic
             {
                 formScore += 30;
             }
-
-            formScore = ConvertToPercentage(formScore, _TotalFormAPoints);
-
             return formScore;
         }
         
         public static decimal PointTabulation(SecondaryFormPoints input)
         {
-            decimal formScore = 0;
+            decimal formScore = PointTabulationTotalScore(input);
+
+            formScore = ConvertToPercentage(formScore, _TotalFormBPoints);
+
+            return formScore;
+        }
+
+        public static int PointTabulationTotalScore(SecondaryFormPoints input)
+        {
+            int formScore = 0;
 
             if (input.SunstarThreeDigitUnit)
             {
@@ -156,9 +171,6 @@ namespace Mayhem.Logic
             {
                 formScore += 30;
             }
-
-            formScore = ConvertToPercentage(formScore, _TotalFormBPoints);
-
             return formScore;
         }
 

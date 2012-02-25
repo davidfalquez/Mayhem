@@ -9,7 +9,7 @@ namespace Mayhem.DTO
     {
         #region Fields
 
-        private int _PrimaryIncidentId;
+        private Guid _PrimaryIncidentId;
         private Channel _Channel;
         private Dispatcher _Dispatcher;
         private Shift _Shift;
@@ -30,7 +30,7 @@ namespace Mayhem.DTO
         #endregion
         #region Properties
 
-        public int PrimaryIncidentId
+        public Guid PrimaryIncidentId
         {
             get { return _PrimaryIncidentId; }
             set { _PrimaryIncidentId = value; }

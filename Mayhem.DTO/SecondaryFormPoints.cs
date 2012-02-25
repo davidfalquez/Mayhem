@@ -29,6 +29,33 @@ namespace Mayhem.DTO
         private bool _UsedProhibitedBehavior;
 
         #endregion
+        //TODO: Use Mediator Patterns
+        public SecondaryFormPoints(SecondaryIncident secondaryIncident)
+        {
+            _SunstarThreeDigitUnit = secondaryIncident.Sunstar3DigitUnit;
+            _NatureOfCall = secondaryIncident.NatureOfCall;
+            _Location = secondaryIncident.Location;
+            _MapGrid = secondaryIncident.MapGrid;
+            _FdUnitAndTacCh = secondaryIncident.FDUnitsAndTacCh;
+            _Documented1 = secondaryIncident.ScriptingDocumented;
+            _SevMin = secondaryIncident.SevenMin;
+            _TwelveMin = secondaryIncident.TwelveMin;
+            _EtaLocationAsked = secondaryIncident.ETALocationAsked;
+            _Documented2 = secondaryIncident.ETADocumented;
+            _ProactiveRoutingGiven = secondaryIncident.ProactiveRoutingGiven;
+            _CorrectRouting = secondaryIncident.CorrectRouting;
+            _Documented3 = secondaryIncident.RoutingDocumented;
+            _PreArrivalGiven = secondaryIncident.PreArrivalGiven;
+            _Documented4 = secondaryIncident.EMDDocumented;
+            _DisplayedServiceAttitude = secondaryIncident.DisplayedServiceAttitude;
+            _UsedCorrectVolTone = secondaryIncident.UsedCorrectVolumeTone;
+            _UsedProhibitedBehavior = secondaryIncident.UsedProhibitedBehavior;
+        }
+
+        public SecondaryFormPoints()
+        { 
+        }
+
         #region Properties
 
         public bool SunstarThreeDigitUnit
