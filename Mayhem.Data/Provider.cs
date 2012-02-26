@@ -179,8 +179,25 @@ namespace Mayhem.Data
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@IncidentId", input.IncidentId);
-            command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncident.PrimaryIncidentId);
-            command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncident.SecondaryIncidentId);
+
+            if (null == input.PrimaryIncident)
+            {
+                command.Parameters.AddWithValue("@PrimaryIncidentId", DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncident.PrimaryIncidentId);
+            }
+
+            if (null == input.SecondaryIncident)
+            {
+                command.Parameters.AddWithValue("@SecondaryIncidentId", DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncident.SecondaryIncidentId);
+
+            }
             command.Parameters.AddWithValue("@EvaluatorId", input.Evaluator.DispatcherId);
             command.Parameters.AddWithValue("@EntryDate", input.EntryDate);
             command.Parameters.AddWithValue("@LastUpdated", input.LastUpdated);

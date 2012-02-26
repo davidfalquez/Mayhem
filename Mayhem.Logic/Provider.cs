@@ -64,17 +64,17 @@ namespace Mayhem.Logic
             }
             Data.Provider.Channel_Delete(channelId);
         }
-        
-        public static void CreateDispatcher(Dispatcher dispatcher)       
+
+        public static void CreateDispatcher(Dispatcher dispatcher)
         {
             if (dispatcher == null)
             {
                 throw new Exception(string.Format(_InvalidMessage, "Dispatcher"));
-            }         
+            }
             if (dispatcher.DispatcherId == null)
             {
                 throw new Exception(string.Format(_InvalidIdMessage, "DispatcherId"));
-            }            
+            }
             Data.Provider.Dispatcher_Insert(dispatcher);
         }
 
@@ -107,7 +107,7 @@ namespace Mayhem.Logic
         {
             List<Dispatcher> returnValue = new List<Dispatcher>();
             DataSet dispatcherDataSet = Data.Provider.Dispatcher_SelectAll();
-            
+
             foreach (DataRow row in dispatcherDataSet.Tables[0].Rows)
             {
                 Dispatcher dispatcher = new Dispatcher();
@@ -197,19 +197,19 @@ namespace Mayhem.Logic
             {
                 incident.PrimaryIncident.PrimaryIncidentId = Guid.NewGuid();
                 Data.Provider.PrimaryIncident_Insert(incident.PrimaryIncident);
+                incident.PrimaryIncidentScore = PointSystem.PointTabulationTotalScore(new PrimaryFormPoints(incident.PrimaryIncident));
+                incident.PrimaryIncidentScorePercent = (float)PointSystem.PointTabulation(new PrimaryFormPoints(incident.PrimaryIncident));
             }
             if (null != incident.SecondaryIncident)
             {
                 incident.SecondaryIncident.SecondaryIncidentId = Guid.NewGuid();
                 Data.Provider.SecondaryIncident_Insert(incident.SecondaryIncident);
+                incident.SecondaryIncidentScore = PointSystem.PointTabulationTotalScore(new SecondaryFormPoints(incident.SecondaryIncident));
+                incident.SecondaryIncidentScorePercent = (float)PointSystem.PointTabulation(new SecondaryFormPoints(incident.SecondaryIncident));
             }
 
             incident.EntryDate = DateTime.Now;
             incident.LastUpdated = DateTime.Now;
-            incident.PrimaryIncidentScore = PointSystem.PointTabulationTotalScore(new PrimaryFormPoints(incident.PrimaryIncident));
-            incident.PrimaryIncidentScorePercent = (float)PointSystem.PointTabulation(new PrimaryFormPoints(incident.PrimaryIncident));
-            incident.SecondaryIncidentScore = PointSystem.PointTabulationTotalScore(new SecondaryFormPoints(incident.SecondaryIncident));
-            incident.SecondaryIncidentScorePercent = (float)PointSystem.PointTabulation(new SecondaryFormPoints(incident.SecondaryIncident));
 
             Data.Provider.Incident_Insert(incident);
         }
@@ -241,13 +241,13 @@ namespace Mayhem.Logic
 
             returnValue.IncidentId = incidentDataSet.Tables[0].Rows[0]["IncidentId"].ToString();
             returnValue.PrimaryIncident = new PrimaryIncident();
-            if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"])
+            if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString()))
             {
                 returnValue.PrimaryIncident.PrimaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString());
                 returnValue.PrimaryIncident = GetPrimaryIncident(returnValue.PrimaryIncident.PrimaryIncidentId);
             }
             returnValue.SecondaryIncident = new SecondaryIncident();
-            if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"])
+            if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString()))
             {
                 returnValue.SecondaryIncident.SecondaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString());
                 returnValue.SecondaryIncident = GetSecondaryIncident(returnValue.SecondaryIncident.SecondaryIncidentId);
@@ -273,16 +273,18 @@ namespace Mayhem.Logic
             {
                 returnValue.SecondaryIncidentScorePercent = float.Parse(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"].ToString());
             }
-            
+
             return returnValue;
         }
 
         public static void DeleteIncident(string incidentId)
         {
             Incident incident = GetIncident(incidentId);
-            Data.Provider.PrimaryIncident_Delete(incident.PrimaryIncident.PrimaryIncidentId);
-            Data.Provider.SecondaryIncident_Delete(incident.SecondaryIncident.SecondaryIncidentId);
+            Guid p = incident.PrimaryIncident.PrimaryIncidentId;
+            Guid s = incident.SecondaryIncident.SecondaryIncidentId;
             Data.Provider.Incident_Delete(incidentId);
+            Data.Provider.PrimaryIncident_Delete(p);
+            Data.Provider.SecondaryIncident_Delete(s);
         }
 
         public static List<Incident> GetIncidents()
