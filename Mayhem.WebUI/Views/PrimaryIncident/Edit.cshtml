@@ -26,7 +26,7 @@
             @Html.LabelFor(model => model.EvaluatorDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.EvaluatorId, Model.EvaluatorDropDown)
+            @Html.DropDownListFor(model => model.EvaluatorId, Model.EvaluatorDropDown, Model.EvaluatorId)
             @Html.ValidationMessageFor(model => model.EvaluatorId)
         </div>
 
@@ -34,7 +34,7 @@
             @Html.LabelFor(model => model.DispatcherDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.DispatcherId, Model.DispatcherDropDown)
+            @Html.DropDownListFor(model => model.DispatcherId, Model.DispatcherDropDown, Model.DispatcherId)
             @Html.ValidationMessageFor(model => model.DispatcherId)
         </div>
 
@@ -42,7 +42,7 @@
             @Html.LabelFor(model => model.ShiftDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.ShiftId, Model.ShiftDropDown)
+            @Html.DropDownListFor(model => model.ShiftId, Model.ShiftDropDown, Model.ShiftId)
             @Html.ValidationMessageFor(model => model.ShiftId)
         </div>
 
@@ -135,7 +135,7 @@
             @Html.LabelFor(model => model.DisplayedServiceAttitudeDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.DisplayedServiceAttitude, Model.DisplayedServiceAttitudeDropDown)
+            @Html.DropDownListFor(model => model.DisplayedServiceAttitude, Model.DisplayedServiceAttitudeDropDown, Model.DisplayedServiceAttitude)
             @Html.ValidationMessageFor(model => model.DisplayedServiceAttitude)
         </div>
 
@@ -145,7 +145,7 @@
             @Html.LabelFor(model => model.UsedCorrectVolumeToneDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.UsedCorrectVolumeTone, Model.UsedCorrectVolumeToneDropDown)
+            @Html.DropDownListFor(model => model.UsedCorrectVolumeTone, Model.UsedCorrectVolumeToneDropDown, Model.UsedCorrectVolumeTone)
             @Html.ValidationMessageFor(model => model.UsedCorrectVolumeTone)
         </div>
         

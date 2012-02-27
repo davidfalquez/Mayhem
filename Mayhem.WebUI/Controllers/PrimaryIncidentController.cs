@@ -112,12 +112,6 @@ namespace Mayhem.WebUI.Controllers
         public ViewResult Edit(string incidentId)
         {
             PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
-            //Fill Drop Downs
-            model.EvaluatorDropDown = DropDownUtility.GetEvaluatorDropDown();
-            model.DispatcherDropDown = DropDownUtility.GetEvaluatorDropDown();
-            model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
-            model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
-            model.UsedCorrectVolumeToneDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
 
             Incident incident = Provider.GetIncident(incidentId);
 
@@ -140,6 +134,13 @@ namespace Mayhem.WebUI.Controllers
             model.ToneAlertUsed = incident.PrimaryIncident.ToneAlertUsed;
             model.UsedCorrectVolumeTone = incident.PrimaryIncident.UsedCorrectVolumeTone;
             model.UsedProhibitedBehavior = incident.PrimaryIncident.UsedProhibitedBehavior;
+
+            //Fill Drop Downs
+            model.EvaluatorDropDown = DropDownUtility.GetEvaluatorDropDown();
+            model.DispatcherDropDown = DropDownUtility.GetEvaluatorDropDown();
+            model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
+            model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
+            model.UsedCorrectVolumeToneDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
 
             return View(model);
         }
