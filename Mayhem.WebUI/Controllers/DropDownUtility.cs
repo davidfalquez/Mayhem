@@ -80,6 +80,36 @@ namespace Mayhem.WebUI.Controllers
             return new SelectList(list, "Value", "Text");
         }
 
+        public static SelectList GetYesNoNADropDown()
+        {
+
+            List<DropDownModelString> list = new List<DropDownModelString>();
+
+            DropDownModelString modelCorrect = new DropDownModelString();
+
+            modelCorrect.Text = "Yes";
+            modelCorrect.Value = "Yes";
+
+            list.Add(modelCorrect);
+
+            DropDownModelString modelMinor = new DropDownModelString();
+
+            modelMinor.Text = "No";
+            modelMinor.Value = "No";
+
+            list.Add(modelMinor);
+
+            DropDownModelString modelIncorrect = new DropDownModelString();
+
+            modelIncorrect.Text = "NA";
+            modelIncorrect.Value = "NA";
+
+            list.Add(modelIncorrect);
+
+
+            return new SelectList(list, "Value", "Text");
+        }
+
 
     }
 }
