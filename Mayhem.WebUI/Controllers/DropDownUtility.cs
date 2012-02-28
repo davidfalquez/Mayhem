@@ -11,7 +11,25 @@ namespace Mayhem.WebUI.Controllers
 {
     public static class DropDownUtility
     {
-        public static SelectList GetEvaluatorDropDown()
+        public static SelectList GetChannelDropDown()
+        {
+            List<DropDownModelString> list = new List<DropDownModelString>();
+            List<Channel> channels = new List<Channel>();
+            
+            foreach (Channel channel in channels)
+            {
+                DropDownModelString model = new DropDownModelString();
+
+                model.Text = channel.ChannelName;
+                model.Value = channel.ChannelName;
+
+                list.Add(model);
+            }
+
+            return new SelectList(list, "Value", "Text");
+        }
+
+        public static SelectList GetDispatcherDropDown()
         {
 
             List<DropDownModelString> list = new List<DropDownModelString>();

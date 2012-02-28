@@ -68,6 +68,7 @@
     <Compile Include="Controllers\DropDownUtility.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrimaryIncidentController.cs" />
+    <Compile Include="Controllers\SecondaryIncidentController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

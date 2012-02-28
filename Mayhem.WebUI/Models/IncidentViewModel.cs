@@ -13,6 +13,7 @@ namespace Mayhem.WebUI.Models
         public string EvaluatorId { get; set; }
         public SelectList EvaluatorDropDown { get; set; }
         public int ChannelId { get; set; }
+        public string ChannelName { get; set; }
         public SelectList ChannelDropDown { get; set; }
         public string DispatcherId { get; set; }
         public SelectList DispatcherDropDown { get; set; }

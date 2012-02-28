@@ -120,3 +120,5 @@ E:\Mayhem\Mayhem.UI\obj\Debug\GenerateResource-ResGen.read.1.tlog
 E:\Mayhem\Mayhem.UI\obj\Debug\GenerateResource-ResGen.write.1.tlog
 E:\Mayhem\Mayhem.UI\bin\Debug\Mayhem.Data.dll
 E:\Mayhem\Mayhem.UI\bin\Debug\Mayhem.Data.pdb
+C:\Projects\Mayhem\Mayhem.UI\bin\Debug\Mayhem.Data.dll
+C:\Projects\Mayhem\Mayhem.UI\bin\Debug\Mayhem.Data.pdb
