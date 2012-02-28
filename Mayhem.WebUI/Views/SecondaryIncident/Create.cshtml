@@ -1,0 +1,249 @@
+﻿@model Mayhem.WebUI.Models.SecondaryIncidentViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>SecondaryIncidentViewModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FDUnitsAndTacCh)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FDUnitsAndTacCh)
+            @Html.ValidationMessageFor(model => model.FDUnitsAndTacCh)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ScriptingDocumented)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ScriptingDocumented)
+            @Html.ValidationMessageFor(model => model.ScriptingDocumented)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SevenMin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SevenMin)
+            @Html.ValidationMessageFor(model => model.SevenMin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TwelveMin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TwelveMin)
+            @Html.ValidationMessageFor(model => model.TwelveMin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ETALocationAsked)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ETALocationAsked)
+            @Html.ValidationMessageFor(model => model.ETALocationAsked)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ETADocumented)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ETADocumented)
+            @Html.ValidationMessageFor(model => model.ETADocumented)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProactiveRoutingGiven)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProactiveRoutingGiven)
+            @Html.ValidationMessageFor(model => model.ProactiveRoutingGiven)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CorrectRouting)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CorrectRouting)
+            @Html.ValidationMessageFor(model => model.CorrectRouting)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoutingDocumented)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RoutingDocumented)
+            @Html.ValidationMessageFor(model => model.RoutingDocumented)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PreArrivalGiven)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PreArrivalGiven)
+            @Html.ValidationMessageFor(model => model.PreArrivalGiven)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EMDDocumented)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EMDDocumented)
+            @Html.ValidationMessageFor(model => model.EMDDocumented)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PatchedChannels)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PatchedChannels)
+            @Html.ValidationMessageFor(model => model.PatchedChannels)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Phone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CaseNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CaseNumber)
+            @Html.ValidationMessageFor(model => model.CaseNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IncidentId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IncidentId)
+            @Html.ValidationMessageFor(model => model.IncidentId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EvaluatorId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EvaluatorId)
+            @Html.ValidationMessageFor(model => model.EvaluatorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ChannelId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChannelId)
+            @Html.ValidationMessageFor(model => model.ChannelId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ChannelName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChannelName)
+            @Html.ValidationMessageFor(model => model.ChannelName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DispatcherId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DispatcherId)
+            @Html.ValidationMessageFor(model => model.DispatcherId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShiftId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShiftId)
+            @Html.ValidationMessageFor(model => model.ShiftId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IncidentDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IncidentDate)
+            @Html.ValidationMessageFor(model => model.IncidentDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sunstar3DigitUnit)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sunstar3DigitUnit)
+            @Html.ValidationMessageFor(model => model.Sunstar3DigitUnit)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NatureOfCall)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NatureOfCall)
+            @Html.ValidationMessageFor(model => model.NatureOfCall)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MapGrid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MapGrid)
+            @Html.ValidationMessageFor(model => model.MapGrid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisplayedServiceAttitude)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DisplayedServiceAttitude)
+            @Html.ValidationMessageFor(model => model.DisplayedServiceAttitude)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UsedCorrectVolumeTone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UsedCorrectVolumeTone)
+            @Html.ValidationMessageFor(model => model.UsedCorrectVolumeTone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UsedProhibitedBehavior)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UsedProhibitedBehavior)
+            @Html.ValidationMessageFor(model => model.UsedProhibitedBehavior)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

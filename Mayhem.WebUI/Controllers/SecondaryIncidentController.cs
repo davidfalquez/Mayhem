@@ -54,7 +54,7 @@ namespace Mayhem.WebUI.Controllers
             incident.Evaluator.DispatcherId = model.EvaluatorId;
             incident.SecondaryIncident.SecondaryIncidentId = model.IncidentId;
             incident.SecondaryIncident.Channel = new Channel();
-            incident.SecondaryIncident.Channel.ChannelName = model.ChannelName;
+            incident.SecondaryIncident.Channel.ChannelId = model.ChannelId;
             incident.SecondaryIncident.DateTime = model.IncidentDate;
             incident.SecondaryIncident.Sunstar3DigitUnit = model.Sunstar3DigitUnit;
             incident.SecondaryIncident.NatureOfCall = model.NatureOfCall;
@@ -122,6 +122,13 @@ namespace Mayhem.WebUI.Controllers
             model.TwelveMin = incident.SecondaryIncident.TwelveMin;
             model.UsedCorrectVolumeTone = incident.SecondaryIncident.UsedCorrectVolumeTone;
             model.UsedProhibitedBehavior = incident.SecondaryIncident.UsedProhibitedBehavior;
+
+            model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
+            model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
+            model.ChannelDropDown = DropDownUtility.GetChannelDropDown();
+            model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
+            model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
+            model.UsedCorrectVolumeToneDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
 
             return View(model);
         }
