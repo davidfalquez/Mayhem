@@ -1,0 +1,53 @@
+﻿@model Mayhem.WebUI.Models.IncidentListViewModel
+@{
+    ViewBag.Title = "Incident";
+}
+<table>
+    <tr>
+        <th>
+            Incident ID
+        </th>
+        <th>
+            Incident Date
+        </th>
+        <th>
+            Primary Channel
+        </th>
+        <th>
+            Secondary Channel
+        </th>
+    </tr>
+    @foreach (var item in Model.Incidents)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.IncidentId) |
+                @Html.ActionLink("[Delete]", "Delete", new { incidentId = item.IncidentId })
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EntryDate)
+            </td>
+            <td>
+                @if (Model.ContainsPrimaryIncident)
+                {
+                    @Html.ActionLink("[Edit]", "Edit", "PrimaryIncident", new { incidentId = item.IncidentId }, null)
+
+                }
+                else
+                {
+                    @Html.ActionLink("[Create]", "Create", "PrimaryIncident", new { incidentId = item.IncidentId }, null)
+                }
+            </td>
+            <td>
+                @if (Model.ContainsSecondaryIncident)
+                {
+                    @Html.ActionLink("[Edit]", "Edit", "SecondaryIncident", new { incidentId = item.IncidentId }, null)
+                }
+                else
+                {
+                    @Html.ActionLink("[Create]", "Create", "SecondaryIncident", new { incidentId = item.IncidentId }, null)
+                }
+            </td>
+        </tr>
+    }
+</table>

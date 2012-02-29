@@ -14,16 +14,20 @@ namespace Mayhem.WebUI.Controllers
         public static SelectList GetChannelDropDown()
         {
             List<DropDownModelInt> list = new List<DropDownModelInt>();
-            List<Channel> channels = new List<Channel>();
+            List<Channel> channels = Provider.GetChannels();
             
             foreach (Channel channel in channels)
             {
-                DropDownModelInt model = new DropDownModelInt();
+                //TODO: Make Channel A a string constant
+                if (channel.ChannelName != "Channel A")
+                {
+                    DropDownModelInt model = new DropDownModelInt();
 
-                model.Text = channel.ChannelName;
-                model.Value = channel.ChannelId;
+                    model.Text = channel.ChannelName;
+                    model.Value = channel.ChannelId;
 
-                list.Add(model);
+                    list.Add(model);
+                }
             }
 
             return new SelectList(list, "Value", "Text");

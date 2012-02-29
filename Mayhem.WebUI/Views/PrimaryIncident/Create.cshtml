@@ -14,13 +14,14 @@
     <fieldset>
         <legend>PrimaryIncidentViewModel</legend>
 
-        <div class="editor-label">
+        @Html.HiddenFor(model => model.CaseNumber)
+      @*  <div class="editor-label">
             @Html.LabelFor(model => model.CaseNumber)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.CaseNumber)
             @Html.ValidationMessageFor(model => model.CaseNumber)
-        </div>
+        </div>*@
 
          <div class="editor-label">
             @Html.LabelFor(model => model.EvaluatorDropDown)
@@ -314,5 +315,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Incident", "Index", "Incident")
 </div>

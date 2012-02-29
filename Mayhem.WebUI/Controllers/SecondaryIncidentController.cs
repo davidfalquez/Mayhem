@@ -16,30 +16,45 @@ namespace Mayhem.WebUI.Controllers
 
         public ActionResult Index()
         {
+            List<SecondaryIncidentViewModel> models = GetSecodaryIncidentModels();
+            return View(models);
+        }
+
+        private static List<SecondaryIncidentViewModel> GetSecodaryIncidentModels()
+        {
             List<SecondaryIncidentViewModel> models = new List<SecondaryIncidentViewModel>();
             List<Incident> incidents = Provider.GetIncidents();
             foreach (Incident incident in incidents)
             {
-                SecondaryIncidentViewModel model = new SecondaryIncidentViewModel();
-                model.CaseNumber = incident.IncidentId;
-                model.IncidentId = incident.SecondaryIncident.SecondaryIncidentId;
-                model.IncidentDate = incident.SecondaryIncident.DateTime;
+                if (incident.SecondaryIncident.SecondaryIncidentId != Guid.Empty)
+                {
+                    SecondaryIncidentViewModel model = new SecondaryIncidentViewModel();
+                    model.CaseNumber = incident.IncidentId;
+                    model.IncidentId = incident.SecondaryIncident.SecondaryIncidentId;
+                    model.IncidentDate = incident.SecondaryIncident.DateTime;
 
-                models.Add(model);
+                    models.Add(model);
+                }
             }
-            return View(models);
+            return models;
         }
 
-        public ViewResult Create()
+        public ViewResult Create(string incidentId)
         {
             SecondaryIncidentViewModel model = new SecondaryIncidentViewModel();
+            model.CaseNumber = incidentId;
+            model.IncidentDate = DateTime.Today;
 
             model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ChannelDropDown = DropDownUtility.GetChannelDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
+            model.ProactiveRoutingGivenDropDown = DropDownUtility.GetYesNoNADropDown();
+            model.CorrectRoutingDropDown = DropDownUtility.GetYesNoNADropDown();
             model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
             model.UsedCorrectVolumeToneDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
+
+            model.IncidentDate = DateTime.Today;
 
             return View(model);
         }
@@ -52,9 +67,13 @@ namespace Mayhem.WebUI.Controllers
             incident.IncidentId = model.CaseNumber;
             incident.Evaluator = new Dispatcher();
             incident.Evaluator.DispatcherId = model.EvaluatorId;
+            incident.SecondaryIncident.Dispatcher = new Dispatcher();
+            incident.SecondaryIncident.Dispatcher.DispatcherId = model.DispatcherId;
             incident.SecondaryIncident.SecondaryIncidentId = model.IncidentId;
             incident.SecondaryIncident.Channel = new Channel();
             incident.SecondaryIncident.Channel.ChannelId = model.ChannelId;
+            incident.SecondaryIncident.Shift = new Shift();
+            incident.SecondaryIncident.Shift.ShiftId = model.ShiftId;
             incident.SecondaryIncident.DateTime = model.IncidentDate;
             incident.SecondaryIncident.Sunstar3DigitUnit = model.Sunstar3DigitUnit;
             incident.SecondaryIncident.NatureOfCall = model.NatureOfCall;
@@ -77,20 +96,21 @@ namespace Mayhem.WebUI.Controllers
             incident.SecondaryIncident.PatchedChannels = model.PatchedChannels;
             incident.SecondaryIncident.Phone = model.Phone;
 
-            Provider.CreateIncident(incident);
-
-            List<SecondaryIncidentViewModel> models = new List<SecondaryIncidentViewModel>();
-            List<Incident> incidents = Provider.GetIncidents();
-            foreach (Incident result in incidents)
+            Incident incidentResult = Provider.GetIncident(model.CaseNumber);
+            if (null != incidentResult && !string.IsNullOrEmpty(incidentResult.IncidentId))
             {
-                SecondaryIncidentViewModel indexModel = new SecondaryIncidentViewModel();
-                indexModel.CaseNumber = result.IncidentId;
-                indexModel.IncidentId = result.PrimaryIncident.PrimaryIncidentId;
-                indexModel.IncidentDate = result.PrimaryIncident.DateTime;
-
-                models.Add(indexModel);
+                incidentResult.SecondaryIncident = incident.SecondaryIncident;
+                Provider.UpdateIncident(incidentResult);
             }
-            return View("Index", models);
+            else
+            {
+
+                Provider.CreateIncident(incident);
+            }
+
+            IncidentListViewModel output = IncidentController.GetIncidentListViewModel(ref incident);
+
+            return View("../Incident/Create", output);
         }
 
         public ViewResult Edit(string incidentId)
@@ -100,7 +120,6 @@ namespace Mayhem.WebUI.Controllers
             Incident incident = Provider.GetIncident(incidentId);
 
             model.CaseNumber = incident.IncidentId;
-            model.ChannelName = incident.SecondaryIncident.Channel.ChannelName;
             model.DispatcherId = incident.SecondaryIncident.Dispatcher.DispatcherId;
             model.CorrectRouting = incident.SecondaryIncident.CorrectRouting;
             model.DisplayedServiceAttitude = incident.SecondaryIncident.DisplayedServiceAttitude;

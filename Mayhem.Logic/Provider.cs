@@ -191,8 +191,6 @@ namespace Mayhem.Logic
 
         public static void CreateIncident(Incident incident)
         {
-            //Make sure the incident does not exist, if it does throw an exception
-            //TODO: 
             if (null != incident.PrimaryIncident)
             {
                 incident.PrimaryIncident.PrimaryIncidentId = Guid.NewGuid();
@@ -218,18 +216,40 @@ namespace Mayhem.Logic
         {
             if (null != incident.PrimaryIncident)
             {
-                Data.Provider.PrimaryIncident_Update(incident.PrimaryIncident);
+                if (incident.PrimaryIncident.PrimaryIncidentId != Guid.Empty)
+                {
+                    Data.Provider.PrimaryIncident_Update(incident.PrimaryIncident);
+                }
+                else
+                {
+                    incident.PrimaryIncident.PrimaryIncidentId = Guid.NewGuid();
+                    Data.Provider.PrimaryIncident_Insert(incident.PrimaryIncident);
+                }
             }
             if (null != incident.SecondaryIncident)
             {
-                Data.Provider.SecondaryIncident_Update(incident.SecondaryIncident);
+                if (incident.SecondaryIncident.SecondaryIncidentId != Guid.Empty)
+                {
+                    Data.Provider.SecondaryIncident_Update(incident.SecondaryIncident);
+                }
+                else
+                {
+                    incident.SecondaryIncident.SecondaryIncidentId = Guid.NewGuid();
+                    Data.Provider.SecondaryIncident_Insert(incident.SecondaryIncident);
+                }
             }
 
             incident.LastUpdated = DateTime.Now;
-            incident.PrimaryIncidentScore = PointSystem.PointTabulationTotalScore(new PrimaryFormPoints(incident.PrimaryIncident));
-            incident.PrimaryIncidentScorePercent = (float)PointSystem.PointTabulation(new PrimaryFormPoints(incident.PrimaryIncident));
-            incident.SecondaryIncidentScore = PointSystem.PointTabulationTotalScore(new SecondaryFormPoints(incident.SecondaryIncident));
-            incident.SecondaryIncidentScorePercent = (float)PointSystem.PointTabulation(new SecondaryFormPoints(incident.SecondaryIncident));
+            if (null != incident.PrimaryIncident && incident.PrimaryIncident.PrimaryIncidentId != Guid.Empty)
+            {
+                incident.PrimaryIncidentScore = PointSystem.PointTabulationTotalScore(new PrimaryFormPoints(incident.PrimaryIncident));
+                incident.PrimaryIncidentScorePercent = (float)PointSystem.PointTabulation(new PrimaryFormPoints(incident.PrimaryIncident));
+            }
+            if (null != incident.SecondaryIncident && incident.SecondaryIncident.SecondaryIncidentId != Guid.Empty)
+            {
+                incident.SecondaryIncidentScore = PointSystem.PointTabulationTotalScore(new SecondaryFormPoints(incident.SecondaryIncident));
+                incident.SecondaryIncidentScorePercent = (float)PointSystem.PointTabulation(new SecondaryFormPoints(incident.SecondaryIncident));
+            }
 
             Data.Provider.Incident_Update(incident);
         }
@@ -239,39 +259,42 @@ namespace Mayhem.Logic
             Incident returnValue = new Incident();
             DataSet incidentDataSet = Data.Provider.Incident_SelectById(incidentId);
 
-            returnValue.IncidentId = incidentDataSet.Tables[0].Rows[0]["IncidentId"].ToString();
-            returnValue.PrimaryIncident = new PrimaryIncident();
-            if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString()))
+            if (incidentDataSet.Tables[0].Rows.Count > 0)
             {
-                returnValue.PrimaryIncident.PrimaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString());
-                returnValue.PrimaryIncident = GetPrimaryIncident(returnValue.PrimaryIncident.PrimaryIncidentId);
-            }
-            returnValue.SecondaryIncident = new SecondaryIncident();
-            if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString()))
-            {
-                returnValue.SecondaryIncident.SecondaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString());
-                returnValue.SecondaryIncident = GetSecondaryIncident(returnValue.SecondaryIncident.SecondaryIncidentId);
-            }
-            returnValue.Evaluator = new Dispatcher();
-            returnValue.Evaluator.DispatcherId = incidentDataSet.Tables[0].Rows[0]["EvaluatorId"].ToString();
-            returnValue.Evaluator = GetDispatcher(returnValue.Evaluator.DispatcherId);
-            returnValue.EntryDate = DateTime.Parse(incidentDataSet.Tables[0].Rows[0]["EntryDate"].ToString());
-            returnValue.LastUpdated = DateTime.Parse(incidentDataSet.Tables[0].Rows[0]["LastUpdated"].ToString());
-            if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScore"])
-            {
-                returnValue.PrimaryIncidentScore = int.Parse(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScore"].ToString());
-            }
-            if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScorePercent"])
-            {
-                returnValue.PrimaryIncidentScorePercent = float.Parse(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScorePercent"].ToString());
-            }
-            if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScore"])
-            {
-                returnValue.SecondaryIncidentScore = int.Parse(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScore"].ToString());
-            }
-            if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"])
-            {
-                returnValue.SecondaryIncidentScorePercent = float.Parse(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"].ToString());
+                returnValue.IncidentId = incidentDataSet.Tables[0].Rows[0]["IncidentId"].ToString();
+                returnValue.PrimaryIncident = new PrimaryIncident();
+                if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString()))
+                {
+                    returnValue.PrimaryIncident.PrimaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentId"].ToString());
+                    returnValue.PrimaryIncident = GetPrimaryIncident(returnValue.PrimaryIncident.PrimaryIncidentId);
+                }
+                returnValue.SecondaryIncident = new SecondaryIncident();
+                if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString()))
+                {
+                    returnValue.SecondaryIncident.SecondaryIncidentId = new Guid(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentId"].ToString());
+                    returnValue.SecondaryIncident = GetSecondaryIncident(returnValue.SecondaryIncident.SecondaryIncidentId);
+                }
+                returnValue.Evaluator = new Dispatcher();
+                returnValue.Evaluator.DispatcherId = incidentDataSet.Tables[0].Rows[0]["EvaluatorId"].ToString();
+                returnValue.Evaluator = GetDispatcher(returnValue.Evaluator.DispatcherId);
+                returnValue.EntryDate = DateTime.Parse(incidentDataSet.Tables[0].Rows[0]["EntryDate"].ToString());
+                returnValue.LastUpdated = DateTime.Parse(incidentDataSet.Tables[0].Rows[0]["LastUpdated"].ToString());
+                if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScore"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScore"].ToString()))
+                {
+                    returnValue.PrimaryIncidentScore = int.Parse(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScore"].ToString());
+                }
+                if (null != incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScorePercent"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScorePercent"].ToString()))
+                {
+                    returnValue.PrimaryIncidentScorePercent = float.Parse(incidentDataSet.Tables[0].Rows[0]["PrimaryIncidentScorePercent"].ToString());
+                }
+                if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScore"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScore"].ToString()))
+                {
+                    returnValue.SecondaryIncidentScore = int.Parse(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScore"].ToString());
+                }
+                if (null != incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"] && !string.IsNullOrEmpty(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"].ToString()))
+                {
+                    returnValue.SecondaryIncidentScorePercent = float.Parse(incidentDataSet.Tables[0].Rows[0]["SecondaryIncidentScorePercent"].ToString());
+                }
             }
 
             return returnValue;

@@ -79,7 +79,7 @@ namespace Mayhem.Data
             DataSet returnValue = null;
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("Channel_SelectById", connection);          
+            SqlCommand command = new SqlCommand("Channel_SelectById", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@ChannelId", channelId);
@@ -183,28 +183,32 @@ namespace Mayhem.Data
             if (null == input.PrimaryIncident)
             {
                 command.Parameters.AddWithValue("@PrimaryIncidentId", DBNull.Value);
+                command.Parameters.AddWithValue("@PrimaryIncidentScore", DBNull.Value);
+                command.Parameters.AddWithValue("@PrimaryIncidentScorePercent", DBNull.Value);
             }
             else
             {
                 command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncident.PrimaryIncidentId);
+                command.Parameters.AddWithValue("@PrimaryIncidentScore", input.PrimaryIncidentScore);
+                command.Parameters.AddWithValue("@PrimaryIncidentScorePercent", input.PrimaryIncidentScorePercent);
             }
 
             if (null == input.SecondaryIncident)
             {
                 command.Parameters.AddWithValue("@SecondaryIncidentId", DBNull.Value);
+                command.Parameters.AddWithValue("@SecondaryIncidentScorePercent", DBNull.Value);
+                command.Parameters.AddWithValue("@SecondaryIncidentScore", DBNull.Value);
             }
             else
             {
                 command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncident.SecondaryIncidentId);
+                command.Parameters.AddWithValue("@SecondaryIncidentScorePercent", input.SecondaryIncidentScorePercent);
+                command.Parameters.AddWithValue("@SecondaryIncidentScore", input.SecondaryIncidentScore);
 
             }
             command.Parameters.AddWithValue("@EvaluatorId", input.Evaluator.DispatcherId);
             command.Parameters.AddWithValue("@EntryDate", input.EntryDate);
             command.Parameters.AddWithValue("@LastUpdated", input.LastUpdated);
-            command.Parameters.AddWithValue("@PrimaryIncidentScore", input.PrimaryIncidentScore);
-            command.Parameters.AddWithValue("@PrimaryIncidentScorePercent", input.PrimaryIncidentScorePercent);
-            command.Parameters.AddWithValue("@SecondaryIncidentScore", input.SecondaryIncidentScore);
-            command.Parameters.AddWithValue("@SecondaryIncidentScorePercent", input.SecondaryIncidentScorePercent);
 
             SqlUtility.ExecuteNonQuery(command);
         }
@@ -257,12 +261,26 @@ namespace Mayhem.Data
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("Incident_Insert", connection);
+            SqlCommand command = new SqlCommand("Incident_Update", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@IncidentId", input.IncidentId);
-            command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncident.PrimaryIncidentId);
-            command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncident.SecondaryIncidentId);
+            if (null == input.PrimaryIncident)
+            {
+                command.Parameters.AddWithValue("@PrimaryIncidentId", DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@PrimaryIncidentId", input.PrimaryIncident.PrimaryIncidentId);
+            }
+            if (null == input.SecondaryIncident)
+            {
+                command.Parameters.AddWithValue("@SecondaryIncidentId", DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncident.SecondaryIncidentId);
+            }
             command.Parameters.AddWithValue("@EvaluatorId", input.Evaluator.DispatcherId);
             command.Parameters.AddWithValue("@EntryDate", input.EntryDate);
             command.Parameters.AddWithValue("@LastUpdated", input.LastUpdated);
@@ -470,7 +488,7 @@ namespace Mayhem.Data
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("SecondaryIncident_Insert", connection);
+            SqlCommand command = new SqlCommand("SecondaryIncident_Update", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@SecondaryIncidentId", input.SecondaryIncidentId);

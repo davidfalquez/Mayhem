@@ -20,19 +20,24 @@ namespace Mayhem.WebUI.Controllers
             List<Incident> incidents = Provider.GetIncidents();
             foreach (Incident incident in incidents)
             {
-                PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
-                model.CaseNumber = incident.IncidentId;
-                model.IncidentId = incident.PrimaryIncident.PrimaryIncidentId;
-                model.IncidentDate = incident.PrimaryIncident.DateTime;
+                if (incident.PrimaryIncident.PrimaryIncidentId != Guid.Empty)
+                {
+                    PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
+                    model.CaseNumber = incident.IncidentId;
+                    model.IncidentId = incident.PrimaryIncident.PrimaryIncidentId;
+                    model.IncidentDate = incident.PrimaryIncident.DateTime;
 
-                models.Add(model);
+                    models.Add(model);
+                }
             }
             return View(models);
         }
 
-        public ViewResult Create()
+        public ViewResult Create(string incidentId)
         {
             PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
+            model.CaseNumber = incidentId;
+            model.IncidentDate = DateTime.Now;
 
             //Fill Drop Downs
             model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
@@ -75,21 +80,22 @@ namespace Mayhem.WebUI.Controllers
             //This is channel A
             incident.PrimaryIncident.Channel.ChannelId = GetChannelAId();
 
-
-            Provider.CreateIncident(incident);
-
-            List<PrimaryIncidentViewModel> models = new List<PrimaryIncidentViewModel>();
-            List<Incident> incidents = Provider.GetIncidents();
-            foreach (Incident result in incidents)
+            Incident incidentResult = Provider.GetIncident(model.CaseNumber);
+            if (null != incidentResult && !string.IsNullOrEmpty(incidentResult.IncidentId))
             {
-                PrimaryIncidentViewModel indexModel = new PrimaryIncidentViewModel();
-                indexModel.CaseNumber = result.IncidentId;
-                indexModel.IncidentId = result.PrimaryIncident.PrimaryIncidentId;
-                indexModel.IncidentDate = result.PrimaryIncident.DateTime;
-
-                models.Add(indexModel);
+                incidentResult.SecondaryIncident = null;
+                incidentResult.PrimaryIncident = incident.PrimaryIncident;
+                Provider.UpdateIncident(incidentResult);
             }
-            return View("Index", models);
+            else
+            {
+                incidentResult.SecondaryIncident = null;
+                Provider.CreateIncident(incident);
+            }
+
+            IncidentListViewModel output = IncidentController.GetIncidentListViewModel(ref incident);
+
+            return View("../Incident/Create", output);
         }
 
         private int GetChannelAId()

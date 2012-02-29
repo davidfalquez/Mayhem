@@ -14,6 +14,90 @@
     <fieldset>
         <legend>SecondaryIncidentViewModel</legend>
 
+         @Html.HiddenFor(model => model.CaseNumber)
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.CaseNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CaseNumber)
+            @Html.ValidationMessageFor(model => model.CaseNumber)
+        </div>*@
+        
+         <div class="editor-label">
+            @Html.LabelFor(model => model.EvaluatorDropDown)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.EvaluatorId, Model.EvaluatorDropDown, "- Evaluator -")
+            @Html.ValidationMessageFor(model => model.EvaluatorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DispatcherDropDown)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DispatcherId, Model.DispatcherDropDown, "- Dispatcher -")
+            @Html.ValidationMessageFor(model => model.DispatcherId)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.ShiftDropDown)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ShiftId, Model.ShiftDropDown, "- Shift -")
+            @Html.ValidationMessageFor(model => model.ShiftId)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.ChannelDropDown)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ChannelId, Model.ChannelDropDown, "- Channel -")
+            @Html.ValidationMessageFor(model => model.ChannelId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IncidentDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IncidentDate)
+            @Html.ValidationMessageFor(model => model.IncidentDate)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sunstar3DigitUnit)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sunstar3DigitUnit)
+            @Html.ValidationMessageFor(model => model.Sunstar3DigitUnit)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NatureOfCall)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NatureOfCall)
+            @Html.ValidationMessageFor(model => model.NatureOfCall)
+        </div>
+
+
+        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MapGrid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MapGrid)
+            @Html.ValidationMessageFor(model => model.MapGrid)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.FDUnitsAndTacCh)
         </div>
@@ -62,19 +146,19 @@
             @Html.ValidationMessageFor(model => model.ETADocumented)
         </div>
 
-        <div class="editor-label">
+         <div class="editor-label">
             @Html.LabelFor(model => model.ProactiveRoutingGiven)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ProactiveRoutingGiven)
+            @Html.DropDownListFor(model => model.ProactiveRoutingGiven, Model.ProactiveRoutingGivenDropDown , "- Select -")
             @Html.ValidationMessageFor(model => model.ProactiveRoutingGiven)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CorrectRouting)
+       <div class="editor-label">
+            @Html.LabelFor(model => model.CorrectRoutingDropDown)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CorrectRouting)
+            @Html.DropDownListFor(model => model.CorrectRouting, Model.CorrectRoutingDropDown , "- Select -")
             @Html.ValidationMessageFor(model => model.CorrectRouting)
         </div>
 
@@ -118,115 +202,23 @@
             @Html.ValidationMessageFor(model => model.Phone)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CaseNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CaseNumber)
-            @Html.ValidationMessageFor(model => model.CaseNumber)
-        </div>
+
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IncidentId)
+            @Html.LabelFor(model => model.DisplayedServiceAttitudeDropDown)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.IncidentId)
-            @Html.ValidationMessageFor(model => model.IncidentId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EvaluatorId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EvaluatorId)
-            @Html.ValidationMessageFor(model => model.EvaluatorId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ChannelId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ChannelId)
-            @Html.ValidationMessageFor(model => model.ChannelId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ChannelName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ChannelName)
-            @Html.ValidationMessageFor(model => model.ChannelName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DispatcherId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DispatcherId)
-            @Html.ValidationMessageFor(model => model.DispatcherId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ShiftId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ShiftId)
-            @Html.ValidationMessageFor(model => model.ShiftId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IncidentDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IncidentDate)
-            @Html.ValidationMessageFor(model => model.IncidentDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Sunstar3DigitUnit)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Sunstar3DigitUnit)
-            @Html.ValidationMessageFor(model => model.Sunstar3DigitUnit)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NatureOfCall)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NatureOfCall)
-            @Html.ValidationMessageFor(model => model.NatureOfCall)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Location)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MapGrid)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MapGrid)
-            @Html.ValidationMessageFor(model => model.MapGrid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DisplayedServiceAttitude)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DisplayedServiceAttitude)
+            @Html.DropDownListFor(model => model.DisplayedServiceAttitude, Model.DisplayedServiceAttitudeDropDown, "- Select -")
             @Html.ValidationMessageFor(model => model.DisplayedServiceAttitude)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UsedCorrectVolumeTone)
+        
+        
+         <div class="editor-label">
+            @Html.LabelFor(model => model.UsedCorrectVolumeToneDropDown)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.UsedCorrectVolumeTone)
+            @Html.DropDownListFor(model => model.UsedCorrectVolumeTone, Model.UsedCorrectVolumeToneDropDown, "- Select -")
             @Html.ValidationMessageFor(model => model.UsedCorrectVolumeTone)
         </div>
 
