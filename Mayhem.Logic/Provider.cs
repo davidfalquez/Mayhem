@@ -352,6 +352,17 @@ namespace Mayhem.Logic
             return returnValue;
         }
 
+        public static PrimaryIncidentDispatcherReport GetPrimaryIncidentDispatcherReport(DateTime beginDate, DateTime endDate)
+        {
+            PrimaryIncidentDispatcherReport returnValue = new PrimaryIncidentDispatcherReport();
+            returnValue.DispatcherTotals = new List<PrimaryIncidentReportTotals>();
+            returnValue.DispatcherBottomLineTotals = new PrimaryIncidentReportTotals();
+            DataSet reportDataSet = Data.Provider.PrimaryIncidentReport_SelectByDateRange(beginDate, endDate);
+
+
+            return returnValue;
+        }
+
         public static SecondaryIncident GetSecondaryIncident(Guid incidentId)
         {
             SecondaryIncident returnValue = new SecondaryIncident();
