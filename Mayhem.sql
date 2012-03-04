@@ -2326,11 +2326,10 @@ END
 
 GO
 
-
 USE [Mayhem]
 GO
 
-/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/03/2012 15:45:39 ******/
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/04/2012 10:34:42 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]
 GO
@@ -2338,7 +2337,7 @@ GO
 USE [Mayhem]
 GO
 
-/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/03/2012 15:45:39 ******/
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/04/2012 10:34:42 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -2362,7 +2361,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    SELECT i.[EvaluatorId]
+    SELECT i.[EvaluatorId] as DispatcherId
 		,d.FirstName
 		,d.LastName
       ,SUM(CAST(ToneAlertUsed as int)) as ToneAlertUsed
