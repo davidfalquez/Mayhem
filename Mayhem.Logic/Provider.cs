@@ -359,8 +359,81 @@ namespace Mayhem.Logic
             returnValue.DispatcherBottomLineTotals = new PrimaryIncidentReportTotals();
             DataSet reportDataSet = Data.Provider.PrimaryIncidentReport_SelectByDateRange(beginDate, endDate);
 
+            foreach (DataRow row in reportDataSet.Tables[0].Rows)
+            {
+                PrimaryIncidentReportTotals incident = new PrimaryIncidentReportTotals();
+                incident.Dispatcher = new Dispatcher();
+                incident.Dispatcher.DispatcherId = row["DispatcherId"].ToString();
+                incident.Dispatcher.FirstName = row["FirstName"].ToString();
+                incident.Dispatcher.LastName = row["LastName"].ToString();
+                incident.ToneAlertUsed = decimal.Parse(row["ToneAlertUsed"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.ToneAlertUsed += incident.ToneAlertUsed;
+                incident.Priority = decimal.Parse(row["Priority"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.Priority += incident.Priority;
+                incident.Sunstar3DigitUnit = decimal.Parse(row["Sunstar3DigitUnit"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.Sunstar3DigitUnit += incident.Sunstar3DigitUnit;
+                incident.Location = decimal.Parse(row["Location"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.Location += incident.Location;
+                incident.MapGrid = decimal.Parse(row["MapGrid"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.MapGrid += incident.MapGrid;
+                incident.NatureOfCall = decimal.Parse(row["NatureOfCall"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.NatureOfCall += incident.NatureOfCall;
+                incident.SsTacChannel = decimal.Parse(row["SsTacChannel"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.SsTacChannel += incident.SsTacChannel;
+                incident.PertinentIntRouting = decimal.Parse(row["PertinentIntRouting"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.PertinentIntRouting += incident.PertinentIntRouting;
+                incident.InfoGivenOutOfOrder = decimal.Parse(row["InfoGivenOutOfOrder"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.InfoGivenOutOfOrder += incident.InfoGivenOutOfOrder;
+                incident.UsedProhibitedBehavior = decimal.Parse(row["UsedProhibitedBehavior"].ToString());
+                returnValue.DispatcherBottomLineTotals.UsedProhibitedBehavior += incident.UsedProhibitedBehavior;
+                incident.DisplayedServiceAttitude = TertiaryReceptor(
+                    int.Parse(row["DisplayedServiceAttitude_Correct"].ToString()),
+                    int.Parse(row["DisplayedServiceAttitude_Incorrect"].ToString()),
+                    int.Parse(row["DisplayedServiceAttitude_Minor"].ToString()));
+                returnValue.DispatcherBottomLineTotals.DisplayedServiceAttitude += incident.DisplayedServiceAttitude;
+                incident.UsedCorrectVolumeTone = TertiaryReceptor(
+                    int.Parse(row["UsedCorrectVolumeTone_Correct"].ToString()),
+                    int.Parse(row["UsedCorrectVolumeTone_Incorrect"].ToString()),
+                    int.Parse(row["UsedCorrectVolumeTone_Minor"].ToString()));
+                returnValue.DispatcherBottomLineTotals.UsedCorrectVolumeTone += incident.UsedCorrectVolumeTone;
+                incident.CallCount = int.Parse(row["CallCount"].ToString());
+                returnValue.DispatcherBottomLineTotals.CallCount += incident.CallCount;
+                incident.TotalScore = decimal.Parse(row["TotalScore"].ToString()) / decimal.Parse(row["CallCount"].ToString());
+
+                returnValue.DispatcherTotals.Add(incident);
+            }
+            returnValue.DispatcherBottomLineTotals.DisplayedServiceAttitude /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.InfoGivenOutOfOrder /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Location /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.MapGrid /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.NatureOfCall /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.PertinentIntRouting /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Priority /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.SsTacChannel /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Sunstar3DigitUnit /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.ToneAlertUsed /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.TotalScore /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.UsedCorrectVolumeTone /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.UsedProhibitedBehavior /= returnValue.DispatcherTotals.Count;
+            //returnValue.ReportName = "";
+            //returnValue.ScriptInfo = "";
+            returnValue.BeginDate = beginDate;
+            returnValue.EndDate = endDate;
+            
 
             return returnValue;
+        }
+
+        public static decimal TertiaryReceptor(int highCount, int midCount, int lowCount)
+        {
+            decimal returnValue = 0;
+
+            int totalCount = highCount + midCount + lowCount;
+            decimal highestValue = totalCount * 25;
+            int highScore = highCount * 25;
+            int midScore = midCount * 10;
+
+            return returnValue = (highScore + midScore) / highestValue;
         }
 
         public static SecondaryIncident GetSecondaryIncident(Guid incidentId)
