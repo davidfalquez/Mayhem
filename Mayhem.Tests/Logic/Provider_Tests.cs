@@ -88,5 +88,26 @@ namespace Mayhem.Tests.Logic
             Provider.DeleteDispatcher(dispatcher1.DispatcherId);
             Provider.DeleteDispatcher(dispatcher2.DispatcherId);
         }
+
+        [TestMethod]
+        public void ChannelADispatcherReport_Test()
+        {
+            DateTime beginDate = DateTime.Now.AddMonths(-3);
+            DateTime endDate = DateTime.Now;
+
+            PrimaryIncidentDispatcherReport incident = new PrimaryIncidentDispatcherReport();
+            incident = Provider.GetPrimaryIncidentDispatcherReport(beginDate, endDate);
+        }
+
+        [TestMethod]
+        public void TertiaryReceptor_Tests()
+        {
+            int correct = 5;
+            int minor = 3;
+            int incorrect = 2;
+
+            decimal score = Provider.TertiaryReceptor(correct, minor, incorrect);
+            Assert.IsTrue(score == 0.62m);
+        }
     }
 }
