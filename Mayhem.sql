@@ -2259,3 +2259,70 @@ END
 
 GO
 
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PrimaryIncidentReport_SelectByDateRange]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[PrimaryIncidentReport_SelectByDateRange]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[PrimaryIncidentReport_SelectByDateRange]
+(
+     @BeginDate datetime
+     ,@EndDate datetime
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT p.[DispatcherId]
+		,d.FirstName
+		,d.LastName
+      ,SUM(CAST(ToneAlertUsed as int)) as ToneAlertUsed
+      ,SUM(CAST(Priority as int)) as Priority
+      ,SUM(CAST(Sunstar3DigitNumber as int)) as Sunstar3DigitNumber
+      ,SUM(CAST(Location as int)) as Location
+      ,SUM(CAST(MapGrid as int)) as MapGrid
+      ,SUM(CAST(NatureOfCall as int)) as NatureOfCall
+      ,SUM(CAST(SSTacChannel as int)) as SSTacChannel
+      ,SUM(CAST(PertinentIntRouting as int)) as PertinentIntRouting
+      ,SUM(CAST(InfoGivenOutOfOrder as int)) as InfoGivenOutOfOrder
+      ,SUM(CAST(UsedProhibitedBehavior as int)) as UsedProhibitedBehavior
+      ,(select count(DisplayedServiceAttitude) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and DisplayedServiceAttitude like 'Correct') as DisplayedServiceAttitude_Correct
+      ,(select count(DisplayedServiceAttitude) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and DisplayedServiceAttitude like 'INCoRrect') as DisplayedServiceAttitude_Incorrect
+      ,(select count(DisplayedServiceAttitude) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and DisplayedServiceAttitude like 'Minor') as DisplayedServiceAttitude_Minor
+      ,(select count(UsedCorrectVolumeTone) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and UsedCorrectVolumeTone like 'Correct') as UsedCorrectVolumeTone_Correct
+      ,(select count(UsedCorrectVolumeTone) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and UsedCorrectVolumeTone like 'INCoRrect') as UsedCorrectVolumeTone_Incorrect
+      ,(select count(UsedCorrectVolumeTone) from PrimaryIncident p2 where p.dispatcherid = p2.dispatcherId and UsedCorrectVolumeTone like 'Minor') as UsedCorrectVolumeTone_Minor
+      ,SUM(i.PrimaryIncidentScorePercent) as TotalScore
+      ,count(*) as CallCount
+  FROM PrimaryIncident p
+  Join Dispatcher d on p.DispatcherId = d.DispatcherId
+  join Incident i on i.PrimaryIncidentId = p.primaryincidentid
+  WHERE [DateTime] >= @BeginDate
+  AND [DateTime] <= @EndDate
+  group by p.dispatcherId, firstname, lastname
+END
+
+
+GO
+
