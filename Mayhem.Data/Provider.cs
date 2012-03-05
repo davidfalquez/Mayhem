@@ -407,6 +407,22 @@ namespace Mayhem.Data
             return returnValue;
         }
 
+        public static DataSet PrimaryIncidentEvaluatorReport_SelectByDateRange(DateTime beginDate, DateTime endDate)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("PrimaryIncidentReport_Evaluator_SelectByDateRange", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@BeginDate", beginDate);
+            command.Parameters.AddWithValue("@EndDate", endDate);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
         public static DataSet RoleType_SelectAll()
         {
             DataSet returnValue = null;
