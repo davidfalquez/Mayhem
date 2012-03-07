@@ -65,7 +65,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChannelController.cs" />
     <Compile Include="Controllers\DispatcherController.cs" />
+    <Compile Include="Controllers\PrimaryIncidentDispatcherReportController.cs" />
     <Compile Include="Controllers\DropDownUtility.cs" />
+    <Compile Include="Controllers\PrimaryIncidentEvaluatorReportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidentController.cs" />
     <Compile Include="Controllers\PrimaryIncidentController.cs" />
