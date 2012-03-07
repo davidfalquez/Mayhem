@@ -77,6 +77,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondaryFormPoints.cs" />
     <Compile Include="SecondaryIncident.cs" />
+    <Compile Include="SecondaryIncidentDispatcherReport.cs" />
+    <Compile Include="SecondaryIncidentReportTotals.cs" />
     <Compile Include="Shift.cs" />
   </ItemGroup>
   <ItemGroup>

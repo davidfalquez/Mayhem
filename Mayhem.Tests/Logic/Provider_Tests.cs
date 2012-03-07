@@ -106,8 +106,19 @@ namespace Mayhem.Tests.Logic
             int minor = 3;
             int incorrect = 2;
 
-            decimal score = Provider.TertiaryReceptor(correct, minor, incorrect);
+            decimal score = Provider.TertiaryReceptor(correct, minor, incorrect, 25, 10, 0, false);
             Assert.IsTrue(score == 0.62m);
+        }
+
+        [TestMethod]
+        public void TertiaryReceptor_NA_Tests()
+        {
+            int Yes = 5;
+            int No = 5;
+            int Na = 14;
+
+            decimal score = Provider.TertiaryReceptor(Yes, No, Na, 5, 0, 0, true);
+            Assert.IsTrue(score == 0.5m);
         }
     }
 }

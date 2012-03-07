@@ -15,12 +15,12 @@ namespace Mayhem.WebUI.Controllers
 
         public ActionResult Index()
         {
-            return View(new PrimaryIncidentDispatcherReport());
+            return View();
         }
 
-        public ActionResult ViewDispatcherReport(PrimaryIncidentDispatcherReport reportInfo)
+        public ActionResult ViewDispatcherReport(DateTime beginDate, DateTime endDate)
         {
-            reportInfo = Provider.GetPrimaryIncidentDispatcherReport(reportInfo.BeginDate, reportInfo.EndDate);
+           PrimaryIncidentDispatcherReport reportInfo = Provider.GetPrimaryIncidentDispatcherReport(beginDate, endDate);
 
             return View(reportInfo);
         }

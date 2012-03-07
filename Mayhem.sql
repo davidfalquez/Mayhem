@@ -2262,15 +2262,15 @@ GO
 USE [Mayhem]
 GO
 
-/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PrimaryIncidentReport_SelectByDateRange]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[PrimaryIncidentReport_SelectByDateRange]
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]
 GO
 
 USE [Mayhem]
 GO
 
-/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
+/****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -2283,7 +2283,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[PrimaryIncidentReport_SelectByDateRange]
+CREATE PROCEDURE [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]
 (
      @BeginDate datetime
      ,@EndDate datetime
@@ -2395,4 +2395,172 @@ END
 GO
 
 
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/07/2012 12:31:20 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/07/2012 12:31:20 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]
+(
+     @BeginDate datetime
+     ,@EndDate datetime
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+     SELECT s.[DispatcherId]
+		,d.FirstName
+		,d.LastName
+      ,SUM(CAST(Sunstar3DigitNumber as int)) as Sunstar3DigitNumber
+      ,SUM(CAST(NatureOfCall as int)) as NatureOfCall
+      ,SUM(CAST(Location as int)) as Location
+      ,SUM(CAST(MapGrid as int)) as MapGrid
+      ,SUM(CAST(FDUnitsAndTacCh as int)) as FDUnitsAndTacCh
+      ,SUM(CAST(ScriptingDocumented as int)) as ScriptingDocumented
+      ,SUM(CAST(SevenMin as int)) as SevenMin
+      ,SUM(CAST(TwelveMin as int)) as TwelveMin
+      ,SUM(CAST(ETALocationAsked as int)) as ETALocationAsked
+      ,SUM(CAST(ETADocumented as int)) as ETADocumented
+      ,SUM(CAST(RoutingDocumented as int)) as RoutingDocumented
+      ,SUM(CAST(PreArrivalGiven as int)) as PreArrivalGiven
+      ,SUM(CAST(EMDDocumented as int)) as EMDDocumented
+      ,SUM(CAST(UsedProhibitedBehavior as int)) as UsedProhibitedBehavior
+      ,SUM(CAST(PatchedChannels as int)) as PatchedChannels
+      ,SUM(CAST(Phone as int)) as Phone
+      
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and ProactiveRoutingGiven like 'Yes') as ProactiveRoutingGiven_Yes
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and ProactiveRoutingGiven like 'No') as ProactiveRoutingGiven_No
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and ProactiveRoutingGiven like 'NA') as ProactiveRoutingGiven_NA
+      ,(select count(CorrectRouting) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and CorrectRouting like 'Yes') as CorrectRouting_Yes
+      ,(select count(CorrectRouting) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and CorrectRouting like 'No') as CorrectRouting_No
+      ,(select count(CorrectRouting) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and CorrectRouting like 'NA') as CorrectRouting_NA
+      
+      
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and DisplayedServiceAttitude like 'Correct') as DisplayedServiceAttitude_Correct
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and DisplayedServiceAttitude like 'INCoRrect') as DisplayedServiceAttitude_Incorrect
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and DisplayedServiceAttitude like 'Minor') as DisplayedServiceAttitude_Minor
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and UsedCorrectVolumeTone like 'Correct') as UsedCorrectVolumeTone_Correct
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and UsedCorrectVolumeTone like 'INCoRrect') as UsedCorrectVolumeTone_Incorrect
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 where s.dispatcherid = s2.dispatcherId and UsedCorrectVolumeTone like 'Minor') as UsedCorrectVolumeTone_Minor
+      ,SUM(i.SecondaryIncidentScorePercent) as TotalScore
+      ,count(*) as CallCount
+  FROM SecondaryIncident s
+  Join Dispatcher d on s.DispatcherId = d.DispatcherId
+  join Incident i on i.SecondaryIncidentId = s.SecondaryIncidentId
+  WHERE [DateTime] >= @BeginDate
+  AND [DateTime] <= @EndDate
+  group by s.dispatcherId, firstname, lastname
+END
+
+
+
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/07/2012 13:17:28 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/07/2012 13:17:28 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]
+(
+     @BeginDate datetime
+     ,@EndDate datetime
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+     SELECT i.[EvaluatorId] as DispatcherId
+		,d.FirstName
+		,d.LastName
+      ,SUM(CAST(Sunstar3DigitNumber as int)) as Sunstar3DigitNumber
+      ,SUM(CAST(NatureOfCall as int)) as NatureOfCall
+      ,SUM(CAST(Location as int)) as Location
+      ,SUM(CAST(MapGrid as int)) as MapGrid
+      ,SUM(CAST(FDUnitsAndTacCh as int)) as FDUnitsAndTacCh
+      ,SUM(CAST(ScriptingDocumented as int)) as ScriptingDocumented
+      ,SUM(CAST(SevenMin as int)) as SevenMin
+      ,SUM(CAST(TwelveMin as int)) as TwelveMin
+      ,SUM(CAST(ETALocationAsked as int)) as ETALocationAsked
+      ,SUM(CAST(ETADocumented as int)) as ETADocumented
+      ,SUM(CAST(RoutingDocumented as int)) as RoutingDocumented
+      ,SUM(CAST(PreArrivalGiven as int)) as PreArrivalGiven
+      ,SUM(CAST(EMDDocumented as int)) as EMDDocumented
+      ,SUM(CAST(UsedProhibitedBehavior as int)) as UsedProhibitedBehavior
+      ,SUM(CAST(PatchedChannels as int)) as PatchedChannels
+      ,SUM(CAST(Phone as int)) as Phone
+      
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and ProactiveRoutingGiven like 'Yes') as ProactiveRoutingGiven_Yes
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and ProactiveRoutingGiven like 'No') as ProactiveRoutingGiven_No
+      ,(select count(ProactiveRoutingGiven) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and ProactiveRoutingGiven like 'NA') as ProactiveRoutingGiven_NA
+      ,(select count(CorrectRouting) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and CorrectRouting like 'Yes') as CorrectRouting_Yes
+      ,(select count(CorrectRouting) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and CorrectRouting like 'No') as CorrectRouting_No
+      ,(select count(CorrectRouting) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and CorrectRouting like 'NA') as CorrectRouting_NA
+      
+      
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2  join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and DisplayedServiceAttitude like 'Correct') as DisplayedServiceAttitude_Correct
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and DisplayedServiceAttitude like 'INCoRrect') as DisplayedServiceAttitude_Incorrect
+      ,(select count(DisplayedServiceAttitude) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and DisplayedServiceAttitude like 'Minor') as DisplayedServiceAttitude_Minor
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and UsedCorrectVolumeTone like 'Correct') as UsedCorrectVolumeTone_Correct
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and UsedCorrectVolumeTone like 'INCoRrect') as UsedCorrectVolumeTone_Incorrect
+      ,(select count(UsedCorrectVolumeTone) from SecondaryIncident s2 join incident i2 on i2.SecondaryIncidentId = s2.secondaryincidentid where i2.EvaluatorId = i.EvaluatorId and UsedCorrectVolumeTone like 'Minor') as UsedCorrectVolumeTone_Minor
+      ,SUM(i.SecondaryIncidentScorePercent) as TotalScore
+      ,count(*) as CallCount
+  FROM SecondaryIncident s
+  join Incident i on i.SecondaryIncidentId = s.SecondaryIncidentId
+  Join Dispatcher d on i.EvaluatorId = d.DispatcherId
+  WHERE [DateTime] >= @BeginDate
+  AND [DateTime] <= @EndDate
+  group by i.EvaluatorId, firstname, lastname
+END
+
+
+
+GO
 

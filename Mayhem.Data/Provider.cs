@@ -391,12 +391,12 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
-        public static DataSet PrimaryIncidentReport_SelectByDateRange(DateTime beginDate, DateTime endDate)
+        public static DataSet PrimaryIncidentReport_Dispatcher_SelectByDateRange(DateTime beginDate, DateTime endDate)
         {
             DataSet returnValue = null;
             SqlConnection connection = new SqlConnection(_ConnectionString);
 
-            SqlCommand command = new SqlCommand("PrimaryIncidentReport_SelectByDateRange", connection);
+            SqlCommand command = new SqlCommand("PrimaryIncidentReport_Dispatcher_SelectByDateRange", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@BeginDate", beginDate);
@@ -407,7 +407,7 @@ namespace Mayhem.Data
             return returnValue;
         }
 
-        public static DataSet PrimaryIncidentEvaluatorReport_SelectByDateRange(DateTime beginDate, DateTime endDate)
+        public static DataSet PrimaryIncidentReport_Evaluator_SelectByDateRange(DateTime beginDate, DateTime endDate)
         {
             DataSet returnValue = null;
             SqlConnection connection = new SqlConnection(_ConnectionString);
@@ -550,6 +550,38 @@ namespace Mayhem.Data
             command.Parameters.AddWithValue("@Phone", input.Phone);
 
             SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static DataSet SecondaryIncidentReport_Dispatcher_SelectByDateRange(DateTime beginDate, DateTime endDate)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("SecondaryIncidentReport_Dispatcher_SelectByDateRange", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@BeginDate", beginDate);
+            command.Parameters.AddWithValue("@EndDate", endDate);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+        public static DataSet SecondaryIncidentReport_Evaluator_SelectByDateRange(DateTime beginDate, DateTime endDate)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("SecondaryIncidentReport_Evaluator_SelectByDateRange", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@BeginDate", beginDate);
+            command.Parameters.AddWithValue("@EndDate", endDate);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
         }
 
         public static void Shift_Delete(int shiftId)
