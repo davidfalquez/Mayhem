@@ -73,6 +73,8 @@
     <Compile Include="Controllers\PrimaryIncidentController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SecondaryIncidentController.cs" />
+    <Compile Include="Controllers\SecondaryIncidentDispatcherReportController.cs" />
+    <Compile Include="Controllers\SecondaryIncidentEvaluatorReportController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

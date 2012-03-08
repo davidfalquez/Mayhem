@@ -359,12 +359,10 @@ namespace Mayhem.Logic
             returnValue.DispatcherBottomLineTotals = new PrimaryIncidentReportTotals();
             DataSet reportDataSet = Data.Provider.PrimaryIncidentReport_Dispatcher_SelectByDateRange(beginDate, endDate);
 
-
             BuildReport(returnValue, reportDataSet, beginDate, endDate);
             returnValue.ReportName = "Protocol Compliance Report (Dispatchers)";
             returnValue.ScriptInfo = "Channel A Script";
             
-
             return returnValue;
         }
 
@@ -378,7 +376,6 @@ namespace Mayhem.Logic
             BuildReport(returnValue, reportDataSet, beginDate, endDate);
             returnValue.ReportName = "Protocol Compliance Report (Evaluators)";
             returnValue.ScriptInfo = "Channel A Script";
-
 
             return returnValue;
         }
@@ -463,39 +460,37 @@ namespace Mayhem.Logic
                 incident.Dispatcher.FirstName = row["FirstName"].ToString();
                 incident.Dispatcher.LastName = row["LastName"].ToString();
                 incident.Sunstar3DigitUnit = decimal.Parse(row["Sunstar3DigitNumber"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.Sunstar3DigitUnit += incident.Sunstar3DigitUnit;
+                returnValue.DispatcherBottomLineTotals.Sunstar3DigitUnit += incident.Sunstar3DigitUnit;
                 incident.NatureOfCall = decimal.Parse(row["NatureOfCall"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.NatureOfCall += incident.NatureOfCall;
+                returnValue.DispatcherBottomLineTotals.NatureOfCall += incident.NatureOfCall;
                 incident.Location = decimal.Parse(row["Location"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.Location += incident.Location;
+                returnValue.DispatcherBottomLineTotals.Location += incident.Location;
                 incident.MapGrid = decimal.Parse(row["MapGrid"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.MapGrid += incident.MapGrid;
+                returnValue.DispatcherBottomLineTotals.MapGrid += incident.MapGrid;
                 incident.FDUnitsAndTacCh = decimal.Parse(row["FDUnitsAndTacCh"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.FDUnitsAndTacCh += incident.FDUnitsAndTacCh;
+                returnValue.DispatcherBottomLineTotals.FDUnitsAndTacCh += incident.FDUnitsAndTacCh;
                 incident.ScriptingDocumented = decimal.Parse(row["ScriptingDocumented"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.ScriptingDocumented += incident.ScriptingDocumented;
+                returnValue.DispatcherBottomLineTotals.ScriptingDocumented += incident.ScriptingDocumented;
                 incident.SevenMin = decimal.Parse(row["SevenMin"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.SevenMin += incident.SevenMin;
+                returnValue.DispatcherBottomLineTotals.SevenMin += incident.SevenMin;
                 incident.TwelveMin = decimal.Parse(row["TwelveMin"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.TwelveMin += incident.TwelveMin;
+                returnValue.DispatcherBottomLineTotals.TwelveMin += incident.TwelveMin;
                 incident.ETALocationAsked = decimal.Parse(row["ETALocationAsked"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.ETALocationAsked += incident.ETALocationAsked;
+                returnValue.DispatcherBottomLineTotals.ETALocationAsked += incident.ETALocationAsked;
                 incident.ETADocumented = decimal.Parse(row["ETADocumented"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.ETADocumented += incident.ETADocumented;
+                returnValue.DispatcherBottomLineTotals.ETADocumented += incident.ETADocumented;
                 incident.RoutingDocumented = decimal.Parse(row["RoutingDocumented"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.RoutingDocumented += incident.RoutingDocumented;
+                returnValue.DispatcherBottomLineTotals.RoutingDocumented += incident.RoutingDocumented;
                 incident.PreArrivalGiven = decimal.Parse(row["PreArrivalGiven"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.PreArrivalGiven += incident.PreArrivalGiven;
+                returnValue.DispatcherBottomLineTotals.PreArrivalGiven += incident.PreArrivalGiven;
                 incident.EMDDocumented = decimal.Parse(row["EMDDocumented"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.EMDDocumented += incident.EMDDocumented;
+                returnValue.DispatcherBottomLineTotals.EMDDocumented += incident.EMDDocumented;
                 incident.UsedProhibitedBehavior = decimal.Parse(row["UsedProhibitedBehavior"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.UsedProhibitedBehavior += incident.UsedProhibitedBehavior;
+                returnValue.DispatcherBottomLineTotals.UsedProhibitedBehavior += incident.UsedProhibitedBehavior;
                 incident.PatchedChannels = decimal.Parse(row["PatchedChannels"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.PatchedChannels += incident.PatchedChannels;
+                returnValue.DispatcherBottomLineTotals.PatchedChannels += incident.PatchedChannels;
                 incident.Phone = decimal.Parse(row["Phone"].ToString()) / decimal.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.Phone += incident.Phone;
-                incident.UsedProhibitedBehavior = decimal.Parse(row["UsedProhibitedBehavior"].ToString()) / decimal.Parse(row["CallCount"].ToString()); ;
-                returnValue.EvaluatorBottomLineTotals.UsedProhibitedBehavior += incident.UsedProhibitedBehavior;
+                returnValue.DispatcherBottomLineTotals.Phone += incident.Phone;
 
                 incident.ProactiveRoutingGiven = TertiaryReceptor(
                     int.Parse(row["ProactiveRoutingGiven_Yes"].ToString()),
@@ -505,7 +500,7 @@ namespace Mayhem.Logic
                     0,
                     0,
                     false);
-                returnValue.EvaluatorBottomLineTotals.ProactiveRoutingGiven += incident.ProactiveRoutingGiven;
+                returnValue.DispatcherBottomLineTotals.ProactiveRoutingGiven += incident.ProactiveRoutingGiven;
                 incident.CorrectRouting = TertiaryReceptor(
                     int.Parse(row["CorrectRouting_Yes"].ToString()),
                     int.Parse(row["CorrectRouting_No"].ToString()),
@@ -514,6 +509,15 @@ namespace Mayhem.Logic
                     0,
                     0,
                     false);
+                incident.DisplayedServiceAttitude = TertiaryReceptor(
+                int.Parse(row["DisplayedServiceAttitude_Correct"].ToString()),
+                int.Parse(row["DisplayedServiceAttitude_Incorrect"].ToString()),
+                int.Parse(row["DisplayedServiceAttitude_Minor"].ToString()),
+                25,
+                10,
+                0,
+                false);
+                returnValue.DispatcherBottomLineTotals.DisplayedServiceAttitude += incident.DisplayedServiceAttitude;
                 incident.UsedCorrectVolumeTone = TertiaryReceptor(
                     int.Parse(row["UsedCorrectVolumeTone_Correct"].ToString()),
                     int.Parse(row["UsedCorrectVolumeTone_Incorrect"].ToString()),
@@ -522,31 +526,38 @@ namespace Mayhem.Logic
                     10,
                     0,
                     false);
-                returnValue.EvaluatorBottomLineTotals.UsedCorrectVolumeTone += incident.UsedCorrectVolumeTone;
+                returnValue.DispatcherBottomLineTotals.UsedCorrectVolumeTone += incident.UsedCorrectVolumeTone;
                 incident.CallCount = int.Parse(row["CallCount"].ToString());
-                returnValue.EvaluatorBottomLineTotals.CallCount += incident.CallCount;
+                returnValue.DispatcherBottomLineTotals.CallCount += incident.CallCount;
                 incident.TotalScore = decimal.Parse(row["TotalScore"].ToString()) / decimal.Parse(row["CallCount"].ToString());
 
-                returnValue.EvaluatorTotals.Add(incident);
+                returnValue.DispatcherTotals.Add(incident);
             }
-            //returnValue.EvaluatorBottomLineTotals.DisplayedServiceAttitude /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.InfoGivenOutOfOrder /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.Location /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.MapGrid /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.NatureOfCall /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.PertinentIntRouting /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.Priority /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.SsTacChannel /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.Sunstar3DigitUnit /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.ToneAlertUsed /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.TotalScore /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.UsedCorrectVolumeTone /= returnValue.DispatcherTotals.Count;
-            //returnValue.EvaluatorBottomLineTotals.UsedProhibitedBehavior /= returnValue.DispatcherTotals.Count;
-            //returnValue.BeginDate = beginDate;
-            //returnValue.EndDate = endDate;
+            returnValue.DispatcherBottomLineTotals.CorrectRouting /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.DisplayedServiceAttitude /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.EMDDocumented /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.ETADocumented /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.ETALocationAsked /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.FDUnitsAndTacCh /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Location /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.MapGrid /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.NatureOfCall /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.PatchedChannels /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Phone /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.PreArrivalGiven /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.ProactiveRoutingGiven /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.RoutingDocumented /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.ScriptingDocumented /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.SevenMin /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.Sunstar3DigitUnit /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.TotalScore /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.TwelveMin /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.UsedCorrectVolumeTone /= returnValue.DispatcherTotals.Count;
+            returnValue.DispatcherBottomLineTotals.UsedProhibitedBehavior /= returnValue.DispatcherTotals.Count;
+            returnValue.BeginDate = beginDate;
+            returnValue.EndDate = endDate;
         }
         
-
         public static decimal TertiaryReceptor(int highCount, int midCount, int lowCount, int highValue, int midValue, int lowValue, bool lowValueNA)
         {
             decimal returnValue = 0;
@@ -599,6 +610,34 @@ namespace Mayhem.Logic
             returnValue.UsedProhibitedBehavior = bool.Parse(secondaryIncidentDataSet.Tables[0].Rows[0]["UsedProhibitedBehavior"].ToString());
             returnValue.PatchedChannels = bool.Parse(secondaryIncidentDataSet.Tables[0].Rows[0]["PatchedChannels"].ToString());
             returnValue.Phone = bool.Parse(secondaryIncidentDataSet.Tables[0].Rows[0]["Phone"].ToString());
+
+            return returnValue;
+        }
+
+        public static SecondaryIncidentDispatcherReport GetSecondaryIncidentDispatcherReport(DateTime beginDate, DateTime endDate)
+        {
+            SecondaryIncidentDispatcherReport returnValue = new SecondaryIncidentDispatcherReport();
+            returnValue.DispatcherTotals = new List<SecondaryIncidentReportTotals>();
+            returnValue.DispatcherBottomLineTotals = new SecondaryIncidentReportTotals();
+            DataSet reportDataSet = Data.Provider.SecondaryIncidentReport_Dispatcher_SelectByDateRange(beginDate, endDate);
+
+            BuildReport(returnValue, reportDataSet, beginDate, endDate);
+            returnValue.ReportName = "Protocol Compliance Report (Dispatchers)";
+            returnValue.ScriptInfo = "Secondary Channel Script";
+
+            return returnValue;
+        }
+
+        public static SecondaryIncidentDispatcherReport GetSecondaryIncidentEvaluatorReport(DateTime beginDate, DateTime endDate)
+        {
+            SecondaryIncidentDispatcherReport returnValue = new SecondaryIncidentDispatcherReport();
+            returnValue.DispatcherTotals = new List<SecondaryIncidentReportTotals>();
+            returnValue.DispatcherBottomLineTotals = new SecondaryIncidentReportTotals();
+            DataSet reportDataSet = Data.Provider.SecondaryIncidentReport_Evaluator_SelectByDateRange(beginDate, endDate);
+
+            BuildReport(returnValue, reportDataSet, beginDate, endDate);
+            returnValue.ReportName = "Protocol Compliance Report (Evaluators)";
+            returnValue.ScriptInfo = "Secondary Channel Script";
 
             return returnValue;
         }
