@@ -110,6 +110,12 @@ INSERT INTO [Mayhem].[dbo].[RoleType]
            ('Dispatcher')
 GO
 
+INSERT INTO [Mayhem].[dbo].[RoleType]
+           ([RoleDescription])
+     VALUES
+           ('Developer')
+GO
+
 USE [Mayhem]
 GO
 
@@ -153,6 +159,19 @@ GO
 
 ALTER TABLE [dbo].[Dispatcher] CHECK CONSTRAINT [FK_Dispatcher_RoleType_RoleTypeId]
 GO
+
+INSERT INTO [Mayhem].[dbo].[Dispatcher]
+           ([DispatcherId]
+           ,[FirstName]
+           ,[LastName]
+           ,[RoleTypeId])
+     VALUES
+           ('PIRAS_DEVELOPER'
+           ,'PIRAS DEV'
+           ,'DEVELOPER'
+           ,4)
+GO
+
 
 
 
@@ -199,6 +218,20 @@ GO
 
 ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Dispatcher_DispatcherId]
 GO
+
+INSERT INTO [Mayhem].[dbo].[User]
+           ([Username]
+           ,[Password]
+           ,[ValidUser]
+           ,[DispatcherId])
+     VALUES
+           ('PirasDev'
+           ,'PirasDev'
+           ,1
+           ,'PIRAS_DEVELOPER')
+GO
+
+
 
 USE [Mayhem]
 GO
@@ -583,6 +616,7 @@ BEGIN
       ,[LastName]
       ,[RoleTypeId]
   FROM [Mayhem].[dbo].[Dispatcher]
+  WHERE RoleTypeId <> 4
 
 
 END
@@ -2563,4 +2597,113 @@ END
 
 
 GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_SelectByUsernamePassword]    Script Date: 03/09/2012 10:39:12 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_SelectByUsername]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[User_SelectByUsername]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_SelectByUsernamePassword]    Script Date: 03/09/2012 10:39:12 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[User_SelectByUsername]
+(
+     @Username varchar(50)
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT [Username]
+      ,[Password]
+      ,[ValidUser]
+      ,u.[DispatcherId]
+      ,[FirstName]
+      ,[LastName]
+      ,d.[RoleTypeId]
+      ,r.[RoleDescription]
+  FROM [User] u
+  Join [Dispatcher] d on d.DispatcherId = u.dispatcherid
+  join RoleType r on r.roletypeid = d.roletypeid
+  WHERE [Username] like @Username
+
+END
+
+
+
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Insert]    Script Date: 03/09/2012 14:14:03 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_Insert]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[User_Insert]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Insert]    Script Date: 03/09/2012 14:14:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[User_Insert] 
+	(
+			@Username varchar(50)
+           ,@Password varchar(50)
+           ,@ValidUser bit
+           ,@DispatcherId varchar(100)
+     )
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    INSERT INTO [Mayhem].[dbo].[User]
+           ([Username]
+           ,[Password]
+           ,[ValidUser]
+           ,[DispatcherId])
+     VALUES
+           (@Username
+           ,@Password
+           ,@ValidUser
+           ,@DispatcherId)
+
+
+END
+
+
+GO
+
 

@@ -120,5 +120,14 @@ namespace Mayhem.Tests.Logic
             decimal score = Provider.TertiaryReceptor(Yes, No, Na, 5, 0, 0, true);
             Assert.IsTrue(score == 0.5m);
         }
+
+        [TestMethod]
+        public void Login_Valid()
+        {
+            string username = "PirasDev";
+            string password = "PirasDev";
+
+            Assert.IsTrue(Provider.Login(username, password));
+        }
     }
 }

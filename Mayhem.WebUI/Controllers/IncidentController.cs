@@ -14,11 +14,13 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /Incident/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View(new Incident());
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Index(Incident incident)
         {
@@ -27,6 +29,7 @@ namespace Mayhem.WebUI.Controllers
             return View("Create", model);
         }
 
+        [Authorize]
         public ActionResult List(Incident incident)
         {
             IncidentListViewModel model = GetIncidentListViewModel(ref incident);
@@ -34,6 +37,7 @@ namespace Mayhem.WebUI.Controllers
             return View("Create", model);
         }
 
+        [Authorize]
         public ActionResult ListById(string incidentId)
         {
             Incident incident = Provider.GetIncident(incidentId);
@@ -42,6 +46,7 @@ namespace Mayhem.WebUI.Controllers
             return View("Create", model);
         }
 
+        [Authorize]
         internal static IncidentListViewModel GetIncidentListViewModel(ref Incident incident)
         {
             IncidentListViewModel model = new IncidentListViewModel();
@@ -82,6 +87,7 @@ namespace Mayhem.WebUI.Controllers
             return model;
         }
 
+        [Authorize]
         public ActionResult Delete(string incidentId)
         {
             Provider.DeleteIncident(incidentId);

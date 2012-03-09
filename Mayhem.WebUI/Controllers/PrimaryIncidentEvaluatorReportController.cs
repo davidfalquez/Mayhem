@@ -13,11 +13,13 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /EvaluatorReport/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult ViewEvaluatorReport(DateTime beginDate, DateTime endDate)
         {
             PrimaryIncidentDispatcherReport reportInfo = Provider.GetPrimaryIncidentEvaluatorReport(beginDate, endDate);

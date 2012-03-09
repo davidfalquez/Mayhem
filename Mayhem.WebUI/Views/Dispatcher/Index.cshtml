@@ -42,7 +42,8 @@
         </td>
         <td>
             @Html.ActionLink("[Edit]", "Edit", new { dispatcherId = item.DispatcherId }) |
-            @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId })
+            @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId })|
+            @Html.ActionLink("[Login Credentials]", "Create", "SiteUser", new { dispatcherId = item.DispatcherId }, null)
         </td>
     </tr>
 }

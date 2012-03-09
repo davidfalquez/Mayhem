@@ -14,12 +14,14 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /SecondaryIncident/
 
+        [Authorize]
         public ActionResult Index()
         {
             List<SecondaryIncidentViewModel> models = GetSecodaryIncidentModels();
             return View(models);
         }
 
+        [Authorize]
         private static List<SecondaryIncidentViewModel> GetSecodaryIncidentModels()
         {
             List<SecondaryIncidentViewModel> models = new List<SecondaryIncidentViewModel>();
@@ -39,6 +41,7 @@ namespace Mayhem.WebUI.Controllers
             return models;
         }
 
+        [Authorize]
         public ViewResult Create(string incidentId)
         {
             SecondaryIncidentViewModel model = new SecondaryIncidentViewModel();
@@ -59,6 +62,7 @@ namespace Mayhem.WebUI.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ViewResult Create(SecondaryIncidentViewModel model)
         {
@@ -113,6 +117,7 @@ namespace Mayhem.WebUI.Controllers
             return View("../Incident/Create", output);
         }
 
+        [Authorize]
         public ViewResult Edit(string incidentId)
         {
             SecondaryIncidentViewModel model = new SecondaryIncidentViewModel();
@@ -152,6 +157,7 @@ namespace Mayhem.WebUI.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ViewResult Delete(string incidentId)
         {
             Provider.DeleteIncident(incidentId);

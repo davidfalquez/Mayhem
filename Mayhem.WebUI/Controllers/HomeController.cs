@@ -8,6 +8,7 @@ namespace Mayhem.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Sunstar QA";
@@ -15,6 +16,7 @@ namespace Mayhem.WebUI.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult About()
         {
             return View();

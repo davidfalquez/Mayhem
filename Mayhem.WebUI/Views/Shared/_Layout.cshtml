@@ -18,10 +18,23 @@
             </div>
             <nav>
                 <ul id="menu">
+            @if (Request.IsAuthenticated)
+            {
+                if (Mayhem.Logic.Provider.UserIsDeveloper(User.Identity.Name)
+                    || Mayhem.Logic.Provider.UserIsAdministrator(User.Identity.Name))
+                {
                 <li>@Html.ActionLink("Dispatchers", "Index", "Dispatcher")</li>
                 <li>@Html.ActionLink("Channels", "Index", "Channel")</li>
                 <li>@Html.ActionLink("Shifts", "Index", "Shift")</li>
+                }
                 <li>@Html.ActionLink("Evaluations", "Index", "Incident")</li>
+                if (Mayhem.Logic.Provider.UserIsDeveloper(User.Identity.Name)
+                    || Mayhem.Logic.Provider.UserIsAdministrator(User.Identity.Name))
+                {
+                
+                <li>@Html.ActionLink("Reports", "Index", "Report")</li>
+                }
+            }
                 </ul>
             </nav>
         </header>

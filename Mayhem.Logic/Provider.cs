@@ -499,7 +499,7 @@ namespace Mayhem.Logic
                     5,
                     0,
                     0,
-                    false);
+                    true);
                 returnValue.DispatcherBottomLineTotals.ProactiveRoutingGiven += incident.ProactiveRoutingGiven;
                 incident.CorrectRouting = TertiaryReceptor(
                     int.Parse(row["CorrectRouting_Yes"].ToString()),
@@ -508,7 +508,7 @@ namespace Mayhem.Logic
                     5,
                     0,
                     0,
-                    false);
+                    true);
                 incident.DisplayedServiceAttitude = TertiaryReceptor(
                 int.Parse(row["DisplayedServiceAttitude_Correct"].ToString()),
                 int.Parse(row["DisplayedServiceAttitude_Incorrect"].ToString()),
@@ -640,6 +640,113 @@ namespace Mayhem.Logic
             returnValue.ScriptInfo = "Secondary Channel Script";
 
             return returnValue;
+        }
+
+        public static List<Role> GetRoles()
+        {
+
+            List<Role> returnValue = new List<Role>();
+            DataSet roleDataSet = Data.Provider.RoleType_SelectAll();
+
+           foreach (DataRow row in roleDataSet.Tables[0].Rows)
+            {
+                Role role = new Role();
+                role.RoleTypeId = int.Parse(row["RoleTypeId"].ToString());
+                role.RoleTypeDescription = row["RoleDescription"].ToString();
+
+                returnValue.Add(role);
+            }
+
+            return returnValue;
+        }
+        public static bool Login(string username, string password)
+        {
+            bool returnValue = false;
+
+            DataSet loginUserDS = Data.Provider.User_SelectByUsername(username);
+
+            if (loginUserDS.Tables[0].Rows.Count > 0)
+            {
+                DataRow row = loginUserDS.Tables[0].Rows[0];
+
+                string usernameFromDB = row["Username"].ToString();
+                string passwordFromDB = row["Password"].ToString();
+                bool validUser = bool.Parse(row["ValidUser"].ToString());
+
+
+                returnValue = (username.ToUpper() == usernameFromDB.ToUpper() && password == passwordFromDB && validUser);
+            }
+
+            return returnValue;
+        }
+
+        public static bool UserIsDeveloper(string username)
+        {
+            bool returnValue = false;
+
+            DataSet loginUserDS = Data.Provider.User_SelectByUsername(username);
+
+            if (loginUserDS.Tables[0].Rows.Count > 0)
+            {
+                DataRow row = loginUserDS.Tables[0].Rows[0];
+
+                returnValue = int.Parse(row["RoleTypeId"].ToString()) == 4;
+            }
+
+            return returnValue;
+        }
+
+        public static bool UserIsAdministrator(string username)
+        {
+            bool returnValue = false;
+
+            DataSet loginUserDS = Data.Provider.User_SelectByUsername(username);
+
+            if (loginUserDS.Tables[0].Rows.Count > 0)
+            {
+                DataRow row = loginUserDS.Tables[0].Rows[0];
+
+                returnValue = int.Parse(row["RoleTypeId"].ToString()) == 1;
+            }
+
+            return returnValue;
+        }
+
+        public static bool UserIsEvaluator(string username)
+        {
+            bool returnValue = false;
+
+            DataSet loginUserDS = Data.Provider.User_SelectByUsername(username);
+
+            if (loginUserDS.Tables[0].Rows.Count > 0)
+            {
+                DataRow row = loginUserDS.Tables[0].Rows[0];
+
+                returnValue = int.Parse(row["RoleTypeId"].ToString()) == 2;
+            }
+
+            return returnValue;
+        }
+
+        public static bool UserIsDispatcher(string username)
+        {
+            bool returnValue = false;
+
+            DataSet loginUserDS = Data.Provider.User_SelectByUsername(username);
+
+            if (loginUserDS.Tables[0].Rows.Count > 0)
+            {
+                DataRow row = loginUserDS.Tables[0].Rows[0];
+
+                returnValue = int.Parse(row["RoleTypeId"].ToString()) == 3;
+            }
+
+            return returnValue;
+        }
+
+        public static void AddUser(string username, string password, bool isValid, string dispatcherId)
+        {
+            Data.Provider.User_Insert(username, password, isValid, dispatcherId);
         }
     }
 }

@@ -33,6 +33,27 @@ namespace Mayhem.WebUI.Controllers
             return new SelectList(list, "Value", "Text");
         }
 
+        public static SelectList GetRoleTypeDropDown()
+        {
+            List<DropDownModelInt> list = new List<DropDownModelInt>();
+            List<Role> roles = Provider.GetRoles();
+
+            foreach (Role role in roles)
+            {
+                if (role.RoleTypeDescription != "Developer")
+                {
+                    DropDownModelInt model = new DropDownModelInt();
+
+                    model.Text = role.RoleTypeDescription;
+                    model.Value = role.RoleTypeId;
+
+                    list.Add(model);
+                }
+            }
+
+            return new SelectList(list, "Value", "Text");
+        }
+
         public static SelectList GetDispatcherDropDown()
         {
 

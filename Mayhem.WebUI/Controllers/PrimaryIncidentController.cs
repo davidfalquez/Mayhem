@@ -14,6 +14,7 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /PrimaryIncident/
 
+        [Authorize]
         public ActionResult Index()
         {
             List<PrimaryIncidentViewModel> models = new List<PrimaryIncidentViewModel>();
@@ -33,6 +34,7 @@ namespace Mayhem.WebUI.Controllers
             return View(models);
         }
 
+        [Authorize]
         public ViewResult Create(string incidentId)
         {
             PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
@@ -49,6 +51,7 @@ namespace Mayhem.WebUI.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ViewResult Create(PrimaryIncidentViewModel model)
         {
@@ -98,6 +101,7 @@ namespace Mayhem.WebUI.Controllers
             return View("../Incident/Create", output);
         }
 
+        [Authorize]
         private int GetChannelAId()
         {
             int channelAId = 0;
@@ -115,6 +119,7 @@ namespace Mayhem.WebUI.Controllers
             return channelAId;
         }
 
+        [Authorize]
         public ViewResult Edit(string incidentId)
         {
             PrimaryIncidentViewModel model = new PrimaryIncidentViewModel();
@@ -160,6 +165,7 @@ namespace Mayhem.WebUI.Controllers
 
 
 
+        [Authorize]
         public ViewResult Delete(string incidentId)
         {
             Provider.DeleteIncident(incidentId);

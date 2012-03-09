@@ -11,6 +11,7 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /Report/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();

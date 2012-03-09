@@ -1,0 +1,61 @@
+﻿@model Mayhem.WebUI.Models.LoginCredentials
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>LoginCredentials</legend>
+        
+        @Html.HiddenFor(model => model.Dispatcher.DispatcherId)
+         <div class="editor-label">
+            Dispatcher: @Model.Dispatcher.LastName, @Model.Dispatcher.FirstName
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsValidUser)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsValidUser)
+            @Html.ValidationMessageFor(model => model.IsValidUser)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoleTypeDropDown)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.RoleTypeId, Model.RoleTypeDropDown, "- Role -")
+            @Html.ValidationMessageFor(model => model.RoleTypeId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

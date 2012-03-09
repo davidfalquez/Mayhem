@@ -144,6 +144,22 @@ namespace Mayhem.Data
             return returnValue;
         }
 
+        public static DataSet User_SelectByUsername(string userName)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("User_SelectByUsername", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Username", userName);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
+
         public static void Dispatcher_Update(Dispatcher input)
         {
             SqlConnection connection = new SqlConnection(_ConnectionString);
@@ -549,6 +565,20 @@ namespace Mayhem.Data
             command.Parameters.AddWithValue("@PatchedChannels", input.PatchedChannels);
             command.Parameters.AddWithValue("@Phone", input.Phone);
 
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static void User_Insert(string username, string password, bool isValid, string dispatcherId)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("User_Insert", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Password", password);
+            command.Parameters.AddWithValue("@ValidUser", isValid);
+            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
             SqlUtility.ExecuteNonQuery(command);
         }
 

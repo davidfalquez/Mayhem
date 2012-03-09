@@ -13,17 +13,20 @@ namespace Mayhem.WebUI.Controllers
         //
         // GET: /Dispatcher/
 
+        [Authorize]
         public ActionResult Index()
         {
             return View(Provider.GetDispatchers());
         }
 
+        [Authorize]
         public ViewResult Edit(string dispatcherId)
         {
             Dispatcher dispatcher = Provider.GetDispatcher(dispatcherId);
             return View(dispatcher);
         }
 
+        [Authorize]
         [HttpPost]
         public ViewResult Edit(Dispatcher dispatcher)
         {
@@ -31,11 +34,13 @@ namespace Mayhem.WebUI.Controllers
             return View("Index", Provider.GetDispatchers());
         }
 
+        [Authorize]
         public ViewResult Create()
         {
             return View(new Dispatcher());
         }
 
+        [Authorize]
         [HttpPost]
         public ViewResult Create(Dispatcher dispatcher)
         {
@@ -43,6 +48,7 @@ namespace Mayhem.WebUI.Controllers
             return View("Index", Provider.GetDispatchers());
         }
 
+        [Authorize]
         public ViewResult Delete(string dispatcherId)
         {
             Provider.DeleteDispatcher(dispatcherId);

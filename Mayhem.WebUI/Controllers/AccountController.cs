@@ -63,7 +63,7 @@ namespace Mayhem.WebUI.Controllers
 
         //
         // GET: /Account/Register
-
+        [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -72,6 +72,7 @@ namespace Mayhem.WebUI.Controllers
         //
         // POST: /Account/Register
 
+        [Authorize]
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
