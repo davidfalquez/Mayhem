@@ -22,19 +22,12 @@
             @Html.ValidationMessageFor(model => model.CaseNumber)
         </div>
 
-         <div class="editor-label">
-            @Html.LabelFor(model => model.EvaluatorDropDown)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.EvaluatorId, Model.EvaluatorDropDown, Model.EvaluatorId)
-            @Html.ValidationMessageFor(model => model.EvaluatorId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.DispatcherDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.DispatcherId, Model.DispatcherDropDown, Model.DispatcherId)
+            @Html.DropDownListFor(model => model.DispatcherId, Model.DispatcherDropDown)
             @Html.ValidationMessageFor(model => model.DispatcherId)
         </div>
 
@@ -135,7 +128,7 @@
             @Html.LabelFor(model => model.DisplayedServiceAttitudeDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.DisplayedServiceAttitude, Model.DisplayedServiceAttitudeDropDown, Model.DisplayedServiceAttitude)
+            @Html.DropDownListFor(model => model.DisplayedServiceAttitude, Model.DisplayedServiceAttitudeDropDown)
             @Html.ValidationMessageFor(model => model.DisplayedServiceAttitude)
         </div>
 
@@ -145,7 +138,7 @@
             @Html.LabelFor(model => model.UsedCorrectVolumeToneDropDown)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.UsedCorrectVolumeTone, Model.UsedCorrectVolumeToneDropDown, Model.UsedCorrectVolumeTone)
+            @Html.DropDownListFor(model => model.UsedCorrectVolumeTone, Model.UsedCorrectVolumeToneDropDown)
             @Html.ValidationMessageFor(model => model.UsedCorrectVolumeTone)
         </div>
         

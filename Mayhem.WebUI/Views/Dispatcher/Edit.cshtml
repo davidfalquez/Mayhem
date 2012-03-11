@@ -1,4 +1,4 @@
-﻿@model Mayhem.DTO.Dispatcher
+﻿@model Mayhem.WebUI.Models.DispatcherViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -37,11 +37,11 @@
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
 
-        <div class="editor-label">
+       <div class="editor-label">
             @Html.LabelFor(model => model.RoleTypeId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.RoleTypeId)
+            @Html.DropDownListFor(model => model.RoleTypeId, Model.RoleTypeDropDown, Model.RoleTypeId)
             @Html.ValidationMessageFor(model => model.RoleTypeId)
         </div>
 

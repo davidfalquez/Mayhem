@@ -18,6 +18,12 @@ namespace Mayhem.WebUI.Controllers
         public ActionResult Index()
         {
             List<PrimaryIncidentViewModel> models = new List<PrimaryIncidentViewModel>();
+            GetPrimaryIncidentViewModelList(models);
+            return View(models);
+        }
+
+        private static void GetPrimaryIncidentViewModelList(List<PrimaryIncidentViewModel> models)
+        {
             List<Incident> incidents = Provider.GetIncidents();
             foreach (Incident incident in incidents)
             {
@@ -31,7 +37,6 @@ namespace Mayhem.WebUI.Controllers
                     models.Add(model);
                 }
             }
-            return View(models);
         }
 
         [Authorize]
@@ -42,7 +47,6 @@ namespace Mayhem.WebUI.Controllers
             model.IncidentDate = DateTime.Now;
 
             //Fill Drop Downs
-            model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
             model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
@@ -96,7 +100,7 @@ namespace Mayhem.WebUI.Controllers
                 Provider.CreateIncident(incident);
             }
 
-            IncidentListViewModel output = IncidentController.GetIncidentListViewModel(ref incident);
+            IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
 
             return View("../Incident/Create", output);
         }
@@ -147,7 +151,6 @@ namespace Mayhem.WebUI.Controllers
             model.UsedProhibitedBehavior = incident.PrimaryIncident.UsedProhibitedBehavior;
 
             //Fill Drop Downs
-            model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
             model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
@@ -156,12 +159,13 @@ namespace Mayhem.WebUI.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public ViewResult Edit(PrimaryIncidentViewModel dispatcher)
-        //{
-        //    Provider.UpdateDispatcher(dispatcher);
-        //    return View("Index", Provider.GetDispatchers());
-        //}
+        [HttpPost]
+        public ViewResult Edit(PrimaryIncidentViewModel incident)
+        {
+            List<PrimaryIncidentViewModel> models = new List<PrimaryIncidentViewModel>();
+            GetPrimaryIncidentViewModelList(models);
+            return View("Index", models);
+        }
 
 
 

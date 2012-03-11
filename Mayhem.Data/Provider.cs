@@ -144,6 +144,21 @@ namespace Mayhem.Data
             return returnValue;
         }
 
+        public static DataSet Dispatcher_SelectByUsername(string username)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("Dispatcher_SelectByUsername", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Username", username);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
+
         public static DataSet User_SelectByUsername(string userName)
         {
             DataSet returnValue = null;
@@ -680,5 +695,32 @@ namespace Mayhem.Data
             return returnValue;
         }
 
+        public static void User_Update(string username, string password, bool isValid)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("User_Update", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Password", password);
+            command.Parameters.AddWithValue("@ValidUser", isValid);
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
+        public static DataSet User_SelectByDispatcherId(string dispatcherId)
+        {
+            DataSet returnValue = null;
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("User_SelectByDispatcherId", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@DispatcherId", dispatcherId);
+
+            returnValue = SqlUtility.ExecuteQuery(command);
+
+            return returnValue;
+        }
     }
 }

@@ -2707,3 +2707,158 @@ END
 GO
 
 
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Dispatcher_SelectByUsername]    Script Date: 03/09/2012 18:12:35 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispatcher_SelectByUsername]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[Dispatcher_SelectByUsername]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Dispatcher_SelectByUsername]    Script Date: 03/09/2012 18:12:35 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Dispatcher_SelectByUsername]
+	(
+		@Username varchar(50)
+	)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT d.[DispatcherId]
+      ,[FirstName]
+      ,[LastName]
+      ,[RoleTypeId]
+  FROM [Dispatcher] d
+  join [User] u on d.dispatcherid = u.dispatcherid
+  where u.username like @Username
+
+
+END
+
+
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Update]    Script Date: 03/10/2012 18:55:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_Update]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[User_Update]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Update]    Script Date: 03/10/2012 18:55:40 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[User_Update] 
+	(
+			@Username varchar(50)
+           ,@Password varchar(50)
+           ,@ValidUser bit
+     )
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   UPDATE [Mayhem].[dbo].[User]
+   SET [Password] = @Password
+      ,[ValidUser] = @ValidUser
+ WHERE [Username] = @Username
+
+
+
+
+END
+
+
+
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_SelectByDispatcherId]    Script Date: 03/10/2012 19:00:02 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_SelectByDispatcherId]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[User_SelectByDispatcherId]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_SelectByDispatcherId]    Script Date: 03/10/2012 19:00:02 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[User_SelectByDispatcherId]
+(
+     @DispatcherId varchar(100)
+)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT [Username]
+      ,[Password]
+      ,[ValidUser]
+      ,u.[DispatcherId]
+      ,[FirstName]
+      ,[LastName]
+      ,d.[RoleTypeId]
+      ,r.[RoleDescription]
+  FROM [User] u
+  Join [Dispatcher] d on d.DispatcherId = u.dispatcherid
+  join RoleType r on r.roletypeid = d.roletypeid
+  WHERE u.[DispatcherId] like @DispatcherId
+
+END
+
+
+
+
+GO
+

@@ -23,13 +23,6 @@
             @Html.ValidationMessageFor(model => model.CaseNumber)
         </div>*@
 
-         <div class="editor-label">
-            @Html.LabelFor(model => model.EvaluatorDropDown)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.EvaluatorId, Model.EvaluatorDropDown, "- Evaluator -")
-            @Html.ValidationMessageFor(model => model.EvaluatorId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.DispatcherDropDown)

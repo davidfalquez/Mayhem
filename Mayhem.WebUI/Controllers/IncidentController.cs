@@ -24,7 +24,7 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(Incident incident)
         {
-            IncidentListViewModel model = GetIncidentListViewModel(ref incident);
+            IncidentListViewModel model = IncidentUtility.GetIncidentListViewModel(ref incident, this);
 
             return View("Create", model);
         }
@@ -32,7 +32,7 @@ namespace Mayhem.WebUI.Controllers
         [Authorize]
         public ActionResult List(Incident incident)
         {
-            IncidentListViewModel model = GetIncidentListViewModel(ref incident);
+            IncidentListViewModel model = IncidentUtility.GetIncidentListViewModel(ref incident, this);
 
             return View("Create", model);
         }
@@ -41,51 +41,11 @@ namespace Mayhem.WebUI.Controllers
         public ActionResult ListById(string incidentId)
         {
             Incident incident = Provider.GetIncident(incidentId);
-            IncidentListViewModel model = GetIncidentListViewModel(ref incident);
+            IncidentListViewModel model = IncidentUtility.GetIncidentListViewModel(ref incident, this);
 
             return View("Create", model);
         }
 
-        [Authorize]
-        internal static IncidentListViewModel GetIncidentListViewModel(ref Incident incident)
-        {
-            IncidentListViewModel model = new IncidentListViewModel();
-            string incidentId = incident.IncidentId;
-            incident = Provider.GetIncident(incidentId);
-
-            if (string.IsNullOrEmpty(incident.IncidentId))
-            {
-                model.ContainsPrimaryIncident = false;
-                model.ContainsSecondaryIncident = false;
-
-                incident = new Incident();
-                incident.IncidentId = incidentId;
-
-                //TODO: Get this from logged in user
-                incident.Evaluator = Provider.GetDispatchers()[0];
-                Provider.CreateIncident(incident);
-
-                incident = Provider.GetIncident(incidentId);
-
-
-            }
-            else
-            {
-                if (null != incident.PrimaryIncident && incident.PrimaryIncident.PrimaryIncidentId != Guid.Empty)
-                {
-                    model.ContainsPrimaryIncident = true;
-                }
-
-                if (null != incident.SecondaryIncident && incident.SecondaryIncident.SecondaryIncidentId != Guid.Empty)
-                {
-                    model.ContainsSecondaryIncident = true;
-                }
-            }
-
-            model.Incidents = new List<Incident>();
-            model.Incidents.Add(incident);
-            return model;
-        }
 
         [Authorize]
         public ActionResult Delete(string incidentId)

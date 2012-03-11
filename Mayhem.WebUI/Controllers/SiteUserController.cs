@@ -13,14 +13,44 @@ namespace Mayhem.WebUI.Controllers
     {
         //
         // GET: /SiteUser/
+        [Authorize]
+        public ActionResult CreateOrUpdate(string dispatcherId)
+        {
+            string view = string.Empty;
+            LoginCredentials model = new LoginCredentials();
+
+            if (Provider.UserExists(dispatcherId))
+            {
+                view = "Edit";
+                SystemUser user = Provider.GetUser(dispatcherId);
+                model.Dispatcher = user.Dispatcher;
+                model.IsValidUser = user.IsValid;
+                model.Password = user.Password;
+                model.Username = user.Username;
+            }
+            else
+            {
+                view = "Create";
+                model.Dispatcher = Provider.GetDispatcher(dispatcherId);
+            }
+
+            return View(view, model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateOrUpdate(LoginCredentials model)
+        {
+            //This is an edit
+            Provider.UpdateUser(model.Username, model.Password, model.IsValidUser);
+            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
+        }
 
         [Authorize]
         public ActionResult Create(string dispatcherId)
         {
             LoginCredentials model = new LoginCredentials();
             model.Dispatcher = Provider.GetDispatcher(dispatcherId);
-            model.RoleTypeDropDown = DropDownUtility.GetRoleTypeDropDown();
-
 
             return View(model);
         }
@@ -31,7 +61,24 @@ namespace Mayhem.WebUI.Controllers
         {
             Provider.AddUser(model.Username, model.Password, model.IsValidUser, model.Dispatcher.DispatcherId);
 
-            return View("../Dispatcher/Index", Logic.Provider.GetDispatchers());
+            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
+        }
+
+        [Authorize]
+        public ActionResult Edit(string dispatcherId)
+        {
+            LoginCredentials model = new LoginCredentials();
+            model.Dispatcher = Provider.GetDispatcher(dispatcherId);
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(LoginCredentials model)
+        {
+            Provider.UpdateUser(model.Username, model.Password, model.IsValidUser);
+            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
         }
 
     }

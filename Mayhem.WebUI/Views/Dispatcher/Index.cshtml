@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mayhem.DTO.Dispatcher>
+﻿@model IEnumerable<Mayhem.WebUI.Models.DispatcherViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -21,7 +21,7 @@
             Last Name
         </th>
         <th>
-            Role Type ID
+            Role Type
         </th>
         <th></th>
     </tr>
@@ -38,12 +38,19 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RoleTypeId)
+            @Html.DisplayFor(modelItem => item.RoleTypeDescription)
         </td>
         <td>
             @Html.ActionLink("[Edit]", "Edit", new { dispatcherId = item.DispatcherId }) |
-            @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId })|
-            @Html.ActionLink("[Login Credentials]", "Create", "SiteUser", new { dispatcherId = item.DispatcherId }, null)
+            @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId })
+            
+            @if (!Mayhem.Logic.Provider.UserIsDispatcher(User.Identity.Name)
+                    && !Mayhem.Logic.Provider.UserIsEvaluator(User.Identity.Name)
+                    && item.RoleTypeDescription != "Dispatcher")
+                {
+                <text>|</text>
+                @Html.ActionLink("[Login Credentials]", "CreateOrUpdate", "SiteUser", new { dispatcherId = item.DispatcherId }, null)
+            }
         </td>
     </tr>
 }

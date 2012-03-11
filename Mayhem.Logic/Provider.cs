@@ -748,5 +748,46 @@ namespace Mayhem.Logic
         {
             Data.Provider.User_Insert(username, password, isValid, dispatcherId);
         }
+
+        public static void UpdateUser(string username, string password, bool isValid)
+        {
+            Data.Provider.User_Update(username, password, isValid);
+        }
+
+        public static bool UserExists(string dispatcherId)
+        {
+            bool returnValue = false;
+
+            DataSet userDS = Data.Provider.User_SelectByDispatcherId(dispatcherId);
+            returnValue = userDS.Tables[0].Rows.Count > 0;
+
+            return returnValue;
+        }
+
+        public static SystemUser GetUser(string dispatcherId)
+        {
+            SystemUser returnValue = new SystemUser();
+
+            returnValue.Dispatcher = GetDispatcher(dispatcherId);
+            DataSet userDS = Data.Provider.User_SelectByDispatcherId(dispatcherId);
+            DataRow row = userDS.Tables[0].Rows[0];
+            returnValue.Username = row["Username"].ToString();
+            returnValue.Password = row["Password"].ToString();
+            returnValue.IsValid = bool.Parse(row["ValidUser"].ToString());
+
+            return returnValue;
+        }
+
+        public static Dispatcher GetDispatcherByUsername(string username)
+        {
+            Dispatcher returnValue = new Dispatcher();
+            DataSet dispatcherDataSet = Data.Provider.Dispatcher_SelectByUsername(username);
+
+            returnValue.DispatcherId = dispatcherDataSet.Tables[0].Rows[0]["DispatcherId"].ToString();
+            returnValue.FirstName = dispatcherDataSet.Tables[0].Rows[0]["FirstName"].ToString();
+            returnValue.LastName = dispatcherDataSet.Tables[0].Rows[0]["LastName"].ToString();
+            returnValue.RoleTypeId = int.Parse(dispatcherDataSet.Tables[0].Rows[0]["RoleTypeId"].ToString());
+            return returnValue;
+        }
     }
 }

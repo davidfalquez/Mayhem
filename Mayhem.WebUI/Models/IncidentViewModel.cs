@@ -11,7 +11,6 @@ namespace Mayhem.WebUI.Models
         public string CaseNumber { get; set; }
         public Guid IncidentId { get; set; }
         public string EvaluatorId { get; set; }
-        public SelectList EvaluatorDropDown { get; set; }
         public int ChannelId { get; set; }
         public SelectList ChannelDropDown { get; set; }
         public string DispatcherId { get; set; }

@@ -48,7 +48,6 @@ namespace Mayhem.WebUI.Controllers
             model.CaseNumber = incidentId;
             model.IncidentDate = DateTime.Today;
 
-            model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ChannelDropDown = DropDownUtility.GetChannelDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
@@ -112,7 +111,7 @@ namespace Mayhem.WebUI.Controllers
                 Provider.CreateIncident(incident);
             }
 
-            IncidentListViewModel output = IncidentController.GetIncidentListViewModel(ref incident);
+            IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
 
             return View("../Incident/Create", output);
         }
@@ -147,7 +146,6 @@ namespace Mayhem.WebUI.Controllers
             model.UsedCorrectVolumeTone = incident.SecondaryIncident.UsedCorrectVolumeTone;
             model.UsedProhibitedBehavior = incident.SecondaryIncident.UsedProhibitedBehavior;
 
-            model.EvaluatorDropDown = DropDownUtility.GetDispatcherDropDown();
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ChannelDropDown = DropDownUtility.GetChannelDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
