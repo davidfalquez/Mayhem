@@ -20,6 +20,7 @@ namespace Mayhem.DTO
         private int _SecondaryIncidentScore;
         private float _SecondaryIncidentScorePercent;
 
+
         #endregion
         #region Properties
 

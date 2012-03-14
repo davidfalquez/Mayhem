@@ -2862,3 +2862,52 @@ END
 
 GO
 
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Delete]    Script Date: 03/10/2012 20:09:37 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_Delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[User_Delete]
+GO
+
+USE [Mayhem]
+GO
+
+/****** Object:  StoredProcedure [dbo].[User_Delete]    Script Date: 03/10/2012 20:09:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[User_Delete] 
+	(
+			@Username varchar(50)
+     )
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+  DELETE FROM [Mayhem].[dbo].[User]
+       WHERE [Username] = @Username
+
+
+
+
+END
+
+
+
+
+GO
+

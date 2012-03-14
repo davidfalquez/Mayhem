@@ -63,7 +63,16 @@ namespace Mayhem.WebUI.Controllers
 
         [Authorize]
         [HttpPost]
-        public ViewResult Create(SecondaryIncidentViewModel model)
+        public ActionResult Create(SecondaryIncidentViewModel model)
+        {
+            Incident incident = CreateOrEditSecondaryIncident(model);
+
+            IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
+
+            return View("../Incident/Create", output);
+        }
+
+        private static Incident CreateOrEditSecondaryIncident(SecondaryIncidentViewModel model)
         {
             Incident incident = new Incident();
             incident.SecondaryIncident = new SecondaryIncident();
@@ -102,18 +111,16 @@ namespace Mayhem.WebUI.Controllers
             Incident incidentResult = Provider.GetIncident(model.CaseNumber);
             if (null != incidentResult && !string.IsNullOrEmpty(incidentResult.IncidentId))
             {
+                incident.PrimaryIncident = null;
                 incidentResult.SecondaryIncident = incident.SecondaryIncident;
                 Provider.UpdateIncident(incidentResult);
             }
             else
             {
-
+                incident.SecondaryIncident = null;
                 Provider.CreateIncident(incident);
             }
-
-            IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
-
-            return View("../Incident/Create", output);
+            return incident;
         }
 
         [Authorize]
@@ -124,7 +131,9 @@ namespace Mayhem.WebUI.Controllers
             Incident incident = Provider.GetIncident(incidentId);
 
             model.CaseNumber = incident.IncidentId;
+            model.EvaluatorId = incident.Evaluator.DispatcherId;
             model.DispatcherId = incident.SecondaryIncident.Dispatcher.DispatcherId;
+            model.ShiftId = incident.SecondaryIncident.Shift.ShiftId;
             model.CorrectRouting = incident.SecondaryIncident.CorrectRouting;
             model.DisplayedServiceAttitude = incident.SecondaryIncident.DisplayedServiceAttitude;
             model.EMDDocumented = incident.SecondaryIncident.EMDDocumented;
@@ -149,10 +158,23 @@ namespace Mayhem.WebUI.Controllers
             model.DispatcherDropDown = DropDownUtility.GetDispatcherDropDown();
             model.ChannelDropDown = DropDownUtility.GetChannelDropDown();
             model.ShiftDropDown = DropDownUtility.GetShiftDropDown();
+            model.ProactiveRoutingGivenDropDown = DropDownUtility.GetYesNoNADropDown();
+            model.CorrectRoutingDropDown = DropDownUtility.GetYesNoNADropDown();
             model.DisplayedServiceAttitudeDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
             model.UsedCorrectVolumeToneDropDown = DropDownUtility.GetCorrectMinorIncorrectDropDown();
 
             return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(SecondaryIncidentViewModel model)
+        {
+            Incident incident = CreateOrEditSecondaryIncident(model);
+
+            IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
+
+            return View("../Incident/Create", output);
         }
 
         [Authorize]

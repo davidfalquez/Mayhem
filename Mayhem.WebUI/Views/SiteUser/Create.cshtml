@@ -15,6 +15,7 @@
         <legend>LoginCredentials</legend>
         
         @Html.HiddenFor(model => model.Dispatcher.DispatcherId)
+        @Html.HiddenFor(model => model.Create)
          <div class="editor-label">
             Dispatcher: @Model.Dispatcher.LastName, @Model.Dispatcher.FirstName
         </div>
@@ -49,5 +50,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Dispatcher")
 </div>

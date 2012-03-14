@@ -27,11 +27,14 @@ namespace Mayhem.WebUI.Controllers
                 model.IsValidUser = user.IsValid;
                 model.Password = user.Password;
                 model.Username = user.Username;
+                model.Create = false;
             }
             else
             {
                 view = "Create";
                 model.Dispatcher = Provider.GetDispatcher(dispatcherId);
+                model.IsValidUser = true;
+                model.Create = true;
             }
 
             return View(view, model);
@@ -41,9 +44,16 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ActionResult CreateOrUpdate(LoginCredentials model)
         {
-            //This is an edit
-            Provider.UpdateUser(model.Username, model.Password, model.IsValidUser);
-            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
+            if (model.Create)
+            {
+                Provider.AddUser(model.Username, model.Password, model.IsValidUser, model.Dispatcher.DispatcherId);
+            }
+            else
+            {
+                //This is an edit
+                Provider.UpdateUser(model.Username, model.Password, model.IsValidUser);
+            }
+            return RedirectToAction("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
         }
 
         [Authorize]
@@ -61,7 +71,7 @@ namespace Mayhem.WebUI.Controllers
         {
             Provider.AddUser(model.Username, model.Password, model.IsValidUser, model.Dispatcher.DispatcherId);
 
-            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
+            return RedirectToAction("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
         }
 
         [Authorize]
@@ -78,7 +88,7 @@ namespace Mayhem.WebUI.Controllers
         public ActionResult Edit(LoginCredentials model)
         {
             Provider.UpdateUser(model.Username, model.Password, model.IsValidUser);
-            return View("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
+            return RedirectToAction("../Dispatcher/Index", DispatcherController.GetDispatcherViewModels());
         }
 
     }

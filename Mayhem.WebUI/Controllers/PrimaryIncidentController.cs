@@ -57,7 +57,14 @@ namespace Mayhem.WebUI.Controllers
 
         [Authorize]
         [HttpPost]
-        public ViewResult Create(PrimaryIncidentViewModel model)
+        public ActionResult Create(PrimaryIncidentViewModel model)
+        {
+            IncidentListViewModel output = CreateOrUpdatePrimaryIncident(model);
+
+            return View("../Incident/Create", output);
+        }
+
+        private IncidentListViewModel CreateOrUpdatePrimaryIncident(PrimaryIncidentViewModel model)
         {
             Incident incident = new Incident();
             incident.PrimaryIncident = new PrimaryIncident();
@@ -101,8 +108,7 @@ namespace Mayhem.WebUI.Controllers
             }
 
             IncidentListViewModel output = IncidentUtility.GetIncidentListViewModel(ref incident, this);
-
-            return View("../Incident/Create", output);
+            return output;
         }
 
         [Authorize]
@@ -159,15 +165,14 @@ namespace Mayhem.WebUI.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
-        public ViewResult Edit(PrimaryIncidentViewModel incident)
+        public ActionResult Edit(PrimaryIncidentViewModel incident)
         {
-            List<PrimaryIncidentViewModel> models = new List<PrimaryIncidentViewModel>();
-            GetPrimaryIncidentViewModelList(models);
-            return View("Index", models);
+            IncidentListViewModel output = CreateOrUpdatePrimaryIncident(incident);
+
+            return View("../Incident/Create", output);
         }
-
-
 
         [Authorize]
         public ViewResult Delete(string incidentId)

@@ -708,6 +708,17 @@ namespace Mayhem.Data
             SqlUtility.ExecuteNonQuery(command);
         }
 
+        public static void User_Delete(string username)
+        {
+            SqlConnection connection = new SqlConnection(_ConnectionString);
+
+            SqlCommand command = new SqlCommand("User_Delete", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Username", username);
+            SqlUtility.ExecuteNonQuery(command);
+        }
+
         public static DataSet User_SelectByDispatcherId(string dispatcherId)
         {
             DataSet returnValue = null;

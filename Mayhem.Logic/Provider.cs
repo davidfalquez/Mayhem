@@ -126,6 +126,14 @@ namespace Mayhem.Logic
             {
                 throw new Exception(string.Format(_InvalidIdMessage, "DispatcherId"));
             }
+
+            //If there is a user for this dispatcher, delete it
+            if (Provider.UserExists(dispatcherId))
+            {
+                string username = Provider.GetUser(dispatcherId).Username;
+                Data.Provider.User_Delete(username);
+            }
+
             Data.Provider.Dispatcher_Delete(dispatcherId);
         }
 
@@ -789,5 +797,6 @@ namespace Mayhem.Logic
             returnValue.RoleTypeId = int.Parse(dispatcherDataSet.Tables[0].Rows[0]["RoleTypeId"].ToString());
             return returnValue;
         }
+
     }
 }

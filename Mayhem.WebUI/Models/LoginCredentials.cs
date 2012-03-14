@@ -13,5 +13,6 @@ namespace Mayhem.WebUI.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsValidUser { get; set; }
+        public bool Create { get; set; }
     }
 }
