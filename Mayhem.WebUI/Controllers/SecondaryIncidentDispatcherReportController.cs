@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Mayhem.DTO;
 using Mayhem.Logic;
+using Mayhem.WebUI.Models;
 
 namespace Mayhem.WebUI.Controllers
 {
@@ -16,15 +17,19 @@ namespace Mayhem.WebUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            ReportDateRangeModel model = new ReportDateRangeModel();
+            model.BeginDate = DateTime.Today;
+            model.EndDate = DateTime.Today;
+            return View(model);
         }
 
         [Authorize]
-        public ActionResult ViewDispatcherReport(DateTime beginDate, DateTime endDate)
+        [HttpPost]
+        public ActionResult Index(ReportDateRangeModel model)
         {
-            SecondaryIncidentDispatcherReport reportInfo = Provider.GetSecondaryIncidentDispatcherReport(beginDate, endDate);
+            SecondaryIncidentDispatcherReport reportInfo = Provider.GetSecondaryIncidentDispatcherReport(model.BeginDate, model.EndDate);
 
-            return View(reportInfo);
+            return View("Report", reportInfo);
         }
     }
 }

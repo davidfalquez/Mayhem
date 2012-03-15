@@ -1,0 +1,235 @@
+﻿@model Mayhem.DTO.SecondaryIncidentDispatcherReport
+
+@{
+    ViewBag.Title = Model.ReportName;
+}
+
+<h2>@Model.ReportName</h2>
+<h3>@Model.ScriptInfo</h3>
+<h4>@Model.BeginDate.ToShortDateString() <text>- </text> @Model.EndDate.ToShortDateString()</h4>
+
+<p>
+      @Html.ActionLink("Dowload PDF", "Index", "Pdf")
+</p>
+<table>
+    <tr>
+        <th>
+            Dispatcher
+        </th>
+        <th>
+            Sunstar3DigitUnit
+        </th>
+        <th>
+            NatureOfCall
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            MapGrid
+        </th>
+        <th>
+            FDUnitsAndTacCh
+        </th>
+        <th>
+            ScriptingDocumented
+        </th>
+        <th>
+            SevenMin
+        </th>
+        <th>
+            TwelveMin
+        </th>
+        <th>
+            ETALocationAsked
+        </th>
+        <th>
+            ETADocumented
+        </th>
+        <th>
+            RoutingDocumented
+        </th>
+        <th>
+            PreArrivalGiven
+        </th>
+        <th>
+            EMDDocumented
+        </th>
+        <th>
+            UsedProhibitedBehavior
+        </th>
+        <th>
+            ProactiveRoutingGiven
+        </th>
+        <th>
+            CorrectRouting
+        </th>
+        <th>
+            DisplayedServiceAttitude
+        </th>
+        <th>
+            UsedCorrectVolumeTone
+        </th>
+        <th>
+            PatchedChannels
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            CallCount
+        </th>
+        <th>
+            TotalScore
+        </th>
+    </tr>
+
+@foreach (var item in Model.DispatcherTotals) {
+    <tr>
+        <td>
+            @item.Dispatcher.DispatcherId (@item.Dispatcher.FirstName @item.Dispatcher.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sunstar3DigitUnit)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NatureOfCall)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MapGrid)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FDUnitsAndTacCh)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScriptingDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SevenMin)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TwelveMin)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ETALocationAsked)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ETADocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoutingDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreArrivalGiven)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMDDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsedProhibitedBehavior)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProactiveRoutingGiven)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorrectRouting)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayedServiceAttitude)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsedCorrectVolumeTone)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatchedChannels)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CallCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalScore)%
+        </td>
+    </tr>
+}
+@if (Model.DispatcherBottomLineTotals.CallCount > 0)
+{
+<tr>
+        <td>
+           Totals
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.Sunstar3DigitUnit)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.NatureOfCall)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.Location)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.MapGrid)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.FDUnitsAndTacCh)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.ScriptingDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.SevenMin)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.TwelveMin)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.ETALocationAsked)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.ETADocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.RoutingDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.PreArrivalGiven)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.EMDDocumented)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.UsedProhibitedBehavior)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.ProactiveRoutingGiven)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.CorrectRouting)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.DisplayedServiceAttitude)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.UsedCorrectVolumeTone)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.PatchedChannels)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.Phone)%
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.CallCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.DispatcherBottomLineTotals.TotalScore)%
+        </td>
+    </tr>
+}
+
+</table>

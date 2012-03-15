@@ -66,6 +66,7 @@
     <Compile Include="Controllers\ChannelController.cs" />
     <Compile Include="Controllers\DispatcherController.cs" />
     <Compile Include="Controllers\IncidentUtility.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Controllers\PrimaryIncidentDispatcherReportController.cs" />
     <Compile Include="Controllers\DropDownUtility.cs" />
     <Compile Include="Controllers\PrimaryIncidentEvaluatorReportController.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Models\IncidentViewModel.cs" />
     <Compile Include="Models\LoginCredentials.cs" />
     <Compile Include="Models\PrimaryIncidentViewModel.cs" />
+    <Compile Include="Models\ReportDateRangeModel.cs" />
     <Compile Include="Models\SecondaryIncidentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -234,6 +236,36 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\SecondaryIncident\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PrimaryIncidentDispatcherReport\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PrimaryIncidentDispatcherReport\Report.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PrimaryIncidentEvaluatorReport\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PrimaryIncidentEvaluatorReport\Report.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SecondaryIncidentDispatcherReport\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SecondaryIncidentDispatcherReport\Report.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SecondaryIncidentEvaluatorReport\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SecondaryIncidentEvaluatorReport\Report.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pdf\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
