@@ -11,8 +11,6 @@ namespace Mayhem.WebUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Message = "Sunstar QA";
-
             return View();
         }
 

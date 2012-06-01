@@ -1,4 +1,4 @@
-USE [Mayhem]
+USE [MayhemDev]
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Incident_Dispatcher_DispatcherId]') AND parent_object_id = OBJECT_ID(N'[dbo].[Incident]'))
@@ -13,7 +13,7 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[Incident] DROP CONSTRAINT [FK_Incident_SecondaryIncident_SecondaryIncidentId]
 GO
 
-USE [Mayhem]
+
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_SecondaryIncident_Channel_ChannelId]') AND parent_object_id = OBJECT_ID(N'[dbo].[SecondaryIncident]'))
@@ -28,7 +28,7 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[SecondaryIncident] DROP CONSTRAINT [FK_SecondaryIncident_Shift_ShiftId]
 GO
 
-USE [Mayhem]
+
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PrimaryIncident_Channel_ChannelId]') AND parent_object_id = OBJECT_ID(N'[dbo].[PrimaryIncident]'))
@@ -43,21 +43,21 @@ IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[
 ALTER TABLE [dbo].[PrimaryIncident] DROP CONSTRAINT [FK_PrimaryIncident_Shift_ShiftId]
 GO
 
-USE [Mayhem]
+
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_User_Dispatcher_DispatcherId]') AND parent_object_id = OBJECT_ID(N'[dbo].[User]'))
 ALTER TABLE [dbo].[User] DROP CONSTRAINT [FK_User_Dispatcher_DispatcherId]
 GO
 
-USE [Mayhem]
+
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Dispatcher_RoleType_RoleTypeId]') AND parent_object_id = OBJECT_ID(N'[dbo].[Dispatcher]'))
 ALTER TABLE [dbo].[Dispatcher] DROP CONSTRAINT [FK_Dispatcher_RoleType_RoleTypeId]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[RoleType]    Script Date: 02/21/2012 12:53:08 ******/
@@ -65,7 +65,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RoleT
 DROP TABLE [dbo].[RoleType]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[RoleType]    Script Date: 02/21/2012 12:53:08 ******/
@@ -92,31 +92,31 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-INSERT INTO [Mayhem].[dbo].[RoleType]
+INSERT INTO [dbo].[RoleType]
            ([RoleDescription])
      VALUES
            ('Administrator')
 GO
 
-INSERT INTO [Mayhem].[dbo].[RoleType]
+INSERT INTO [dbo].[RoleType]
            ([RoleDescription])
      VALUES
            ('Evaluator')
 GO
 
-INSERT INTO [Mayhem].[dbo].[RoleType]
+INSERT INTO [dbo].[RoleType]
            ([RoleDescription])
      VALUES
            ('Dispatcher')
 GO
 
-INSERT INTO [Mayhem].[dbo].[RoleType]
+INSERT INTO [dbo].[RoleType]
            ([RoleDescription])
      VALUES
            ('Developer')
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Dispatcher]    Script Date: 02/21/2012 12:58:53 ******/
@@ -124,7 +124,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP TABLE [dbo].[Dispatcher]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Dispatcher]    Script Date: 02/21/2012 12:58:53 ******/
@@ -160,7 +160,7 @@ GO
 ALTER TABLE [dbo].[Dispatcher] CHECK CONSTRAINT [FK_Dispatcher_RoleType_RoleTypeId]
 GO
 
-INSERT INTO [Mayhem].[dbo].[Dispatcher]
+INSERT INTO [dbo].[Dispatcher]
            ([DispatcherId]
            ,[FirstName]
            ,[LastName]
@@ -175,7 +175,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[User]    Script Date: 02/21/2012 13:08:34 ******/
@@ -183,7 +183,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User]
 DROP TABLE [dbo].[User]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[User]    Script Date: 02/21/2012 13:08:34 ******/
@@ -219,7 +219,7 @@ GO
 ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Dispatcher_DispatcherId]
 GO
 
-INSERT INTO [Mayhem].[dbo].[User]
+INSERT INTO [dbo].[User]
            ([Username]
            ,[Password]
            ,[ValidUser]
@@ -233,7 +233,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Shift]    Script Date: 02/21/2012 13:13:35 ******/
@@ -241,7 +241,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP TABLE [dbo].[Shift]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Shift]    Script Date: 02/21/2012 13:13:35 ******/
@@ -269,7 +269,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Channel]    Script Date: 02/21/2012 13:23:25 ******/
@@ -277,7 +277,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP TABLE [dbo].[Channel]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Channel]    Script Date: 02/21/2012 13:23:25 ******/
@@ -304,13 +304,13 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-INSERT INTO [Mayhem].[dbo].[Channel]
+INSERT INTO [dbo].[Channel]
            ([ChannelName])
      VALUES
            ('Channel A')
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[PrimaryIncident]    Script Date: 02/21/2012 13:45:45 ******/
@@ -318,7 +318,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP TABLE [dbo].[PrimaryIncident]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[PrimaryIncident]    Script Date: 02/21/2012 13:45:45 ******/
@@ -383,7 +383,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[SecondaryIncident]    Script Date: 02/21/2012 14:06:40 ******/
@@ -391,7 +391,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP TABLE [dbo].[SecondaryIncident]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[SecondaryIncident]    Script Date: 02/21/2012 14:06:40 ******/
@@ -462,7 +462,7 @@ GO
 ALTER TABLE [dbo].[SecondaryIncident] CHECK CONSTRAINT [FK_SecondaryIncident_Shift_ShiftId]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Incident]    Script Date: 02/21/2012 14:16:32 ******/
@@ -470,7 +470,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP TABLE [dbo].[Incident]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  Table [dbo].[Incident]    Script Date: 02/21/2012 14:16:32 ******/
@@ -530,7 +530,7 @@ GO
 
 ----------------------------------------------------- Stored Procedures -------------------------------------------------
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[DispatcherInsert]    Script Date: 02/21/2012 15:18:35 ******/
@@ -538,7 +538,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[DispatcherInsert]    Script Date: 02/21/2012 15:18:35 ******/
@@ -566,7 +566,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[Dispatcher]
+    INSERT INTO [dbo].[Dispatcher]
            ([DispatcherId]
            ,[FirstName]
            ,[LastName]
@@ -580,7 +580,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_SelectAll]    Script Date: 02/21/2012 15:20:59 ******/
@@ -588,7 +588,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_SelectAll]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_SelectAll]    Script Date: 02/21/2012 15:20:59 ******/
@@ -615,7 +615,7 @@ BEGIN
       ,[FirstName]
       ,[LastName]
       ,[RoleTypeId]
-  FROM [Mayhem].[dbo].[Dispatcher]
+  FROM [dbo].[Dispatcher]
   WHERE RoleTypeId <> 4
 
 
@@ -623,7 +623,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[DispatcherSelectById]    Script Date: 02/21/2012 15:24:12 ******/
@@ -631,7 +631,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[DispatcherSelectById]    Script Date: 02/21/2012 15:24:12 ******/
@@ -660,7 +660,7 @@ BEGIN
       ,[FirstName]
       ,[LastName]
       ,[RoleTypeId]
-  FROM [Mayhem].[dbo].[Dispatcher]
+  FROM [dbo].[Dispatcher]
   WHERE [DispatcherId] = @DispatcherId
 
 
@@ -668,7 +668,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_Update]    Script Date: 02/21/2012 15:27:57 ******/
@@ -676,7 +676,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_Update]    Script Date: 02/21/2012 15:27:57 ******/
@@ -705,7 +705,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	UPDATE [Mayhem].[dbo].[Dispatcher]
+	UPDATE [dbo].[Dispatcher]
    SET [DispatcherId] = @DispatcherId
       ,[FirstName] = @FirstName
       ,[LastName] = @LastName
@@ -718,7 +718,7 @@ END
 GO
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_Delete]    Script Date: 02/21/2012 15:32:28 ******/
@@ -726,7 +726,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_Delete]    Script Date: 02/21/2012 15:32:28 ******/
@@ -752,7 +752,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DELETE FROM [Mayhem].[dbo].[Dispatcher]
+	DELETE FROM [dbo].[Dispatcher]
       WHERE [DispatcherId] = @DispatcherId
 
 
@@ -761,7 +761,7 @@ END
 GO
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[RoleType_SelectAll]    Script Date: 02/21/2012 15:33:52 ******/
@@ -769,7 +769,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RoleT
 DROP PROCEDURE [dbo].[RoleType_SelectAll]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[RoleType_SelectAll]    Script Date: 02/21/2012 15:33:52 ******/
@@ -794,13 +794,13 @@ BEGIN
     -- Insert statements for procedure here
 	SELECT [RoleTypeId]
       ,[RoleDescription]
-  FROM [Mayhem].[dbo].[RoleType]
+  FROM [dbo].[RoleType]
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_SelectAll]    Script Date: 02/21/2012 15:35:06 ******/
@@ -808,7 +808,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP PROCEDURE [dbo].[Shift_SelectAll]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_SelectAll]    Script Date: 02/21/2012 15:35:06 ******/
@@ -834,12 +834,12 @@ BEGIN
 	SELECT [ShiftId]
       ,[ShiftName]
       ,[ShiftAbbreviation]
-  FROM [Mayhem].[dbo].[Shift]
+  FROM [dbo].[Shift]
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_SelectById]    Script Date: 02/24/2012 22:58:30 ******/
@@ -847,7 +847,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP PROCEDURE [dbo].[Shift_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_SelectById]    Script Date: 02/24/2012 22:58:30 ******/
@@ -877,7 +877,7 @@ BEGIN
 	SELECT [ShiftId]
       ,[ShiftName]
       ,[ShiftAbbreviation]
-  FROM [Mayhem].[dbo].[Shift]
+  FROM [dbo].[Shift]
   WHERE [ShiftId] = @ShiftId
 END
 
@@ -886,7 +886,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Update]    Script Date: 02/21/2012 15:38:08 ******/
@@ -894,7 +894,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP PROCEDURE [dbo].[Shift_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Update]    Script Date: 02/21/2012 15:38:08 ******/
@@ -921,7 +921,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    UPDATE [Mayhem].[dbo].[Shift]
+    UPDATE [dbo].[Shift]
    SET [ShiftName] = @ShiftName
       ,[ShiftAbbreviation] = @ShiftAbbreviation
  WHERE [ShiftId] = @ShiftId
@@ -930,7 +930,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Delete]    Script Date: 02/21/2012 15:40:02 ******/
@@ -938,7 +938,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP PROCEDURE [dbo].[Shift_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Delete]    Script Date: 02/21/2012 15:40:02 ******/
@@ -964,14 +964,14 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DELETE FROM [Mayhem].[dbo].[Shift]
+	DELETE FROM [dbo].[Shift]
       WHERE [ShiftId] = @ShiftId
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Insert]    Script Date: 02/21/2012 15:42:26 ******/
@@ -979,7 +979,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP PROCEDURE [dbo].[Shift_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Shift_Insert]    Script Date: 02/21/2012 15:42:26 ******/
@@ -1005,7 +1005,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[Shift]
+    INSERT INTO [dbo].[Shift]
            ([ShiftName]
            ,[ShiftAbbreviation])
      VALUES
@@ -1016,7 +1016,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_SelectAll]    Script Date: 02/21/2012 15:43:53 ******/
@@ -1024,7 +1024,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP PROCEDURE [dbo].[Channel_SelectAll]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_SelectAll]    Script Date: 02/21/2012 15:43:53 ******/
@@ -1048,13 +1048,13 @@ BEGIN
 
     SELECT [ChannelId]
       ,[ChannelName]
-  FROM [Mayhem].[dbo].[Channel]
+  FROM [dbo].[Channel]
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_SelectById]    Script Date: 02/24/2012 20:52:48 ******/
@@ -1062,7 +1062,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP PROCEDURE [dbo].[Channel_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_SelectById]    Script Date: 02/24/2012 20:52:48 ******/
@@ -1090,7 +1090,7 @@ BEGIN
 
     SELECT [ChannelId]
       ,[ChannelName]
-  FROM [Mayhem].[dbo].[Channel]
+  FROM [dbo].[Channel]
   WHERE [ChannelId] = @ChannelId
   
 
@@ -1101,7 +1101,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Update]    Script Date: 02/21/2012 15:46:42 ******/
@@ -1109,7 +1109,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP PROCEDURE [dbo].[Channel_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Update]    Script Date: 02/21/2012 15:46:42 ******/
@@ -1135,7 +1135,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    UPDATE [Mayhem].[dbo].[Channel]
+    UPDATE [dbo].[Channel]
     SET [ChannelName] = @ChannelName
     WHERE [ChannelId] = @ChannelId
 
@@ -1145,7 +1145,7 @@ END
 GO
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Delete]    Script Date: 02/21/2012 15:48:04 ******/
@@ -1153,7 +1153,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP PROCEDURE [dbo].[Channel_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Delete]    Script Date: 02/21/2012 15:48:04 ******/
@@ -1178,7 +1178,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-   DELETE FROM [Mayhem].[dbo].[Channel]
+   DELETE FROM [dbo].[Channel]
       WHERE [ChannelId] = @ChannelId
 
 
@@ -1186,7 +1186,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Insert]    Script Date: 02/21/2012 15:50:01 ******/
@@ -1194,7 +1194,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Chann
 DROP PROCEDURE [dbo].[Channel_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Channel_Insert]    Script Date: 02/21/2012 15:50:01 ******/
@@ -1219,7 +1219,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[Channel]
+    INSERT INTO [dbo].[Channel]
            ([ChannelName])
      VALUES
            (@ChannelName)
@@ -1228,7 +1228,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Insert]    Script Date: 02/21/2012 15:54:22 ******/
@@ -1236,7 +1236,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Insert]    Script Date: 02/21/2012 15:54:22 ******/
@@ -1276,7 +1276,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[PrimaryIncident]
+    INSERT INTO [dbo].[PrimaryIncident]
            ([PrimaryIncidentId]
 		   ,[ChannelId]
            ,[DispatcherId]
@@ -1319,7 +1319,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Update]    Script Date: 02/21/2012 15:58:11 ******/
@@ -1327,7 +1327,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Update]    Script Date: 02/21/2012 15:58:11 ******/
@@ -1368,7 +1368,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    UPDATE [Mayhem].[dbo].[PrimaryIncident]
+    UPDATE [dbo].[PrimaryIncident]
    SET [ChannelId] = @ChannelId
       ,[DispatcherId] = @DispatcherId
       ,[ShiftId] = @ShiftId
@@ -1394,7 +1394,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Delete]    Script Date: 02/21/2012 16:00:00 ******/
@@ -1402,7 +1402,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Delete]    Script Date: 02/21/2012 16:00:00 ******/
@@ -1427,14 +1427,14 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    DELETE FROM [Mayhem].[dbo].[PrimaryIncident]
+    DELETE FROM [dbo].[PrimaryIncident]
     WHERE [PrimaryIncidentId] = @PrimaryIncidentId
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_SelectById]    Script Date: 02/21/2012 16:07:55 ******/
@@ -1442,7 +1442,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_SelectById]    Script Date: 02/21/2012 16:07:55 ******/
@@ -1484,14 +1484,14 @@ BEGIN
       ,[DisplayedServiceAttitude]
       ,[UsedCorrectVolumeTone]
       ,[UsedProhibitedBehavior]
-  FROM [Mayhem].[dbo].[PrimaryIncident]
+  FROM [dbo].[PrimaryIncident]
   WHERE [PrimaryIncidentId] = @PrimaryIncidentId
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_SelectByDateRange]    Script Date: 02/21/2012 16:10:06 ******/
@@ -1499,7 +1499,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_SelectByDateRange]    Script Date: 02/21/2012 16:10:06 ******/
@@ -1543,7 +1543,7 @@ BEGIN
       ,[DisplayedServiceAttitude]
       ,[UsedCorrectVolumeTone]
       ,[UsedProhibitedBehavior]
-  FROM [Mayhem].[dbo].[PrimaryIncident]
+  FROM [dbo].[PrimaryIncident]
   WHERE [DateTime] >= @BeginDate
   AND [DateTime] <= @EndDate
 
@@ -1552,7 +1552,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Insert]    Script Date: 02/21/2012 16:15:07 ******/
@@ -1560,7 +1560,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncident_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Insert]    Script Date: 02/21/2012 16:15:07 ******/
@@ -1609,7 +1609,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[SecondaryIncident]
+    INSERT INTO [dbo].[SecondaryIncident]
            (
 		    [SecondaryIncidentId]
 		   ,[ChannelId]
@@ -1669,7 +1669,7 @@ END
 GO
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Update]    Script Date: 02/21/2012 16:18:14 ******/
@@ -1677,7 +1677,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncident_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Update]    Script Date: 02/21/2012 16:18:14 ******/
@@ -1727,7 +1727,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    UPDATE [Mayhem].[dbo].[SecondaryIncident]
+    UPDATE [dbo].[SecondaryIncident]
    SET [ChannelId] = @ChannelId
       ,[DispatcherId] = @DispatcherId
       ,[ShiftId] = @ShiftId
@@ -1759,7 +1759,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Delete]    Script Date: 02/21/2012 16:20:51 ******/
@@ -1767,7 +1767,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncident_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_Delete]    Script Date: 02/21/2012 16:20:51 ******/
@@ -1792,14 +1792,14 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    DELETE FROM [Mayhem].[dbo].[SecondaryIncident]
+    DELETE FROM [dbo].[SecondaryIncident]
       WHERE [SecondaryIncidentId] = @SecondaryIncidentId
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_SelectById]    Script Date: 02/21/2012 16:23:32 ******/
@@ -1807,7 +1807,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncident_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_SelectById]    Script Date: 02/21/2012 16:23:32 ******/
@@ -1857,7 +1857,7 @@ BEGIN
       ,[UsedProhibitedBehavior]
       ,[PatchedChannels]
       ,[Phone]
-  FROM [Mayhem].[dbo].[SecondaryIncident]
+  FROM [dbo].[SecondaryIncident]
   WHERE [SecondaryIncidentId] = @SecondaryIncidentId
 
 
@@ -1865,7 +1865,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_SelectByDateRange]    Script Date: 02/21/2012 16:26:59 ******/
@@ -1873,7 +1873,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncident_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncident_SelectByDateRange]    Script Date: 02/21/2012 16:26:59 ******/
@@ -1925,7 +1925,7 @@ BEGIN
       ,[UsedProhibitedBehavior]
       ,[PatchedChannels]
       ,[Phone]
-  FROM [Mayhem].[dbo].[SecondaryIncident]
+  FROM [dbo].[SecondaryIncident]
   WHERE [DateTime] >= @BeginDate
   AND [DateTime] <= @EndDate
 
@@ -1935,7 +1935,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_SelectAll]    Script Date: 02/21/2012 16:29:04 ******/
@@ -1943,7 +1943,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_SelectAll]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_SelectAll]    Script Date: 02/21/2012 16:29:04 ******/
@@ -1975,13 +1975,13 @@ BEGIN
       ,[PrimaryIncidentScorePercent]
       ,[SecondaryIncidentScore]
       ,[SecondaryIncidentScorePercent]
-  FROM [Mayhem].[dbo].[Incident]
+  FROM [dbo].[Incident]
 
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[IncidentSelectByDateRange]    Script Date: 02/21/2012 16:31:52 ******/
@@ -1989,7 +1989,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[IncidentSelectByDateRange]    Script Date: 02/21/2012 16:31:52 ******/
@@ -2025,14 +2025,14 @@ BEGIN
       ,[PrimaryIncidentScorePercent]
       ,[SecondaryIncidentScore]
       ,[SecondaryIncidentScorePercent]
-  FROM [Mayhem].[dbo].[Incident]
+  FROM [dbo].[Incident]
   WHERE [EntryDate] >= @BeginDate
   AND [EntryDate] <= @EndDate
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Update]    Script Date: 02/21/2012 16:37:27 ******/
@@ -2040,7 +2040,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Update]    Script Date: 02/21/2012 16:37:27 ******/
@@ -2074,7 +2074,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    UPDATE [Mayhem].[dbo].[Incident]
+    UPDATE [dbo].[Incident]
    SET [PrimaryIncidentId] = @PrimaryIncidentId
       ,[SecondaryIncidentId] = @SecondaryIncidentId
       ,[EvaluatorId] = @EvaluatorId
@@ -2090,7 +2090,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Delete]    Script Date: 02/21/2012 16:40:19 ******/
@@ -2098,7 +2098,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncident_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncident_Delete]    Script Date: 02/21/2012 16:40:19 ******/
@@ -2124,7 +2124,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    DELETE FROM [Mayhem].[dbo].[PrimaryIncident]
+    DELETE FROM [dbo].[PrimaryIncident]
     WHERE [PrimaryIncidentId] = @PrimaryIncidentId
 
 END
@@ -2132,7 +2132,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Insert]    Script Date: 02/21/2012 16:42:46 ******/
@@ -2140,7 +2140,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Insert]    Script Date: 02/21/2012 16:42:46 ******/
@@ -2174,7 +2174,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[Incident]
+    INSERT INTO [dbo].[Incident]
            ([IncidentId]
            ,[PrimaryIncidentId]
            ,[SecondaryIncidentId]
@@ -2202,7 +2202,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Delete]    Script Date: 02/22/2012 18:48:08 ******/
@@ -2210,7 +2210,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_Delete]    Script Date: 02/22/2012 18:48:08 ******/
@@ -2235,13 +2235,13 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-   DELETE FROM [Mayhem].[dbo].[Incident]
+   DELETE FROM [dbo].[Incident]
       WHERE [IncidentId] = @IncidentId
 END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_SelectById]    Script Date: 02/25/2012 11:47:31 ******/
@@ -2249,7 +2249,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Incid
 DROP PROCEDURE [dbo].[Incident_SelectById]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Incident_SelectById]    Script Date: 02/25/2012 11:47:31 ******/
@@ -2285,7 +2285,7 @@ BEGIN
       ,[PrimaryIncidentScorePercent]
       ,[SecondaryIncidentScore]
       ,[SecondaryIncidentScorePercent]
-  FROM [Mayhem].[dbo].[Incident]
+  FROM [dbo].[Incident]
   WHERE [IncidentId] = @IncidentId
 
 END
@@ -2293,7 +2293,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
@@ -2301,7 +2301,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/02/2012 12:54:04 ******/
@@ -2360,7 +2360,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/04/2012 10:34:42 ******/
@@ -2368,7 +2368,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Prima
 DROP PROCEDURE [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[PrimaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/04/2012 10:34:42 ******/
@@ -2430,7 +2430,7 @@ GO
 
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/07/2012 12:31:20 ******/
@@ -2438,7 +2438,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Dispatcher_SelectByDateRange]    Script Date: 03/07/2012 12:31:20 ******/
@@ -2514,7 +2514,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/07/2012 13:17:28 ******/
@@ -2522,7 +2522,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Secon
 DROP PROCEDURE [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[SecondaryIncidentReport_Evaluator_SelectByDateRange]    Script Date: 03/07/2012 13:17:28 ******/
@@ -2598,7 +2598,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_SelectByUsernamePassword]    Script Date: 03/09/2012 10:39:12 ******/
@@ -2606,7 +2606,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_
 DROP PROCEDURE [dbo].[User_SelectByUsername]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_SelectByUsernamePassword]    Script Date: 03/09/2012 10:39:12 ******/
@@ -2652,7 +2652,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Insert]    Script Date: 03/09/2012 14:14:03 ******/
@@ -2660,7 +2660,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_
 DROP PROCEDURE [dbo].[User_Insert]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Insert]    Script Date: 03/09/2012 14:14:03 ******/
@@ -2689,7 +2689,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    INSERT INTO [Mayhem].[dbo].[User]
+    INSERT INTO [dbo].[User]
            ([Username]
            ,[Password]
            ,[ValidUser]
@@ -2707,7 +2707,7 @@ END
 GO
 
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_SelectByUsername]    Script Date: 03/09/2012 18:12:35 ******/
@@ -2715,7 +2715,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Dispa
 DROP PROCEDURE [dbo].[Dispatcher_SelectByUsername]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[Dispatcher_SelectByUsername]    Script Date: 03/09/2012 18:12:35 ******/
@@ -2755,7 +2755,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Update]    Script Date: 03/10/2012 18:55:40 ******/
@@ -2763,7 +2763,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_
 DROP PROCEDURE [dbo].[User_Update]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Update]    Script Date: 03/10/2012 18:55:40 ******/
@@ -2792,7 +2792,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-   UPDATE [Mayhem].[dbo].[User]
+   UPDATE [dbo].[User]
    SET [Password] = @Password
       ,[ValidUser] = @ValidUser
  WHERE [Username] = @Username
@@ -2806,7 +2806,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_SelectByDispatcherId]    Script Date: 03/10/2012 19:00:02 ******/
@@ -2814,7 +2814,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_
 DROP PROCEDURE [dbo].[User_SelectByDispatcherId]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_SelectByDispatcherId]    Script Date: 03/10/2012 19:00:02 ******/
@@ -2862,7 +2862,7 @@ END
 
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Delete]    Script Date: 03/10/2012 20:09:37 ******/
@@ -2870,7 +2870,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[User_
 DROP PROCEDURE [dbo].[User_Delete]
 GO
 
-USE [Mayhem]
+
 GO
 
 /****** Object:  StoredProcedure [dbo].[User_Delete]    Script Date: 03/10/2012 20:09:37 ******/
@@ -2898,7 +2898,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-  DELETE FROM [Mayhem].[dbo].[User]
+  DELETE FROM [dbo].[User]
        WHERE [Username] = @Username
 
 
