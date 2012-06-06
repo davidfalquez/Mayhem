@@ -1,58 +1,58 @@
 ﻿@model IEnumerable<Mayhem.WebUI.Models.DispatcherViewModel>
-
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
+<script src="@Url.Content("~/DataTables-1.9.1/media/js/jquery.dataTables.js")" type="text/javascript"></script>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("[Create New]", "Create", null, new {@class="floatRight buttonText" })
 </p>
-<table>
-    <tr>
-    <th>
-            Dispatcher ID
-        </th>
-        <th>
-            First Name
-        </th>
-        <th>
-            Last Name
-        </th>
-        <th>
-            Role Type
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DispatcherId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleTypeDescription)
-        </td>
-        <td>
-            @Html.ActionLink("[Edit]", "Edit", new { dispatcherId = item.DispatcherId }) |
-            @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId })
-            
-            @if (!Mayhem.Logic.Provider.UserIsDispatcher(User.Identity.Name)
+<table id="dispatcherIndexTable" class="display">
+    <thead>
+        <tr>
+            <th>
+                Dispatcher ID
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Role Type
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DispatcherId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleTypeDescription)
+                </td>
+                <td>
+                    @Html.ActionLink("[Edit]", "Edit", new { dispatcherId = item.DispatcherId }, new { @class="buttonText" }) |
+                    @Html.ActionLink("[Delete]", "Delete", new { dispatcherId = item.DispatcherId }, new { @class = "buttonText" })
+                    @if (!Mayhem.Logic.Provider.UserIsDispatcher(User.Identity.Name)
                     && !Mayhem.Logic.Provider.UserIsEvaluator(User.Identity.Name)
                     && item.RoleTypeDescription != "Dispatcher")
-                {
-                <text>|</text>
-                @Html.ActionLink("[Login Credentials]", "CreateOrUpdate", "SiteUser", new { dispatcherId = item.DispatcherId }, null)
-            }
-        </td>
-    </tr>
-}
-
+                    {
+                        <text>|</text>
+                        @Html.ActionLink("[Login Credentials]", "CreateOrUpdate", "SiteUser", new { dispatcherId = item.DispatcherId }, new { @class="buttonText" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

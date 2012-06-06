@@ -324,7 +324,7 @@ fieldset{
 
 */------------------------------- Forms ---------------------------------------------------------------*/
 
-div.box {
+div.formBox {
 margin:0 auto;
 width:500px;
 background:#3F0;
@@ -333,7 +333,7 @@ top:50px;
 border:1px solid #0F0;
 }
 
-div.box h1 { 
+div.formBox h1 { 
 color:#ffffff;
 font-size:18px;
 text-transform:uppercase;
@@ -342,7 +342,7 @@ border-bottom:1px solid #161712;
 border-top:1px solid #161712; 
 }
 
-div.box label {
+div.formBox label {
 width:100%;
 display: block;
 background:#394044;
@@ -355,7 +355,7 @@ padding:10px 0 10px 0;
 height:60px;
 }
 
-div.box label .noValidate {
+div.formBox label .noValidate {
 display: block;
 color:#d1d1d1;
 font-size:18px;
@@ -365,7 +365,7 @@ text-align:right;
 padding:5px 20px 0 0;
 }
 
-div.box .input_text {
+div.formBox .input_text {
 color:#bbbbbb;
 font-size:15px;
 padding:10px 10px;
@@ -377,7 +377,7 @@ border-left:1px double #333333;
 border-right:1px double #333333;
 }
 
-div.box .message{
+div.formBox .message{
 padding:7px 7px;
 width:350px;
 background:#262626;
@@ -389,7 +389,7 @@ overflow:hidden;
 height:150px;
 }
 
-div.box .button
+div.formBox .button
 {
 margin:0 0 10px 0;
 padding:4px 7px;
@@ -403,4 +403,12 @@ border-bottom: 1px double #171717;
 border-top: 1px double #171717;
 border-left:1px double #333333;
 border-right:1px double #333333;
+}
+
+.buttonText
+{
+    color:White;
+    font-weight:bold;
+    border-top: 1px double #171717;
+    border-right:1px double #333333;
 }
