@@ -377,6 +377,20 @@ border-left:1px double #333333;
 border-right:1px double #333333;
 }
 
+div.formBox .input_DropDown 
+{
+    color:#bbbbbb;
+font-size:15px;
+/*padding:10px 0px 10px 10px;*/
+width:300px;
+background:#262626;
+border-bottom: 1px double #171717;
+border-top: 1px double #171717;
+border-left:1px double #333333;
+border-right:1px double #333333;
+margin-top:5px;
+}
+
 div.formBox .message{
 padding:7px 7px;
 width:350px;
@@ -409,6 +423,7 @@ border-right:1px double #333333;
 {
     color:White;
     font-weight:bold;
-    border-top: 1px double #171717;
-    border-right:1px double #333333;
+    /*border-top: 1px double #171717;
+    border-right:1px double #333333;*/
+    padding:2px 0px 2px 0px;
 }

@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated)
 {
     <div class="floatRight" id="loginAction">
-        [ @Html.ActionLink("Log Off", "LogOff", "Account") ]
+        @Html.ActionLink("[Log Off]", "LogOff", "Account")
     </div>
     <div class="floatRight" id="welcomeMessage">
         Welcome, @User.Identity.Name.

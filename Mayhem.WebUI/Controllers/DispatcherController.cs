@@ -80,9 +80,19 @@ namespace Mayhem.WebUI.Controllers
         {
             //TODO: If we're going from a non-dispatcher role to a dispatcher, we should set IsValid = false for any login credentials this person has
             //And Vice-Versa
-            Provider.UpdateDispatcher(dispatcher);
-            return View("Index", GetDispatcherViewModels());
+            if (ModelState.IsValid)
+            {
+                Provider.UpdateDispatcher(dispatcher);
+                return View("Index", GetDispatcherViewModels());
+            }
+            else
+            {
+                DispatcherViewModel model = GetDispatcherViewModelFrom(dispatcher);
+                model.RoleTypeDropDown = DropDownUtility.GetRoleTypeDropDown();
+                return View(model);
+            }
         }
+
 
         [Authorize]
         public ViewResult Create()
