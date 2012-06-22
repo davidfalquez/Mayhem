@@ -19,6 +19,7 @@ namespace Mayhem.WebUI.Controllers
             return View(Provider.GetShifts());
         }
 
+        
         [Authorize]
         public ViewResult Create()
         { 
@@ -29,8 +30,15 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ViewResult Create(Shift shift)
         {
-            Provider.CreateShift(shift);
-            return View("Index", Provider.GetShifts());
+            if (ModelState.IsValid)
+            {
+                Provider.CreateShift(shift);
+                return View("Index", Provider.GetShifts());
+            }
+            else
+            {
+                return View(shift);
+            }
         }
 
         [Authorize]
@@ -43,8 +51,15 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ViewResult Edit(Shift shift)
         {
-            Provider.UpdateShift(shift);
-            return View("Index", Provider.GetShifts()); 
+            if (ModelState.IsValid)
+            {
+                Provider.UpdateShift(shift);
+                return View("Index", Provider.GetShifts());
+            }
+            else
+            {
+                return View(shift);
+            }
         }
 
         [Authorize]

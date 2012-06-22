@@ -93,13 +93,17 @@ namespace Mayhem.Logic
 
         public static Dispatcher GetDispatcher(string dispatcherId)
         {
-            Dispatcher returnValue = new Dispatcher();
+            Dispatcher returnValue = null;
             DataSet dispatcherDataSet = Data.Provider.Dispatcher_SelectById(dispatcherId);
 
-            returnValue.DispatcherId = dispatcherDataSet.Tables[0].Rows[0]["DispatcherId"].ToString();
-            returnValue.FirstName = dispatcherDataSet.Tables[0].Rows[0]["FirstName"].ToString();
-            returnValue.LastName = dispatcherDataSet.Tables[0].Rows[0]["LastName"].ToString();
-            returnValue.RoleTypeId = int.Parse(dispatcherDataSet.Tables[0].Rows[0]["RoleTypeId"].ToString());
+            if (dispatcherDataSet.Tables[0].Rows.Count > 0)
+            {
+                returnValue = new Dispatcher();
+                returnValue.DispatcherId = dispatcherDataSet.Tables[0].Rows[0]["DispatcherId"].ToString();
+                returnValue.FirstName = dispatcherDataSet.Tables[0].Rows[0]["FirstName"].ToString();
+                returnValue.LastName = dispatcherDataSet.Tables[0].Rows[0]["LastName"].ToString();
+                returnValue.RoleTypeId = int.Parse(dispatcherDataSet.Tables[0].Rows[0]["RoleTypeId"].ToString());
+            }
             return returnValue;
         }
 

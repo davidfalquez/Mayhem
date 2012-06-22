@@ -25,20 +25,21 @@ namespace Mayhem.DTO
             set { _DispatcherId = value; }
         }
 
-        [Required(ErrorMessage="First Name is Required.")]
+        [Required(ErrorMessage="First Name is required.")]
         public string FirstName
         {
             get { return _FirstName; }
             set { _FirstName = value; }
         }
 
-        [Required(ErrorMessage = "Last Name is Required.")]
+        [Required(ErrorMessage = "Last Name is required.")]
         public string LastName
         {
             get { return _LastName; }
             set { _LastName = value; }
         }
 
+        [Required(ErrorMessage = "Role Type is required.")]
         public int RoleTypeId
         {
             get { return _RoleTypeId; }

@@ -29,8 +29,15 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ViewResult Edit(Channel channel)
         {
-            Provider.UpdateChannel(channel);
-            return View("Index", Provider.GetChannels());
+            if (ModelState.IsValid)
+            {
+                Provider.UpdateChannel(channel);
+                return View("Index", Provider.GetChannels());
+            }
+            else
+            {
+                return View(channel);
+            }
         }
 
         [Authorize]
@@ -51,8 +58,15 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ViewResult Create(Channel channel)
         {
-            Provider.CreateChannel(channel.ChannelName);
-            return View("Index", Provider.GetChannels());
+            if (ModelState.IsValid)
+            {
+                Provider.CreateChannel(channel.ChannelName);
+                return View("Index", Provider.GetChannels());
+            }
+            else
+            {
+                return View(channel);
+            }
         }
     }
 }

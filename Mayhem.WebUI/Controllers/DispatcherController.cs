@@ -106,8 +106,28 @@ namespace Mayhem.WebUI.Controllers
         [HttpPost]
         public ViewResult Create(DispatcherViewModel dispatcher)
         {
-            Provider.CreateDispatcher((Dispatcher)dispatcher);
-            return View("Index", GetDispatcherViewModels());
+            //make sure the dispatcher doesn't already exist
+            if (null != dispatcher && !string.IsNullOrEmpty(dispatcher.DispatcherId))
+            {
+                Dispatcher existingDispatcher = Provider.GetDispatcher(dispatcher.DispatcherId);
+                if (null != existingDispatcher)
+                {
+                    ModelState.AddModelError("", "Dispatcher exists. Please enter a new Dispatcher ID.");
+                    dispatcher.RoleTypeDropDown = DropDownUtility.GetRoleTypeDropDown();
+                    return View(dispatcher);
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                Provider.CreateDispatcher((Dispatcher)dispatcher);
+                return View("Index", GetDispatcherViewModels());
+            }
+            else
+            {
+
+                dispatcher.RoleTypeDropDown = DropDownUtility.GetRoleTypeDropDown();
+                return View(dispatcher);
+            }
         }
 
         [Authorize]

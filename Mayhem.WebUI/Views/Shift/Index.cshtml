@@ -1,25 +1,23 @@
 ﻿@model IEnumerable<Mayhem.DTO.Shift>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shifts";
 }
-
-<h2>Index</h2>
-
+<script src="@Url.Content("~/DataTables-1.9.1/media/js/jquery.dataTables.js")" type="text/javascript"></script>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("[Create New]", "Create", null, new { @class = "floatRight buttonText" })
 </p>
-<table>
+<table id="shiftIndexTable" class="display">
+<thead>
     <tr>
         <th>
-            ShiftName
+            Shift Name
         </th>
         <th>
-            ShiftAbbreviation
+            Shift Abbreviation
         </th>
         <th></th>
     </tr>
-
+</thead>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -29,8 +27,8 @@
             @Html.DisplayFor(modelItem => item.ShiftAbbreviation)
         </td>
         <td>
-            @Html.ActionLink("[Edit]", "Edit", new { shiftId = item.ShiftId }) |
-            @Html.ActionLink("[Delete]", "Delete", new { shiftId = item.ShiftId })
+            @Html.ActionLink("[Edit]", "Edit", "Shift", new { shiftId = item.ShiftId }, new { @class = "buttonText" }) |
+            @Html.ActionLink("[Delete]", "Delete", "Shift", new { shiftId = item.ShiftId }, new { @class = "buttonText" })
         </td>
     </tr>
 }

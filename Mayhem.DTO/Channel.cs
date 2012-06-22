@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mayhem.DTO
 {
@@ -21,6 +22,7 @@ namespace Mayhem.DTO
             set { _ChannelId = value; }
         }
 
+        [Required(ErrorMessage="Name is required.")]
         public string ChannelName
         {
             get { return _ChannelName; }
